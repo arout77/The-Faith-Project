@@ -1,0 +1,180 @@
+<nav
+    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+    id="layout-navbar"
+    >
+    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+        <i class="bx bx-menu bx-sm"></i>
+        </a>
+    </div>
+
+    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+        <!-- Search -->
+        <form method="get" action="{{ base_url }}search/results/" id="searchbar" class="d-flex">
+            <div class="input-group"  id="searchbar">
+              <button type="submit" class="input-group-text"><i class="tf-icons bx bx-search"></i></button>
+              <input type="text" id="navSearch" name="navSearch" value="{{ session.validation.navSearch }}" class="form-control" placeholder="Search the Bible..." >
+              <input type="hidden" name="bibleVersion" value="{{ session_bible_version }}">
+              <span style="margin-left: 16px;">
+                {% if session.validation.errors.input.field == 'navSearch' %}
+                    {% for error in session.validation.errors %}
+                        {{ error.messages }}
+                    {% endfor %}
+                {% endif %}
+              </span>
+            </div>
+        </form>
+        <!-- /Search -->
+
+        <ul class="navbar-nav flex-row align-items-center ms-auto">
+
+        
+              
+        {# <li class="nav-item lh-1 me-3">
+            <a class="dropdown-item" href="#">
+            <i class="bx bx-cloud-download me-2"></i>
+            <span class="align-middle">Download</span>
+            </a>
+        </li> #}
+        <li class="nav-item lh-1 me-3">
+            <div class="input-group"  id="nav-books">
+              <button type="button" class="input-group-text"><i class="fa fa-bible"></i></button>
+              <select class="form-control" name="books" id="selectBook" required="required" title="Select or type name of book you wish to read">
+              <optgroup label="Select Book">
+                <option disabled selected value="">Search for books</option>
+                    {% for book in books_of_bible %}
+                        <option value="{{ book }}">{{ book }}</option>
+                    {% endfor %}
+              </optgroup>
+              </select>
+              <select name="chapter" class="form-control" id="selectChapter" required="required">
+              <option disabled selected value="">Chapter</option>
+              </select>
+              <button type="submit" id="submitBtn" class="input-group-text">Go</button>
+              
+            </div>
+        </li>
+
+        <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+            <input type="checkbox" class="checkbox" id="checkbox">
+            <label for="checkbox" class="checkbox-label">
+                <i class="fas fa-moon" title="Toggle light / dark mode"></i>
+                <i class="fas fa-sun" title="Toggle light / dark mode"></i>
+                <span class="ball" title="Toggle light / dark mode"></span>
+            </label>
+        </li>
+
+        <!-- User -->
+        {# <li class="nav-item navbar-dropdown dropdown-user dropdown">
+            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+            <div class="avatar avatar-online">
+                <img src="{{ base_url }}public/template/docs/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+            </div>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+                <a class="dropdown-item" href="#">
+                <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                    <div class="avatar avatar-online">
+                        <img src="{{ base_url }}public/template/docs/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    </div>
+                    </div>
+                    <div class="flex-grow-1">
+                    <span class="fw-semibold d-block">John Doe</span>
+                    <small class="text-muted">Admin</small>
+                    </div>
+                </div>
+                </a>
+            </li>
+            <li>
+                <div class="dropdown-divider"></div>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">
+                <i class="bx bx-user me-2"></i>
+                <span class="align-middle">My Profile</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">
+                <i class="bx bx-cog me-2"></i>
+                <span class="align-middle">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">
+                <span class="d-flex align-items-center align-middle">
+                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                    <span class="flex-grow-1 align-middle">Billing</span>
+                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                </span>
+                </a>
+            </li>
+            <li>
+                <div class="dropdown-divider"></div>
+            </li>
+            <li>
+                <a class="dropdown-item" href="auth-login-basic.html">
+                <i class="bx bx-power-off me-2"></i>
+                <span class="align-middle">Log Out</span>
+                </a>
+            </li>
+            </ul>
+        </li> #}
+        <!--/ User -->
+        </ul>
+    </div>
+    </nav>
+
+<script>
+$(document).ready(function () {
+    $("#selectChapter").hide();
+    $("#submitBtn").prop("disabled", true);
+
+
+  $("#selectBook").change(function (event) {
+    $('#selectBook').width(160);
+    $("#selectChapter").width(65);
+    $("#selectChapter").show();
+    var formData = {
+      book: $("#selectBook").val(),
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "{{ base_url }}bible/get_chapter_count/",
+      data: formData,
+      dataType: "json",
+      encode: true,
+    }).done(function (data) {
+        for (let i = 1; i <= data; i++) {
+          $('#selectChapter')
+            .append($("<option></option>")
+            .attr("value", i)
+            .text(i));
+          }
+        let selbook = $("#selectBook").val();
+
+        $('#selectChapter').change( function(){
+            $('#submitBtn').addClass('btn-success');
+            $("#submitBtn").prop("disabled", false);
+        });
+
+      $("#submitBtn").click( function(){
+        window.location.replace( 
+            "{{ base_url }}" + 
+            'bible/' + 
+            "{{ version }}" + 
+            '/' + 
+            selbook.replaceAll(' ', '-') + 
+            '/' +  
+            $('#selectChapter').find(":selected").val()
+        )
+      });
+    });
+
+    event.preventDefault();
+  });
+});
+</script>

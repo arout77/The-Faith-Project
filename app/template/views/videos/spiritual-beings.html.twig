@@ -1,0 +1,35 @@
+{% extends 'docs.html.twig' %}
+{% block title %}Spiritual Beings in the Bible | Word of God{% endblock %}
+{% block content %}
+<section id="videooverview">
+    <div class="row mb-5">
+    <h4 class="text-center">Videos about Spiritual Beings in the Bible</h4>
+        {% for video in videos %}
+        <div class="col-md-4 col-xl-3" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ video.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ video.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+            <div class="card mb-3">
+                <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}{{ video.thumbnail }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ video.title }}</h5>
+                    <p class="card-text text-center">
+                        <small>{{ video.category }}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ video.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ video.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+            <div class="offcanvas-header">
+                <h5 id="{{ video.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ video.title }}</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                <p class="text-center">
+                    {{ video.intro }}
+                </p>
+                <a href="{{ base_url }}videos/watch/{{ video.title|replace({' ': '-'}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

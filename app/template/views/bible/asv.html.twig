@@ -1,0 +1,85 @@
+{% extends "docs.html.twig" %}
+
+{% block title %}American Standard Version - Word of God Online Bible{% endblock %}
+
+{% block content %}
+<div class="container mb-2">
+    <div class="row">
+
+        <div class="col-sm-5"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
+            <div class="col-sm-2"><button type="button" id="viewIntro" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#largeModal">View Introduction</button></div>
+        <div class="col-sm-5"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
+    </div>
+</div>
+<section id="biblecontainer" class="container">
+    <div class="row">
+        <div class="col-xs-12"><h2 style="color: #242424;" class="pull-left">{{ book }} <span style="color: #242424; float: right; font-size: 0.8em;">Chapter {{ chapter }}</span></h2></div>
+    </div>
+    <div class="mb-3 mt-2">
+        <div>
+        {% if results|length > 0 %}
+            {% for result in results %}
+            	{% if result.verse == 1 %}
+                	<span id="verse-{{ result.verse }}">
+                		<sup class="verse">{{ result.verse }}</sup> &nbsp;&nbsp; {{ result.text|replace({'¶' : '  '}) }}
+                	</sup>
+            	{% else %}
+                    {% if '¶' in result.text %}
+                        <p><span id="verse-{{ result.verse }}"><sup class="verse"><em>{{ result.verse }}</em></sup></span> {{ result.text|replace({'¶' : '  '}) }}</p>
+                    {% else %}
+            		      <span id="verse-{{ result.verse }}"><sup class="verse"><em>{{ result.verse }}</em></sup></span> {{ result.text|replace({'¶' : '  '}) }}
+                    {% endif %}
+            	{% endif %}
+
+            {% endfor %}
+        {% else %}
+            <p>No results found</p>
+        {% endif %}
+        </div>
+        <p>
+            {% if chapter == 1 %}
+                <div class="row">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3"><a class="nextChapter" href="{{ current_url }}{{ book }}/{{ chapter + 1 }}">Next chapter <i class="fa fa-chevron-right"></i></a></div>
+                </div>
+            {% elseif chapter == numchapters %}
+                <div class="col-md-10"><a class="prevChapter" href="{{ current_url }}{{ book }}/{{ chapter - 1 }}">Previous chapter</a></div>
+            {% else %}
+                <div class="row">
+                    <div class="col-md-9"><a class="prevChapter" href="{{ current_url }}{{ book }}/{{ chapter - 1 }}">Previous chapter</a></div>
+                    <div class="col-md-3"><a class="nextChapter" href="{{ current_url }}{{ book }}/{{ chapter + 1 }}">Next chapter</a></div>
+                </div>
+            {% endif %}
+        </p>
+
+        <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="exampleModalLabel3">Introduction to {{ book }}</h3>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body" style="padding: 3.5rem;">
+                  <div class="row">
+                    {% for description in intro %}
+                        {{ description.text }}
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

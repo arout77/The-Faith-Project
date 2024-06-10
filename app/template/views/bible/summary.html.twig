@@ -1,0 +1,28 @@
+{% extends 'docs.html.twig' %}
+
+{% block title %}{{ book }} Summary  | Word of God{% endblock %}
+
+{% block content %}
+<section id="searchresults">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="card-title">Summary</h3>
+            <div class="card-subtitle text-muted mb-3">
+            <dl class="row">
+                <p class="card-text">
+                {% if results|length > 0 %}
+                	{% for result in results %}                
+                        <dt class="col-sm-3">{{ result.book_name }} {{ result.chapter }}:{{ result.verse }}</dt>
+                        <dd class="col-sm-9">{{ result.text|raw }}</dd>
+                    {% endfor %}
+                </p>
+            </dl>
+                {% else %}
+                	<p>No results found</p>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

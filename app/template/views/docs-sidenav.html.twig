@@ -1,0 +1,81 @@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo mb-2">
+        <a href="{{ base_url }}" class="app-brand-link">
+        <span class="app-brand-logo demo">
+        <img style="width: 32px" src="{{ base_url }}public/media/img/cross.png">
+        </span>
+        <span class="logo-text demo menu-text fw-bolder ms-2">Word of God</span>
+        </a>
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+        </a>
+    </div>
+    <div class="menu-inner-shadow"></div>
+    <ul class="menu-inner py-1">
+        <!-- Dashboard -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text"><i class="menu-icon tf-icons bx bx-bible"></i> Intro to Bible</span>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <div data-i18n="Summary of Books in Bible">Books</div>
+            </a>
+            <ul class="menu-sub">
+                {% for book in books_of_bible %}
+                <li class="menu-item" style="list-style: none;">
+                    <a href="{{ base_url }}bible/intro/{{ book|replace({" ": "-"}) }}/" class="menu-link">
+                    <div data-i18n="{{ book }}">{{ book }}</div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="menu-header small text-uppercase">
+            <i class="menu-icon tf-icons bx bx-video"></i> <span class="">Videos</span>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <div data-i18n="Video Categories">Categories</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item" style="list-style: none;">
+                    <a href="{{ base_url }}videos/" class="menu-link">
+                        <div data-i18n="All Videos">All Videos</div>
+                    </a>
+                </li>
+                {% for cat in video_categories %}
+                <li class="menu-item" style="list-style: none;">
+                    <a href="{{ base_url }}videos/category/{{ cat|replace({" ": "-"}) }}/" class="menu-link">
+                    <div data-i18n="{{ cat }}">{{ cat }}</div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text"><i class="menu-icon tf-icons bx bx-pencil"></i> Bible Study</span>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <div data-i18n="">Quizzes</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item" style="list-style: none;">
+                    <a href="{{ base_url }}study/quiz/ot/" class="menu-link">
+                        <div data-i18n="Take a Quiz">Old Testament</div>
+                    </a>
+                </li>
+                <li class="menu-item" style="list-style: none;">
+                    <a href="{{ base_url }}study/quiz/nt/" class="menu-link">
+                        <div data-i18n="Take a Quiz">New Testament</div>
+                    </a>
+                </li>
+                <li class="menu-item" style="list-style: none;">
+                    <a href="{{ base_url }}study/quiz/" class="menu-link">
+                        <div data-i18n="Take a Quiz">General</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</aside>

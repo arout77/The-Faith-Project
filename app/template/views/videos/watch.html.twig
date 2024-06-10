@@ -1,0 +1,40 @@
+{% extends 'docs.html.twig' %}
+{% block title %}Now watching: {{ videoRawTitle }}{% endblock %}
+{% block content %}
+<section id="searchpage">
+    <div class="container" style="width: 80%;">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-subtitle text-muted mb-3">
+                    <video width="100%" controls controlslist="nodownload" poster="{{ base_url }}{{ video_thumbnail_url }}{{ thumbnail }}">
+                      <source src="{{ base_url }}{{ video_url }}{{ video }}.mp4" type="video/mp4">
+                      <source src="{{ base_url }}{{ video_url }}{{ video }}.ogg" type="video/ogg">
+                      Your browser does not support HTML5 video.
+                    </video>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <h3 class="card-title"><span id="videoTitle">{{ videoRawTitle }}</span></h3>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                            <a class="a2a_button_facebook"></a>
+                            <a class="a2a_button_x"></a>
+                            <a class="a2a_button_whatsapp"></a>
+                            <a class="a2a_button_snapchat"></a>
+                            <a class="a2a_button_wechat"></a>
+                            <a class="a2a_button_tumblr"></a>
+                        </div>
+                        <script async src="{{ base_url }}public/template/docs/js/social.js"></script>
+                    {# <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ base_url }}videos/watch/{{ video }}">
+                        <button id="share-fb" type="button" class="btn btn-sm rounded-pill btn-primary">
+                            <i class="fab fa-facebook"></i>&nbsp; Share
+                        </button></span>
+                    </a> #}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

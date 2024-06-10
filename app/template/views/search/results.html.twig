@@ -1,0 +1,50 @@
+{% extends 'docs.html.twig' %}
+{% block title %}Search Results{% endblock %}
+{% block content %}
+<section id="searchresults">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="card-title">Results</h3>
+            <div class="card-subtitle text-muted mb-3">
+                <dl class="row">
+                    <p class="card-text">
+                        {% if results|length > 0 %}
+                        {% for result in results %}
+                        {% if result.chapter|default %}                
+                    <dt class="col-sm-3">
+                        <a href="{{ base_url }}bible/kjv/{{ result.book_name|replace({' ': '-'}) }}/{{ result.chapter }}/#verse-{{ result.verse }}">{{ result.book_name }} {{ result.chapter }}:{{ result.verse }}</a>
+                    </dt>
+                    <dd class="col-sm-9">{{ result.text|raw }}</dd>
+                    {% endif %}
+                    {% endfor %}
+                    </p>
+                </dl>
+                {{ links|raw }}
+                {% else %}
+                <p>No results found</p>
+                {% endif %}
+                </p>
+                <p>
+                    <em>{{ total_records }} results found</em>
+                </p>
+                {% if errors|length > 0 %}
+                <div class="alert alert-danger">
+                    {% for error in errors %}
+                    <div>
+                        <strong>Form field:</strong> {{ error.input }} <strong>You entered:</strong> {{ error.value }}
+                    </div>
+                    <div>
+                        <ul>
+                            {% for message in error.message %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

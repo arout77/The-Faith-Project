@@ -1,0 +1,13 @@
+body {
+  transition: background 0.2s linear;
+  font-family: "Open Sans", sans-serif;
+  color: #1a1a1a;
+  background-color: #624404;
+  background-image: url('../../../../media/img/backgrounds/purple-gradient-background_591496-68.avif');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+/* 
+.container-xxl {
+	padding: 0;
+} */

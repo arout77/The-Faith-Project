@@ -1,0 +1,23 @@
+{% extends 'docs.html.twig' %}
+{% block title %}Videos  | Word of God{% endblock %}
+{% block content %}
+<section id="searchpage">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3 class="card-title text-center">Videos</h3>
+            <div class="card-subtitle text-muted mb-3">
+                <p class="card-text">
+                <video width="400" controls>
+                  <source src="{{ base_url }}{{ video_url }}{{ video }}.mp4" type="video/mp4">
+                  <source src="{{ base_url }}{{ video_url }}{{ video }}.ogg" type="video/ogg">
+                  Your browser does not support HTML5 video.
+                </video>
+                {% for cat in categories %}
+                    <p>{{ cat }}</p>
+                {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

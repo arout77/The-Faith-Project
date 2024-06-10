@@ -1,0 +1,117 @@
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+        <div class="mt-2 mb-md-0">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>, made with ❤️ by
+            <a href="https://github.com/arout77/Rhapsody-Framework" target="_blank" class="footer-link fw-bolder">Andrew Rout</a>
+        </div>
+        <div>
+            <a
+                href="{{ base_url }}donate/"
+                class="footer-link me-4"
+                >Give</a
+                >
+            <div class="dropdown dropup footer-link me-3">
+                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ base_url }}public/media/img/icons/usa.png" alt="" style="height: 32px; padding-right: 6px;"> Language <i class="bi bi-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" style="">
+                    <a class="dropdown-item" id="eng" href="?lang=english"><img src="{{ base_url }}public/media/img/icons/usa.png" alt="" style="height: 36px; padding-right: 6px;"> English</a>
+                    <a class="dropdown-item" id="spa" href="?lang=spanish"><img src="{{ base_url }}public/media/img/icons/mexico.png" alt="" style="height: 20px; padding-right: 6px;"> Español</a>
+                    <a class="dropdown-item" id="fre" href="?lang=french"><img src="{{ base_url }}public/media/img/icons/france.png" alt="" style="height: 22px; padding-right: 6px;"> Français</a>
+                    <a class="dropdown-item" id="ger" href="?lang=german"><img src="{{ base_url }}public/media/img/icons/germany.png" alt="" style="height: 34px; padding-right: 6px;"> Deutsch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- / Footer -->
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="{{ base_url }}public/template/docs/assets/vendor/libs/popper/popper.js"></script>
+<script src="{{ base_url }}public/template/docs/assets/vendor/js/bootstrap.js"></script>
+<script src="{{ base_url }}public/template/docs/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="{{ base_url }}public/template/docs/assets/vendor/js/menu.js"></script>
+<!-- endbuild -->
+<!-- Vendors JS -->
+<script src="{{ base_url }}public/template/docs/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+<!-- Main JS -->
+<script src="{{ base_url }}public/template/docs/assets/js/main.js"></script>
+<!-- Page JS -->
+<script src="{{ base_url }}public/template/docs/assets/js/dashboards-analytics.js"></script>
+<script>
+    $( document ).ready(function() {
+    
+      const checkbox = document.getElementById("checkbox")
+      checkbox.addEventListener("change", () => {
+      document.body.classList.toggle("dark")
+          if(document.body.classList == "dark") {
+            localStorage.setItem('mode', 'dark');
+          } else {
+            localStorage.setItem('mode', 'light');
+          }
+      });
+      
+      let mode;
+      mode = localStorage.getItem('mode');
+    
+      if (mode === 'light'){
+          lightMode();
+      }else{
+          darkMode();
+      }
+    
+    function darkMode() {
+        document.body.classList.add("dark");
+        localStorage.setItem('mode', 'dark');
+        mode = localStorage.getItem('mode');
+    }
+    
+    function lightMode() {
+        document.body.classList.remove("dark");
+        localStorage.setItem('mode', 'light');
+        mode = localStorage.getItem('mode');
+    }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+    
+        $("#eng").click( function(){
+            document.cookie = "lang=english";
+        });
+        $("#spa").click( function(){
+            document.cookie = "lang=spanish";
+        });
+        $("#fre").click( function(){
+            document.cookie = "lang=french";
+        });
+        $("#ger").click( function(){
+            document.cookie = "lang=german";
+        });
+    
+        $("#asvver").click( function(){
+            document.cookie = "bibleVersion=asv";
+        });
+        $("#kjvver").click( function(){
+            document.cookie = "bibleVersion=kjv";
+        });
+        $("#webver").click( function(){
+            document.cookie = "bibleVersion=web";
+        });
+        $("#reinaver").click( function(){
+            document.cookie = "bibleVersion=reina";
+        });
+        $("#segondver").click( function(){
+            document.cookie = "bibleVersion=segond";
+        });
+        $("#lutherver").click( function(){
+            document.cookie = "bibleVersion=luther";
+        });
+    });
+</script>
+<!-- Place this tag in your head or just before your close body tag. -->
+{# <script async defer src="https://buttons.github.io/buttons.js"></script> #}

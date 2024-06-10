@@ -1,0 +1,63 @@
+{% extends 'docs.html.twig' %}
+{% block title %}Quiz Results  | Word of God{% endblock %}
+{% block content %}
+<section id="searchresults">
+    <div class="card mb-4">
+        {% if percent > 89 %}
+            <div class="firework"></div>
+            <div class="firework"></div>
+            <div class="firework"></div>
+            <div class="firework"></div>
+            <div class="firework"></div>
+            <div class="firework"></div>
+        {% endif %}
+        <div class="card-body">
+            <h3 class="card-title text-center">You scored {{ percent }}%</h3>
+            {% if percent == 100 %}
+            <h5 class="card-title text-center">Perfect score! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
+            {% elseif percent < 100 and percent >= 90 %}
+            <h5 class="card-title text-center">Excellent! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
+            {% elseif percent < 90 and percent >= 80 %}
+            <h5 class="card-title text-center">Well done! You answered {{ correct_answers }} out of {{ total_records }} questions correctly! But there's still room for improvement, lets take a look below and see where you can focus more of your studies.</h5>
+            {% else %}
+            <h5 class="card-title text-center">You answered {{ correct_answers }} out of {{ total_records }} questions correctly. Lets take a look below and see where you could study more.</h5>
+            {% endif %}
+            <div class="card-subtitle text-muted mb-3">
+                <p class="card-text">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Your Answer</th>
+                                <th>Correct Answer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for q in question %}
+                            <tr>
+                                <td>
+                                    {% if q.answergiven != q.correctanswer %}
+                                    <i class="fab fa-x fa-lg text-danger me-3"></i>
+                                    {% else %}
+                                    <i class="fa fa-check fa-lg text-success me-3"></i>
+                                    {% endif %} <strong>{{ q.text }}</strong>
+                                </td>
+                                <td>{% if q.answergiven != q.correctanswer %}
+                                    <span class="badge bg-label-danger me-1">
+                                    {% else %}
+                                    <span class="badge bg-label-success me-1">
+                                    {% endif %}{{ q.answergiven }}</span>
+                                </td>
+                                <td class="corans">{{ q.correctanswer }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
