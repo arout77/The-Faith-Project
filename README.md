@@ -1,4 +1,6 @@
+<p align="center" width="100%">
 ![screenshot](public/media/img/logo.png)
+</p>
 
 Word of God Ministries
 ==========
