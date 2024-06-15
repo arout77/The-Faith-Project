@@ -1,4 +1,4 @@
-<p align="center" width="100%">![screenshot](public/media/img/logo.png)</p>
+![screenshot](public/media/img/logo.png)
 
 Word of God Ministries
 ==========
