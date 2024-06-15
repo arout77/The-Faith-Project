@@ -9,4 +9,4 @@ Coding and web design is near completion. Testing and adding content is currentl
 The community boards is a forum-style message board powered by phpBB3. Currently, it is completely empty; categories and forums have been created and set up, but lacks content. If you're interested in volunteering to add content, regardless of your religious affiliation, please contact me at andrew_rout@yahoo.com for more details.
 
 ### FEATURES
-![screenshot](screenshot.png)
+![screenshot](public/media/img/logo)
