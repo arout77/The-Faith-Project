@@ -54,23 +54,27 @@ data-assets-path="../../assets/" data-template="vertical-menu-template"></html>
     {% if current_page == 'videos' and current_action == 'watch' %}
         <link rel="stylesheet" href="{{ base_url }}public/template/docs/assets/css/video.css"/>
     {% endif %}
+    {% if current_page == 'videos' and current_action == 'index' %}
+        <link rel="stylesheet" href="{{ base_url }}public/template/docs/assets/css/mixitup.css" />
+    {% endif %}
 
     <!-- Helpers -->
     <script src="{{ base_url }}public/template/docs/assets/vendor/libs/jquery/jquery.js"></script>
     <script src="{{ base_url }}public/template/docs/assets/vendor/js/helpers.js"></script>
     <script src="{{ base_url }}public/template/docs/js/mixitup.min.js"></script>
+    <script src="{{ base_url }}public/template/docs/js/jquery.steps.min.js"></script>
     
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     
     <script src="{{ base_url }}public/template/docs/assets/js/config.js"></script>
     <!-- <script src="{{ base_url }}public/template/docs/js/vue.js"></script> -->
-    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=66670038c861e90019a227cb&product=video-share-buttons&source=platform" async="async"></script>
+    
     
     {% endblock %}
     </head>
 
-    <body>
+    <body id="body">
         <!-- Layout wrapper -->
         <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">

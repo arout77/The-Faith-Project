@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="31px" height="31px" viewBox="-242 349.5 31 31" enable-background="new -242 349.5 31 31" xml:space="preserve">
+<title>topic-read-locked</title>
+<desc>Created with Sketch.</desc>
+<g id="Page-1">
+	<g id="IMAGESET" transform="translate(-18.000000, -207.000000)">
+		<g id="read" transform="translate(17.000000, 110.000000)">
+			<g id="topic-read-locked" transform="translate(0.000000, 96.000000)">
+				<polygon id="Rectangle-2" fill="none" points="-241.5,350 -209.5,350 -209.5,382 -241.5,382 				"/>
+				<g id="circle" transform="translate(1.000000, 1.000000)">
+					<path id="Fill-1" fill="#515151" d="M-211.5,365c0,8.3-6.7,15-15,15s-15-6.7-15-15s6.7-15,15-15S-211.5,356.7-211.5,365"/>
+					<path id="Fill-1-Copy" fill="#828282" d="M-212.5,365c0,7.7-6.3,14-14,14s-14-6.3-14-14s6.3-14,14-14S-212.5,357.3-212.5,365"
+						/>
+					<path id="Fill-1-Copy-2" fill="#FFFFFF" d="M-213,365c0,7.5-6,13.5-13.5,13.5s-13.5-6-13.5-13.5s6-13.5,13.5-13.5
+						S-213,357.5-213,365"/>
+					
+						<linearGradient id="Fill-1-Copy-3_1_" gradientUnits="userSpaceOnUse" x1="-1403.08" y1="716.18" x2="-1403.08" y2="715.18" gradientTransform="matrix(25 0 0 -25 34850.5 18257)">
+						<stop  offset="0" style="stop-color:#DBDEE3"/>
+						<stop  offset="1" style="stop-color:#FDFDFD"/>
+					</linearGradient>
+					<path id="Fill-1-Copy-3" fill="url(#Fill-1-Copy-3_1_)" d="M-214,365c0,6.9-5.6,12.5-12.5,12.5S-239,371.9-239,365
+						s5.6-12.5,12.5-12.5S-214,358.1-214,365"/>
+				</g>
+				<path id="Shape-Copy-20" display="none" fill="#666666" d="M-232.8,374h7.3v-1h-8v1H-232.8L-232.8,374z M-232.9,371h12.4v-1h-13
+					v1H-232.9z M-232.8,368h15.3v-1h-16v1H-232.8z M-232.8,365h15.3v-1h-16v1H-232.8z M-232.8,362h15.3v-1h-16v1H-232.8L-232.8,362z
+					 M-232.9,359h8.4v-1h-9v1H-232.9L-232.9,359z"/>
+				<g id="lock-copy-11" transform="translate(21.000000, 19.000000)">
+					
+						<linearGradient id="Combined-Shape_1_" gradientUnits="userSpaceOnUse" x1="-273.1515" y1="367.1" x2="-261.5515" y2="367.1" gradientTransform="matrix(1 0 0 -1 20 713.5)">
+						<stop  offset="0" style="stop-color:#303030"/>
+						<stop  offset="0.55" style="stop-color:#2E2E2E"/>
+						<stop  offset="0.55" style="stop-color:#FFF42A"/>
+					</linearGradient>
+					<path id="Combined-Shape" display="none" fill="url(#Combined-Shape_1_)" d="M-253,346.3h1.4v-3c0-2.3,1.8-4.1,4.1-4.1h4.3
+						c0.9,0,1.8,2.8,1.4,3.9h0.3v10.3h-7.7v-1.7c-1.2,0.8-2.5,1.4-3.9,1.9v-7.4h0.1V346.3z"/>
+					<linearGradient id="Shape-Copy-13_1_" gradientUnits="userSpaceOnUse" x1="-246.45" y1="354.8" x2="-246.45" y2="339.3">
+						<stop  offset="0" style="stop-color:#E9B000"/>
+						<stop  offset="0.545" style="stop-color:#FFF42A"/>
+						<stop  offset="0.545" style="stop-color:#848476"/>
+						<stop  offset="1" style="stop-color:#363636"/>
+					</linearGradient>
+					<path id="Shape-Copy-13" fill="url(#Shape-Copy-13_1_)" d="M-250.5,349.6v-1.3h7.7v1.3H-250.5z M-250.5,352.2v-1.3h7.7v1.3
+						H-250.5z M-249.2,341.8h5.2v3.9h-5.2V341.8z M-241.6,346.4v-4.3c0-1.5-1.3-2.8-2.8-2.8h-4.3c-1.5,0-2.8,1.3-2.8,2.8v4.3h-1.4
+						v8.4h12.9v-8.4H-241.6z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+<g id="Layer_2" opacity="0.33">
+	<path fill="#FFFFFF" d="M-221.6,359.7c0,0-2.2,7.3-11.3,13.1v-8.4h1.4l0-4.5c0,0,0.1-2.2,2.4-2.6h5
+		C-224,357.3-221.9,357.5-221.6,359.7"/>
+</g>
+<g id="Layer_3" display="none">
+</g>
+</svg>

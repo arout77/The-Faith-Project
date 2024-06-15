@@ -1,0 +1,176 @@
+.forabg, .forumbg {
+    background-color: #30821d;
+    background-image: url("../images/green/bg_list.gif");
+}
+.header a {
+    color: #30831D !important;
+}
+.cat-name {
+    background: transparent url("../images/green/cat-name-r.png") no-repeat scroll top right;
+}
+
+.cat-name span {
+    background: transparent url("../images/green/cat-name-l.png") no-repeat;
+}
+.cat-name span {
+    color: #30831D;
+}
+.cat-name span a {
+    color: #30831D;
+}
+ul.topiclist.forums dd.topics, ul.topiclist.forums dd.posts {
+    color: #30831D;
+}
+div#page-header {
+    background: url("../images/green/headerbg.png") repeat-x bottom #42b528;
+}
+.nav-main a {
+    color: #259c0a;
+}
+.navbar-wrap a {
+    color: #259c0a;
+}
+.sn-cat-header {
+  background: url("../images/green/cat-header-center.png") repeat-x;
+}
+.sn-cat-header::before {
+  background: url("../images/green/cat-header-before.png") no-repeat;
+}
+.sn-cat-header::after {
+  background: url("../images/green/cat-header-after.png") no-repeat;
+}
+.sn-cat-row {
+  background: url("../images/green/cat-row-center.png") repeat-y;
+}
+.sn-cat-row::before {
+  background: url("../images/green/cat-row-before.png");
+}
+.sn-cat-row::after {
+  background: url("../images/green/cat-row-after.png");
+}
+
+.sn-cat-footer {
+  background: url("../images/green/cat-footer-center.png") repeat-x;
+
+}
+.sn-cat-footer::before {
+  background: url("../images/green/cat-footer-before.png") no-repeat;
+}
+.sn-cat-footer::after {
+  background: url("../images/green/cat-footer-after.png") no-repeat;
+}
+.action-bar .btn {
+  background: url("../images/green/button.png") repeat-x;
+}
+.action-bar .btn::before {
+  background: url("../images/green/buttonbefore.png") no-repeat;
+}
+.action-bar .btn::after {
+  background: url("../images/green/buttonafter.png") no-repeat;
+}
+.button, a.button2, input.button2, input.button3 {
+    border: 1px solid #b6efa9;
+}
+.button, a.button1, input.button1, input.button3, a.button2, input.button2 {
+    background-image: url("../images/green/buttonbg.png");
+}
+a.button1, input.button1 {
+    border-color: #b6efa9;
+}
+
+.button .icon {
+	color: #1c9a05;
+}
+
+.content h2, .panel h2 {
+    color: #30831D;
+}
+label {
+    color: #30831D;
+}
+blockquote {
+    background-color: #f7fdf6;
+    border: 1px solid #90db7c;
+}
+
+blockquote blockquote {
+    background-color: #ebfae7;
+}
+
+blockquote blockquote blockquote {
+    background-color: #f7fdf6;
+}
+select {
+    border-color: #c2d7bd;
+    background-color: #f5f8f4;
+    color: #1b8703;
+}
+.jumpbox-forum-link:hover {
+    background-color: #eeffed;
+}
+.search-box .inputbox, .search-box .inputbox:hover, .search-box .inputbox:focus {
+    border: 1px solid #b6efa9;
+    background: url("../images/green/search-form-bg.png") repeat-x;
+    color: #259c0a;
+}
+.navigation a:hover {
+    color: #30831D;
+}
+
+.navigation .active-subsection a {
+    color: #30831D;
+}
+.tabs .tab > a:hover {
+    color: #30831D;
+}
+/* Supernova Colour-specific Stylesheet (Green) */
+
+#dummy-element {width: 2px;} /* Required. Don't delete */
+
+body {color: #226313;}
+
+#sn-header {background-color: #42b528;}
+
+#sn-nli-content, .sn-nli-form, fieldset.quick-login input.inputbox, input.inputbox:hover, input.inputbox:focus, #message-box textarea:hover, #message-box textarea:focus, a.button1, input.button1, input.button3, a.button2, input.button2, a.button1, a.button1:link, a.button1:visited, a.button1:active, a.button2, a.button2:link, a.button2:visited, a.button2:active, a.button1:hover, input.button1:hover, a.button2:hover, input.button2:hover, input.button3:hover, input.search, input.search:hover, input.search:focus, #sn-navbar a, .sn-breadcrumbs a, .sn-options a {color: #259c0a;}
+input.inputbox:hover, input.inputbox:focus, #message-box textarea:hover, #message-box textarea:focus, textarea.inputbox:hover {border-color: #259c0a;}
+
+.sn-nli-form, fieldset.quick-login input.inputbox, a.button1, input.button1, a.button2, input.button2, input.button3, a.button1:hover, input.button1:hover, a.button2:hover, input.button2:hover, input.button3:hover, input.search, input.search:hover, input.search:focus {border-color: #b6efa9;}
+
+#sn-nli-content a, select {color: #1b8703;}
+
+.mini-profile span a {color: #FFFFFF;}
+a.sn-mini-profile-logout {color: #4cd02e !important;}
+
+#sn-navbar a:hover, .sn-breadcrumbs a:hover, .sn-options a:hover  {color: #30bc10;}
+
+div.cat-name span, div.cat-name span a, .sn-big-stat, a.forumtitle, a.forumtitle:active, a:link, a:visited, a:active, a.left, a.left:active, a.left:visited a.right, a.right:visited, a.right:visited, h2, h3, label, .content h2, .panel h2, .postbody h3, #tabs a span, #navigation a, #navigation #active-subsection a {color: #30831D;}
+
+a.forumtitle:hover, a:hover, a.left:hover, a.right:hover, a.topictitle:hover {color: #3ba423;}
+
+.row .pagination span a:hover, li.pagination span a:hover, .pagination span a:hover, .pagination span strong {background-color: #31871E; border-color: #31871E;}
+
+
+
+select {background-color: #f5f8f4; border-color: #c2d7bd;}
+
+.navbar {background-color: #d7f8d0;}
+
+.bg1 {background-color: #f0fbf0;}
+.bg2, .bg3 {background-color: #ebfff0;}
+
+blockquote, blockquote blockquote blockquote {border-color: #90db7c; background-color: #f7fdf6;}
+blockquote blockquote {background-color: #ebfae7;}
+
+.forabg, .forumbg {background-color: #30821d;}
+table.table1 tbody tr:hover, table.table1 tbody tr.hover {background-color: #c6e4cd;}
+
+#tabs a:hover span {color: #44b929;}
+
+#navigation a {background-color: #bad1b3;}
+#navigation a:hover {color: #44b929;}
+#navigation #active-subsection a:hover {color: #44b929;}
+
+
+
+
+

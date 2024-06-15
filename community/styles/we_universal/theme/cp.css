@@ -1,0 +1,251 @@
+/**
+ * User Control Panel and Moderator Control Panel
+ */
+.tabs + .panel,
+.attach-panel,
+.poll-panel,
+.section-ucp .postform > .panel.bg3 {
+	border-top-left-radius: 0;
+}
+
+.tabs {
+	margin-left: 0;
+}
+
+.tabs .tab > a {
+	margin-top: 0;
+	padding: 11px;
+	border: 0;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background: var(--border-color-1);
+	color: var(--text-color-4);
+}
+
+.tabs .tab > a:hover,
+.tabs .tab > a:active {
+	background: var(--bg5-color);
+	color: var(--color-error);
+}
+
+.tabs .activetab > a,
+.tabs .activetab > a:hover {
+	box-shadow: none;
+	border-bottom: 1px solid var(--bg1-color);
+	background: var(--bg1-color);
+	color: var(--content-color);
+}
+
+.tabs .activetab > a:hover,
+.tabs .activetab > a:active {
+	color: var(--links-color-hover-focus);
+}
+
+/* Subsection navigation */
+.navigation {
+	padding-top: 38px;
+}
+
+.navigation a {
+	padding: 8px 6px;
+	background: var(--border-color-3);
+	color: var(--color-3);
+}
+
+.rtl .navigation a {
+	background: var(--border-color-3); /* Old browsers */ /* FF3.6+ */
+}
+
+.navigation a:hover {
+	background: var(--bg3-color);
+	color: var(--links-color-hover-focus);
+}
+
+.navigation .active-subsection a {
+	background: var(--bg5-color);
+	color: var(--links-color-hover-focus);
+}
+
+.navigation .active-subsection a:hover {
+	color: var(--links-color-hover-focus);
+}
+
+@media only screen and (max-width: 900px), only screen and (max-device-width: 900px)
+{
+	#navigation a, .rtl #navigation a {
+		background: var(--border-color-3);
+	}
+}
+
+/* MCP mini tabs */
+.minitabs {
+	margin-top: 8px;
+}
+
+.minitabs .tab > a {
+	display: block;
+	padding: 8px;
+	border-radius: 0;
+	background: var(--border-color-3);
+	color: var(--color-2);
+}
+
+.minitabs .tab > a:hover,
+.minitabs .tab > a:active {
+	background: var(--bg3-color);
+	color: var(--links-color-hover-focus);
+}
+
+.minitabs .activetab > a,
+.minitabs .activetab > a:focus,
+.minitabs .activetab > a:hover {
+	background: var(--bg5-color);
+	color: var(--links-color-hover-focus) !important;
+}
+
+/* Friends list */
+.cp-mini {
+	margin: 10px 10px 0 0;
+	padding: 8px;
+	border-radius: 7px;
+	background: var(--bg5-color);
+	line-height: 18px;
+}
+
+dl.mini dt {
+	color: var(--links-color);
+}
+
+.pm-legend:first-of-type {
+	margin-top: 8px;
+}
+
+.pm-legend {
+	margin-bottom: 5px;
+	padding-top: 0 !important;
+	padding-left: 5px;
+	line-height: 22px;
+}
+
+/* Inside panels */
+.cp-main h3,
+.cp-main hr,
+.cp-menu hr {
+	border-color: var(--border-color-3);
+}
+
+.cp-main .panel {
+	clear: both;
+	padding-top: 8px;
+}
+
+.cp-main .panel p {
+	font-size: 12px;
+}
+
+.cp-main .panel + fieldset.submit-buttons {
+	margin-top: 10px;
+}
+
+.cp-main fieldset.display-actions {
+	margin-top: 10px;
+	padding-right: 0;
+}
+
+.cp-main fieldset.display-actions div {
+	margin-top: 4px;
+}
+
+.cp-main fieldset.display-actions .left-box {
+	margin-top: 0;
+}
+
+.cp-main fieldset.forum-selection {
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+dl.details {
+	line-height: 18px;
+	font-size: 12px;
+}
+
+dl.details dt {
+	color: var(--text-color-1);
+}
+
+dl.details dd {
+	margin-bottom: 4px;
+	color: var(--color-2);
+}
+
+ul.cplist {
+	margin-bottom: 15px;
+	border-top: 0;
+	border-bottom: 3px solid var(--border-color-3:);
+}
+
+/* Forum/topic lists */
+.cp-main .panel li.header dd,
+.cp-main .panel li.header dt,
+.cp-main .panel li.header a {
+	color: var(--color-1);
+}
+
+.section-ucp ul.topiclist li.header,
+.section-mcp ul.topiclist li.header {
+	display: block;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background: var(--forabg);
+}
+
+.section-ucp ul.topiclist dl.icon,
+.section-mcp ul.topiclist dl.icon {
+	background-position: 14px 50%;
+}
+
+.section-ucp ul.topiclist dl.icon dt,
+.section-mcp ul.topiclist dl.icon dt {
+	width: 100%;
+	padding-left: 55px;
+}
+
+.section-ucp ul.topiclist .bg1,
+.section-mcp ul.topiclist .bg1 {
+	background-color: var(--bg4-color);
+}
+
+.section-ucp ul.topiclist .bg2,
+.section-mcp ul.topiclist .bg2 {
+	background-color: var(--bg2-color);
+}
+
+.section-ucp ul.topiclist + h3 {
+	margin-top: 30px;
+}
+
+dd.mark {
+	width: 60px;
+	float: none !important;
+}
+
+/* Private messages list */
+.cp-main .buttons {
+	margin-bottom: 8px;
+}
+
+.cp-main ul.linklist .pagination {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.viewfolder ul.topiclist,
+.cp-main ul.linklist + p {
+	clear: both;
+}
+
+.viewfolder ul.topiclist li.header dt {
+	width: 100%;
+	padding-left: 55px;
+}

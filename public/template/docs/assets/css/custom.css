@@ -143,6 +143,10 @@ body {
     opacity: 0.7;
 }
 
+.highlight {
+  background-color: yellow;
+}
+
 #videooverview {
   background-color: #fff;
   padding: 3em;
@@ -151,13 +155,21 @@ body {
 #videoTitle {
    color: goldenrod;
    text-shadow: 1px 1px 2px #6a4c16;
+   font-family: 'FontAwesome';
 }
 
 #catShuffle {
-  background-image: url('../../../../media/img/backgrounds/man-with-crown-thorns-his-head-cross_81048-30941.avif');
-  background-size: cover;
-  background-repeat: no-repeat;
   padding: 50px;
+  margin-left: -40px; 
+  margin-right: -40px;
+  min-height: 120px;
+  /* Create the parallax scrolling effect */
+  background: linear-gradient(rgb(0,0,0,0.75), rgb(0,0,0,0.75)), url("../../../../media/img/backgrounds/man-with-crown-thorns-his-head-cross_81048-30941.avif");  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(rgb(0,0,0,0.75), rgb(0,0,0,0.75)), url("../../../../media/img/backgrounds/man-with-crown-thorns-his-head-cross_81048-30941.avif"); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */  
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #catName {
@@ -172,6 +184,7 @@ body.dark {
   background-image: url('../../../../media/img/backgrounds/429099.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+  color: #8291a1;
 } /* #9b59b6 */
 body.dark html,
 body.dark footer,
@@ -208,7 +221,7 @@ body.dark .table {
     border-color: #2f3336;
 }
 
-body.dark .card-text {
+body.dark .card-text, body.dark #videosintro, body.dark .card-title {
     color: #fff;
 }
 
@@ -249,6 +262,10 @@ body.dark #videoTitle {
   background-size: cover;
   background-repeat: no-repeat;
 } */
+
+body.dark .catVidTitle {
+   color: white !important;
+}
 
 .checkbox {
   opacity: 0;
@@ -488,7 +505,7 @@ select:required option[value=""] {
 
 .bg-label-success {
     background-color: #e8fadf !important;
-    color: #347e0c !important;
+    color: #256602 !important;
 }
 
 @keyframes firework {
@@ -692,109 +709,4 @@ select:required option[value=""] {
   left: 30%;
   top: 50%;
   animation-delay: -0.3s;
-}
-
-video {
-  max-width: 100%;
-  height: auto;
-}
-
-
-/* Controls
----------------------------------------------------------------------- */
-
-.controls {
-    padding: 1rem;
-    font-size: 0.1px;
-}
-
-.controls > select {
-    margin-right: .75rem;
-}
-
-/* Container
----------------------------------------------------------------------- */
-
-.container {
-    padding: 1rem;
-    text-align: justify;
-    font-size: 0.1px;
-}
-
-.container:after {
-    content: '';
-    display: inline-block;
-    width: 100%;
-}
-
-/* Target Elements
----------------------------------------------------------------------- */
-
-.mix,
-.gap {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.mix {
-    background: #fff;
-/*     border-top: .5rem solid currentColor; */
-    border-radius: 2px;
-    margin-bottom: 1rem;
-    position: relative;
-}
-
-.mix:before {
-    content: '';
-    display: inline-block;
-    padding-top: 0.25%;
-}
-
-.mix.green {
-    color: #91e6c7;
-}
-
-.mix.pink {
-    color: #d595aa;
-}
-
-.mix.blue {
-    color: #5ecdde;
-}
-
-/* Grid Breakpoints
----------------------------------------------------------------------- */
-
-/* 2 Columns */
-
-.mix,
-.gap {
-    width: calc(100%/2 - (((2 - 1) * 1rem) / 2));
-}
-
-/* 3 Columns */
-
-@media screen and (min-width: 541px) {
-    .mix,
-    .gap {
-        width: calc(100%/3 - (((3 - 1) * 1rem) / 3));
-    }
-}
-
-/* 4 Columns */
-
-@media screen and (min-width: 961px) {
-    .mix,
-    .gap {
-        width: calc(100%/4 - (((4 - 1) * 1rem) / 4));
-    }
-}
-
-/* 5 Columns */
-
-@media screen and (min-width: 1281px) {
-    .mix,
-    .gap {
-        width: calc(100%/5 - (((5 - 1) * -3rem) / 5));
-    }
 }

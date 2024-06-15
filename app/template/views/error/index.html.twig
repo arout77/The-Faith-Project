@@ -4,7 +4,16 @@
 
 {% block content %}
 <div class="container">
-    <div class="text">
+    <div class="text" style="position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgb(56 48 48 / 70%);
+        box-shadow: 2px 2px 10px;
+        height: 370px;"
+    >
         <h1>Page Not Found</h1>
         <p>We can't seem to find the page you're looking for. Please check the URL for any typos.</p>
         <div class="input-box">
@@ -16,6 +25,12 @@
             <li><a href="{{base_url }}documentation">View Documentation</a></li>
         </ul>
     </div>
-    <div><img class="image" src="{{base_url }}public/template/errors/img/errorimg.png" alt="{{base_url }} 404 Page Not Found"></div>
+    {# <div><img class="image" src="{{base_url }}public/media/img/backgrounds/636580081480992684-EasterImageGettyApril2018.webp" alt="{{base_url }} 404 Page Not Found"></div> #}
 </div>
+
+<script>
+$( document ).ready(function() {
+ $('body').css("background-image", "url('{{base_url }}public/media/img/backgrounds/4k-crucifixion-of-jesus-egj28tk1ybsmkv11.jpg')").css("background-size", "cover").css("background-repeat", "no-repeat");
+});
+</script>
 {% endblock %}

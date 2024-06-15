@@ -12,19 +12,27 @@
     background-color: white !important;
     }
 </style>
+
+<script>
+function save(answer, id) {
+  $("input[name=question" + id + "]").val(answer);
+}
+</script>
+
 <div class="container mb-2">
     <section class="container">
         <div class="card text-center">
             <div class="card-header">Question <span id="questID"></span> of <span id="totalrecords">{{ total_records }}</span></div>
             <div class="card-body" id="quizBody">
                 <div id="wizard" class="aiia-wizard" style="display: none;">
-                    <form id="bibleStudyQuiz" method="post" action="{{ base_url }}study/quiz_results/" enctype="multipart/form-data">
+                    <form id="bibleStudyQuiz" method="post" action="{{ base_url }}study/quiz_results/">
                         {% for i in 1..total_records %}
                         <input id="answer-{{ i }}" name="answer-{{ i }}" type="hidden" value="{{ results[i-1]['answer']|replace({'&#039;': "'"})|raw }}">
                         <input id="questionText-{{ i }}" name="questionText-{{ i }}" type="hidden" value="{{ results[i-1]['question'] }}">
+                        <input name="question{{ i }}" id="ques-{{ i }}" value="" type="hidden">
                         {% endfor %}
                         <input type="hidden" name="totalrecords" value="{{ total_records }}">
-                        {% for question in results %}
+                        {% for key,question in results %}
                         <div class="aiia-wizard-step" id="quizQuestionnaire" data-id="1">
                             <h5 class="card-title">{{ question.question }}</h5>
                             <div class="step-content">
@@ -33,13 +41,13 @@
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-4">
                                         <div class="form-check">
-                                            <input name="question-1" class="form-check-input" type="radio" value="{{ question.opt1 }}" id="{{ question.opt1 }}">
+                                            <input name="q{{ key+1 }}" onclick="javascript:save('{{ question.opt1 }}', {{ key+1 }})" data-answer="{{ question.opt1 }}" data-id="{{ key+1 }}"  class="form-check-input" type="radio" value="{{ question.opt1 }}" id="{{ question.opt1 }}">
                                             <label class="form-check-label" for="{{ question.opt1 }}"> {{ question.opt1 }} </label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-check">
-                                            <input name="question-1" class="form-check-input" type="radio" value="{{ question.opt2 }}" id="{{ question.opt2 }}">
+                                            <input name="q{{ key+1 }}" onclick="javascript:save('{{ question.opt2 }}', {{ key+1 }})" data-answer="{{ question.opt2 }}" data-id="{{ key+1 }}" class="form-check-input" type="radio" value="{{ question.opt2 }}" id="{{ question.opt2 }}">
                                             <label class="form-check-label" for="{{ question.opt2 }}"> {{ question.opt2 }} </label>
                                         </div>
                                     </div>
@@ -49,13 +57,13 @@
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-4">
                                         <div class="form-check">
-                                            <input name="question-1" class="form-check-input" type="radio" value="{{ question.opt3 }}" id="{{ question.opt3 }}">
+                                            <input name="q{{ key+1 }}" onclick="javascript:save('{{ question.opt3 }}', {{ key+1 }})" data-answer="{{ question.opt3 }}" data-id="{{ key+1 }}" class="form-check-input" type="radio" value="{{ question.opt3 }}" id="{{ question.opt3 }}">
                                             <label class="form-check-label" for="{{ question.opt3 }}"> {{ question.opt3 }} </label>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-check">
-                                            <input name="question-1" class="form-check-input" type="radio" value="{{ question.opt4 }}" id="{{ question.opt4 }}">
+                                            <input name="q{{ key+1 }}" onclick="javascript:save('{{ question.opt4 }}', {{ key+1 }})" data-answer="{{ question.opt4 }}" data-id="{{ key+1 }}" class="form-check-input" type="radio" value="{{ question.opt4 }}" id="{{ question.opt4 }}">
                                             <label class="form-check-label" for="{{ question.opt4 }}"> {{ question.opt4 }} </label>
                                         </div>
                                     </div>
@@ -83,11 +91,9 @@
              // $("#answer-1").attr('name', 'answer-' + questNumber);
          });
     
-        $('input:radio').on('change',function(i) {
+        $('input:radio').on('click',function(i) {
                 var questNumber = $("#questID").text();
-                document.cookie = "question" + questNumber + "=" + '';
-                document.cookie = "question" + questNumber + "=" + $(this).val();
-                // $(this).attr('name', 'question-' + questNumber + '[]');
+                $(this).prop('checked', true);
             });
     
         $("#submitButton").click(function(){

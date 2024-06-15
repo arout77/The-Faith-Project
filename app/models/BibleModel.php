@@ -5,6 +5,19 @@ use Src\Model\System_Model;
 class BibleModel extends System_Model
 {
 	/**
+	 * @param $user
+	 * @param $book
+	 * @param $chapter
+	 * @param $verse
+	 * @return mixed
+	 */
+	public function addHighlight( $user, $book, $chapter, $verse )
+	{
+		return $this->exec( 'INSERT INTO `highlighted_verses` (`username`, `book`, `chapter`, `verse`)
+			VALUES (?,?,?,?)', ["$user", "$book", $chapter, $verse] );
+	}
+
+	/**
 	 * @param $book
 	 * @param $chapter
 	 * @return mixed
@@ -34,6 +47,16 @@ class BibleModel extends System_Model
 	}
 
 	/**
+	 * @param $user
+	 * @param $book
+	 * @return mixed
+	 */
+	public function getHighlightedVerses( $user, $book, $chapter )
+	{
+		return $this->getAll( 'SELECT book, chapter, verse FROM highlighted_verses WHERE username = ? AND book = ? AND chapter = ?', [$user, $book, $chapter] );
+	}
+
+	/**
 	 * @param $book
 	 * @return mixed
 	 */
@@ -48,6 +71,16 @@ class BibleModel extends System_Model
 	public function getKJV( $book, $chapter )
 	{
 		return $this->getAll( 'SELECT book_name, chapter, verse, text, testament FROM bible_verses_kjv WHERE book_name = ? AND chapter = ?', [$book, $chapter] );
+	}
+
+	/**
+	 * @param $book
+	 * @param $chapter
+	 * @return mixed
+	 */
+	public function getReina( $book, $chapter )
+	{
+		return $this->getAll( 'SELECT book_name, chapter, verse, text, testament FROM bible_verses_rv_1909 WHERE book_name = ? AND chapter = ?', [$book, $chapter] );
 	}
 
 	/**
@@ -67,5 +100,17 @@ class BibleModel extends System_Model
 	public function getWEB( $book, $chapter )
 	{
 		return $this->getAll( 'SELECT book_name, chapter, verse, text, testament FROM bible_verses_web WHERE book_name = ? AND chapter = ?', [$book, $chapter] );
+	}
+
+	/**
+	 * @param $user
+	 * @param $book
+	 * @param $chapter
+	 * @param $verse
+	 * @return mixed
+	 */
+	public function removeHighlight( $user, $book, $chapter, $verse )
+	{
+		return $this->exec( 'DELETE FROM highlighted_verses WHERE username = ? AND book = ? AND chapter = ? AND verse = ?', [$user, $book, $chapter, $verse] );
 	}
 }

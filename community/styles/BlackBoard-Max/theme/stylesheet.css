@@ -1,0 +1,21 @@
+/*  phpBB3 Style Sheet
+    --------------------------------------------------------------
+	Style name:			BlackBoard-Max
+	Based on style:		prosilver (the default phpBB 3.3.x style)
+	Original author:	Tom Beddard ( http://www.subblue.com/ )
+	Modified by:		FanFanlaTuFlippe ( https://www.phpbb.com/customise/db/author/fanfanlatuflippe/contributions )
+    --------------------------------------------------------------
+*/
+
+@import url("normalize.css?hash=1dd35f70");
+@import url("base.css?hash=b7bc48a3");
+@import url("utilities.css?hash=3a3f5cdb");
+@import url("common.css?hash=205c83ab");
+@import url("links.css?hash=1d3f8c83");
+@import url("content.css?hash=772560cb");
+@import url("buttons.css?hash=50711f1a");
+@import url("cp.css?hash=8964c44e");
+@import url("forms.css?hash=9839737d");
+@import url("icons.css?hash=7c9202d6");
+@import url("colours.css?hash=c6ae6a9d");
+@import url("responsive.css?hash=66e2272f");

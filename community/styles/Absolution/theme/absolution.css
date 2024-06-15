@@ -1,0 +1,67 @@
+*, a.forumtitle, a.topictitle, li.header dt, li.header dd, h3 {
+	font-family: 'Open Sans', sans-serif;
+	letter-spacing: -0.2px;
+}
+
+.navbar > .inner > ul > li > a > i, ul#nav-footer > li.breadcrumbs > span.crumb > a > i, .copyright a {
+	color: #EA8708;
+}
+
+.bubble-count {
+	background: #e8f3fd;
+	margin: 0 20px;
+	padding: 4px 0;
+	position: relative;
+	z-index: 2;
+	border-radius: 3px;
+	font-weight: 600;
+	box-shadow: 1px 1px 1px rgba(8, 43, 81, 0.15);
+	color: rgba(76,93,119,1);
+}
+
+.bubble-count::before {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 12px 14px 12px 0;
+	border-color: transparent #e8f3fd transparent transparent;
+	content: '';
+	position: absolute;
+	left: -10px;
+	top: 10px;
+	z-index: 1;
+}
+
+.index-footer li.row {
+	padding: 0 20px;
+}
+
+
+
+/* ------- Subforums & Moderators ------- */
+a.subforum, .forumlist_mods a {
+	display: inline-block !important;
+	margin-bottom: 5px;
+	border-radius: 15px;
+	background: rgba(0,0,0,.05);
+	padding: 5px 12px 5px 30px !important;
+	font-weight: 600;
+}
+
+a.subforum:hover, .forumlist_mods a:hover {
+	text-decoration: none !important;
+	background: rgba(0,0,0,.1);
+}
+
+a.subforum i, .forumlist_mods a i {
+	margin-right: 5px;
+	margin-left: -23px;
+	padding: 5px 4px;
+	position: absolute;
+	font-size: 8px;
+	color: #FFFFFF !important;
+	border-radius: 50%;
+	background: rgba(0,0,0,0.3);
+}
+
+

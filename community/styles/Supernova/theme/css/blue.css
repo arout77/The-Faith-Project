@@ -1,0 +1,138 @@
+.forabg, .forumbg {
+    background-color: #0f528f;
+    background-image: url("../images/blue/bg_list.gif");
+}
+.header a {
+    color: #096fb5 !important;
+}
+.cat-name {
+    background: transparent url("../images/blue/cat-name-r.png") no-repeat scroll top right;
+}
+
+.cat-name span {
+    background: transparent url("../images/blue/cat-name-l.png") no-repeat;
+}
+.cat-name span {
+    color: #096fb5;
+}
+.cat-name span a {
+    color: #096fb5;
+}
+ul.topiclist.forums dd.topics, ul.topiclist.forums dd.posts {
+    color: #0e5999;
+}
+div#page-header {
+    background: url("../images/blue/headerbg.png") repeat-x bottom #0f518f;
+}
+.nav-main a {
+    color: #0870d1;
+}
+.navbar-wrap a {
+    color: #0870D1;
+}
+.sn-cat-header {
+  background: url("../images/blue/cat-header-center.png") repeat-x;
+}
+.sn-cat-header::before {
+  background: url("../images/blue/cat-header-before.png") no-repeat;
+}
+.sn-cat-header::after {
+  background: url("../images/blue/cat-header-after.png") no-repeat;
+}
+.sn-cat-row {
+  background: url("../images/blue/cat-row-center.png") repeat-y;
+}
+.sn-cat-row::before {
+  background: url("../images/blue/cat-row-before.png");
+}
+.sn-cat-row::after {
+  background: url("../images/blue/cat-row-after.png");
+}
+
+.sn-cat-footer {
+  background: url("../images/blue/cat-footer-center.png") repeat-x;
+
+}
+.sn-cat-footer::before {
+  background: url("../images/blue/cat-footer-before.png") no-repeat;
+}
+.sn-cat-footer::after {
+  background: url("../images/blue/cat-footer-after.png") no-repeat;
+}
+.action-bar .btn {
+  background: url("../images/blue/button.png") repeat-x;
+}
+.action-bar .btn::before {
+  background: url("../images/blue/buttonbefore.png") no-repeat;
+}
+.action-bar .btn::after {
+  background: url("../images/blue/buttonafter.png") no-repeat;
+}
+.button, a.button2, input.button2, input.button3 {
+    border: 1px solid #95D5FF;
+}
+.button, a.button1, input.button1, input.button3, a.button2, input.button2 {
+    background-image: url("../images/blue/buttonbg.png");
+}
+a.button1, input.button1 {
+    border-color: #95D5FF;
+}
+
+.button .icon {
+	color: #055F9A;
+}
+
+.content h2, .panel h2 {
+    color: #115098;
+}
+label {
+    color: #094C8A;
+}
+blockquote {
+    background-color: #f9f9f9;
+    border: 1px solid #9fd1ff;
+}
+
+blockquote blockquote {
+    background-color: #e2f1ff;
+}
+
+blockquote blockquote blockquote {
+    background-color: #eff7ff;
+}
+select {
+    border-color: #95D5FF;
+    background-color: #EDF8FF;
+    color: #174764;
+}
+.jumpbox-forum-link:hover {
+    background-color: #edf8ff;
+}
+.search-box .inputbox, .search-box .inputbox:hover, .search-box .inputbox:focus {
+    border: 1px solid #b8e3ff;
+    background: url("../images/blue/search-form-bg.png") repeat-x;
+    color: #0a81d0;
+}
+.navigation a:hover {
+    color: #094C8A;
+}
+
+.navigation .active-subsection a {
+    color: #094C8A;
+}
+.tabs .tab > a:hover {
+    color: #094C8A;
+}
+a.forumtitle:hover, a:hover, a.left:hover, a.right:hover, a.topictitle:hover {color: #2a6496;}
+div.cat-name span, a.forumtitle, a, a.left, a.right, a.topictitle, a:link, a:visited, a:active {color: #2a6496;}
+body {
+color: #094c8a;}
+h3 {
+    color: #115098;
+}
+.navbar {
+    background-color: #CADCEB;
+}
+.nav-main a {
+    color: #0870d1;
+}

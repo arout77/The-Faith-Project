@@ -78,40 +78,59 @@
     });
 </script>
 <script>
-    $(document).ready(function () {
+$(document).ready(function () {
     
-        $("#eng").click( function(){
-            document.cookie = "lang=english";
-        });
-        $("#spa").click( function(){
-            document.cookie = "lang=spanish";
-        });
-        $("#fre").click( function(){
-            document.cookie = "lang=french";
-        });
-        $("#ger").click( function(){
-            document.cookie = "lang=german";
-        });
-    
-        $("#asvver").click( function(){
-            document.cookie = "bibleVersion=asv";
-        });
-        $("#kjvver").click( function(){
-            document.cookie = "bibleVersion=kjv";
-        });
-        $("#webver").click( function(){
-            document.cookie = "bibleVersion=web";
-        });
-        $("#reinaver").click( function(){
-            document.cookie = "bibleVersion=reina";
-        });
-        $("#segondver").click( function(){
-            document.cookie = "bibleVersion=segond";
-        });
-        $("#lutherver").click( function(){
-            document.cookie = "bibleVersion=luther";
-        });
+    $("#eng").click( function(){
+        document.cookie = "lang=english";
     });
+    $("#spa").click( function(){
+        document.cookie = "lang=spanish";
+    });
+    $("#fre").click( function(){
+        document.cookie = "lang=french";
+    });
+    $("#ger").click( function(){
+        document.cookie = "lang=german";
+    });
+
+    $("#asvver").click( function(){
+        document.cookie = "bibleVersion=asv";
+    });
+    $("#kjvver").click( function(){
+        document.cookie = "bibleVersion=kjv";
+    });
+    $("#webver").click( function(){
+        document.cookie = "bibleVersion=web";
+    });
+    $("#reinaver").click( function(){
+        document.cookie = "bibleVersion=reina";
+    });
+    $("#segondver").click( function(){
+        document.cookie = "bibleVersion=segond";
+    });
+    $("#lutherver").click( function(){
+        document.cookie = "bibleVersion=luther";
+    });
+
+    // Toggle sidebar and adjust navbar and video size/positioning
+    // when viewing videos for nicer experience
+    const url = window.location.href;
+    const find = 'videos/watch/';
+    const found = url.match(find);
+
+    if(found !== null && found[0] === find){
+      $('#layout-menu').toggle();
+      $('#toggleSidebar').click(function(){
+        $('#layout-menu').toggle();
+        if( $("#layout-menu").is(":hidden") )
+        {
+            $('#layout-navbar').css("left", "11rem");
+            $('#watchVideo').css("width", "80%");
+        } else {
+            $('#layout-navbar').css("left", "17rem");
+            $('#watchVideo').css("width", "60%");
+        }
+      });
+    }
+});
 </script>
-<!-- Place this tag in your head or just before your close body tag. -->
-{# <script async defer src="https://buttons.github.io/buttons.js"></script> #}

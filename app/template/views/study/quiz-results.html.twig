@@ -14,13 +14,13 @@
         <div class="card-body">
             <h3 class="card-title text-center">You scored {{ percent }}%</h3>
             {% if percent == 100 %}
-            <h5 class="card-title text-center">Perfect score! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
+            <h5 class="text-center">Perfect score! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
             {% elseif percent < 100 and percent >= 90 %}
-            <h5 class="card-title text-center">Excellent! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
+            <h5 class="text-center">Excellent! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
             {% elseif percent < 90 and percent >= 80 %}
-            <h5 class="card-title text-center">Well done! You answered {{ correct_answers }} out of {{ total_records }} questions correctly! But there's still room for improvement, lets take a look below and see where you can focus more of your studies.</h5>
+            <h5 class="text-center">Well done! You answered {{ correct_answers }} out of {{ total_records }} questions correctly! But there's still room for improvement, lets take a look below and see where you can focus more of your studies.</h5>
             {% else %}
-            <h5 class="card-title text-center">You answered {{ correct_answers }} out of {{ total_records }} questions correctly. Lets take a look below and see where you could study more.</h5>
+            <h5 class="text-center">You answered {{ correct_answers }} out of {{ total_records }} questions correctly. Lets take a look below and see where you could study more.</h5>
             {% endif %}
             <div class="card-subtitle text-muted mb-3">
                 <p class="card-text">

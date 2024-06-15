@@ -1,0 +1,476 @@
+/**
+ * Common tags
+ */
+html,
+body {
+	background: var(--bg-web-color) !important;
+  	color: var(--text-color-2);
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+h1 {
+	margin: 0 0 5px 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 36px;
+}
+
+h2 {
+  	color: var(--h2-color);
+	margin-top: 0;
+	margin-bottom: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+h3 {
+	margin-top: 24px;
+	margin-bottom: 8px;
+	padding-bottom: 5px;
+  	color: var(--h2-color);
+	font-size: 14px;
+	border-bottom-color: var(--border-color-3);
+}
+
+p {
+	margin-bottom: 18px;
+	line-height: 18px;
+	font-size: 12px;
+}
+
+hr {
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+a {	color: var(--links-color);	}
+
+a:hover, a:focus {	color: var(--links-color-hover-focus);	}
+
+/**
+ * Structure
+ *
+ * Main structure including wrapper, header, content and footer. By default
+ * forum width is fluid (with support for Responsive Web Design). To change it
+ * to fixed width, remove below "max-width" property and set desired width. Next
+ * remove links to both responsive.css files in overall_header.html.
+ */
+.wrap {
+	max-width: none;
+	min-width: 0;
+	margin: 0;
+	padding: 15px 0;
+	border: 0;
+	border-radius: 0;
+	background: none;
+}
+
+.inventea-wrapper,
+.inventea-dashboard,
+.inventea-footer {
+	box-sizing: border-box;
+	width: 95%;
+	max-width: 1170px;
+	margin: auto;
+}
+
+.inventea-wrapper {
+	padding: 15px 20px;
+	border: 2px solid var(--border-color-1);
+	background: var(--bg-web-color);
+}
+
+.inventea-userbar {
+	position: relative;
+	height: 49px;
+	padding-top: 14px;
+	border-bottom: 0;
+}
+
+.inventea-header {
+	width: 100%;
+	background: var(--inventea-header);
+}
+
+.inventea-dashboard {
+	position: relative;
+	min-height: 240px;
+	background: url("./images/dashboard.png") center center no-repeat;
+	background-size: cover;
+}
+
+.inventea-content {
+	position: relative;
+	border-top: 0;
+}
+
+.inventea-content:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.inventea-footer-wrapper {
+	display: block;
+	box-shadow: inset 0 20px 30px -20px var(--shadowcolor);
+	width: 100%;
+	margin-top: -25px;
+	border-top: 1px solid var(--border-color-1);
+}
+
+.inventea-footer {
+	margin: 42px auto;
+	padding: 0 22px;
+	color: #var(--inventea-footer);
+	line-height: 18px;
+	font-size: 12px;
+}
+
+/**
+ * Forum name and description
+ */
+.inventea-sitename {
+	padding: 76px 50px 98px;
+	color: var(--text-color-5);
+	font-size: 14px;
+}
+
+.inventea-sitename a {
+	color: var(--text-color-5);
+}
+
+/**
+ * User menu
+ *
+ * Navigation bar on top of forum (above dashboard) containing notifications,
+ * private messages and dropdown profile links.
+ *
+ * Sticky navigation on scroll provided by Headroom.js:
+ * http://wicky.nillia.ms/headroom.js/
+ */
+ul.linklist.inventea-user-menu > li {
+	margin-left: 0;
+}
+
+ul.linklist.inventea-user-menu > li + li {
+	margin-right: 21px;
+}
+
+/* Notifications and PMs counters */
+.inventea-user-menu > li > a > strong {
+	float: right;
+	margin: -3px 2px 0 6px;
+	padding: 2px 4px 3px;
+	border-radius: 2px;
+	background: #bc2a4d;
+	color: #fff;
+	line-height: 1;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+/* Reset counters padding in responsive view */
+.compact .icon-notification > a > strong,
+.compact .icon-pm > a > strong {
+	padding-left: 3px;
+}
+
+/* Small avatar near username */
+a.header-avatar,
+a.header-avatar:hover {
+	text-decoration: none;	
+	border-radius: 3px;
+}
+
+a.header-avatar img {
+ 	margin-bottom: 2px;
+ 	max-height: 20px;
+ 	vertical-align: middle;
+ 	width: auto;
+}
+
+a.header-avatar span:after {
+    padding-top: 0;
+}
+
+/**
+ * Forum navigation
+ *
+ * Main menu located in header (dashboard). Consists of two navigation lines:
+ * posts/topics related links on top and general forum links on bottom.
+ *
+ * Displayed only on devices with screen width bigger than 700px. On devices
+ * with low screen resolution it's replaced by dropdown menu with activation button
+ * located in user menu.
+ */
+.inventea-posts-menu,
+.inventea-forum-menu {
+	position: absolute;
+}
+
+.inventea-posts-menu {
+	right: 0;
+}
+
+.inventea-forum-menu {
+	bottom: 0;
+}
+
+.inventea-menu {
+	display: block;
+	list-style: none;
+}
+
+.inventea-menu li {
+	float: left;
+	background: none;
+}
+
+/* Space between menu items */
+.inventea-menu li + li {
+	margin-left: 4px;
+}
+
+.inventea-menu li > a {
+	display: block;
+	padding: 8px 10px;
+	background: #333;
+	background: rgba(0, 0, 0, 0.5);
+	color: #eee;
+}
+
+.inventea-menu li > a:focus,
+.inventea-menu li > a:hover,
+.inventea-menu li > a:active {
+	background: rgba(0, 0, 0, 0.9);
+	text-decoration: none;
+}
+
+/**
+ * Breadcrumbs and footer navigation
+ */
+#nav-breadcrumbs {
+	margin-top: 3px;
+	margin-bottom: 24px;
+	border: 0;
+}
+
+ul.linklist > li {
+	margin: 0;
+	padding: 0;
+	line-height: 18px;
+	font-size: 12px;
+}
+
+#nav-footer > li.rightside {
+	float: left;
+	margin: 0;
+}
+
+/* Items separator */
+.breadcrumbs .crumb:before,
+.breadcrumbs .crumb:first-child:before,
+ul.linklist > li:not(.breadcrumbs):before,
+#nav-footer > li.responsive-menu:after {
+	content: "/";
+	float: right;
+	margin: 0 10px;
+	padding: 0;
+	color: #cacaca;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+ul.linklist > li:not(.breadcrumbs):before,
+#nav-footer > li.responsive-menu:after {
+	float: left;
+}
+
+.breadcrumbs:last-child .crumb:last-child:before,
+#nav-footer .breadcrumbs .crumb:last-child:before,
+ul.linklist > li.inventea-time:before {
+	content: none;
+}
+
+li.breadcrumbs span:first-child > a {
+	padding: 0;
+}
+
+.breadcrumbs .crumb {
+	font-weight: normal;
+}
+
+.breadcrumbs.wrapped .crumb a,
+.breadcrumbs.wrapped .crumb.wrapped-medium a,
+.breadcrumbs.wrapped .crumb.wrapped-tiny a {
+	letter-spacing: normal;
+}
+
+/* Responsive menu hamburger link */
+ul.linklist li.responsive-menu {
+	margin: 0 2px;
+}
+
+ul.linklist li.responsive-menu a.responsive-menu-link {
+	margin: 0 1px;
+	line-height: 18px;
+}
+
+ul.linklist li.responsive-menu a.responsive-menu-link:before {
+	top: 5px;
+	border-color: var(--border-color-2:);
+}
+
+ul.linklist li.responsive-menu a.responsive-menu-link:hover:before,
+ul.linklist li.responsive-menu.visible a.responsive-menu-link:before {
+	border-color: var(--links-color-hover-focus);
+}
+
+/* Remove links icons */
+ul.linklist .small-icon {
+	background: none;
+}
+
+ul.linklist .small-icon > a {
+	padding: 0;
+}
+
+/**
+ * Footer
+ */
+.inventea-footer:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.inventea-footer a {
+	color: var(--color-2);
+}
+
+.inventea-footer a:focus,
+.inventea-footer a:hover,
+.inventea-footer a:active {
+	color: var(--links-color-hover-focus);
+}
+
+.inventea-credits {
+	float: left;
+}
+
+#nav-footer {
+	float: right;
+	margin-bottom: 18px;
+}
+
+/**
+ * Alerts
+ */
+div.rules,
+p.rules {
+	border: 1px solid var(--color-error);
+	background-color: var(--bg-rule);
+	padding: 6px 9px;
+}
+
+div.rules {
+	margin-top: 10px;
+	margin-bottom: 15px;
+	line-height: 18px;
+	font-size: 12px;
+}
+
+p.rules img {
+	padding-top: 0;
+}
+
+/* Disabled board information */
+.information {
+	margin-top: 0;
+	margin-bottom: 24px;
+}
+
+.notice {
+	margin-bottom: 15px;
+	padding: 7px;
+	border: 1px solid var(--border-color-1);
+	background: var(--color-warning);
+	line-height: 18px;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+p.post-notice {
+	background-color: var(--reported-bg);;
+}
+
+p.post-notice a {
+	color: var(--color-2);
+}
+/**
+ * Pagination
+ */
+.pagination {
+	font-size: 12px;
+}
+
+.pagination li a,
+.pagination li span {
+	border-color: var(--border-color-1);
+	border-radius: 0;
+}
+
+.pagination li a {
+	background: var(--border-color-1);
+	color: var(--color-2);
+}
+
+.pagination li.active span {
+	border-color: var(--topiclist);
+	background: var(--topiclist);
+	color: var(--inventea-userbar);
+}
+
+.pagination li a:hover,
+.pagination .dropdown-visible a.dropdown-trigger,
+.nojs .pagination .dropdown-container:hover a.dropdown-trigger {
+	border-color: var(--links-color-hover-focus);
+	background-color: var(--links-color-hover-focus);
+	color: var(--color-1);
+}
+
+.pagination li a:hover, .pagination li a:hover .icon, .pagination .dropdown-visible a.dropdown-trigger, .nojs .pagination .dropdown-container:hover a.dropdown-trigger {
+	background: var(--links-color-hover-focus);
+	border-color: var(--links-color-hover-focus);
+	filter: none;
+	color: var(--color-1);
+	text-shadow: none;
+}
+
+/**
+* Button padding in fieldset
+*/
+fieldset.fields1 ul.recipients  input.button2{
+	padding: 0 10px;
+}
+
+/**/
+
+fieldset.quick-login input.inputbox {
+	background-color: var(--bg1-color);
+}
+
+fieldset dl:hover dt label {
+  	color: var(--text-color-3);
+}
+
+.emoji {
+	min-height: 18px;
+	min-width: 18px;
+	height: 1em;
+	width: 1em;
+}

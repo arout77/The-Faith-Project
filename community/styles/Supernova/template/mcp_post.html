@@ -1,0 +1,362 @@
+{% INCLUDE 'mcp_header.html' %}
+
+{% if S_MCP_REPORT %}
+	{% if S_PM %}
+	<h2>{{ lang('PM_REPORT_DETAILS') }}</h2>
+	{% else %}
+	<h2>{{ lang('REPORT_DETAILS') }}</h2>
+	{% endif %}
+
+	<div id="report" class="panel">
+		<div class="inner">
+
+		<div class="postbody">
+			<h3>{{ lang('REPORT_REASON') }}{{ lang('COLON') }} {{ REPORT_REASON_TITLE }}</h3>
+			<p class="author">{{ lang('REPORTED') }} {{ lang('POST_BY_AUTHOR') }} {{ REPORTER_FULL }} &laquo; {{ REPORT_DATE }}</p>
+		{% if S_REPORT_CLOSED %}
+			<p class="post-notice reported"><i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i>{{ lang('REPORT_CLOSED') }}</p>
+		{% endif %}
+			<div class="content">
+			{% if REPORT_TEXT %}
+				{{ REPORT_TEXT }}
+			{% else %}
+				{{ REPORT_REASON_DESCRIPTION }}
+			{% endif %}
+			</div>
+		</div>
+
+		</div>
+	</div>
+
+	<form method="post" id="mcp_report" action="{{ S_CLOSE_ACTION }}">
+
+	<fieldset class="submit-buttons">
+		{% EVENT mcp_post_report_buttons_top_before %}
+		{% if not S_REPORT_CLOSED %}
+			<input class="button1" type="submit" value="{{ lang('CLOSE_REPORT') }}" name="action[close]" /> &nbsp;
+		{% endif %}
+		<input class="button2" type="submit" value="{{ lang('DELETE_REPORT') }}" name="action[delete]" />
+		{% EVENT mcp_post_report_buttons_top_after %}
+		<input type="hidden" name="report_id_list[]" value="{{ REPORT_ID }}" />
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+	</form>
+
+{% else %}
+	<h2>{{ lang('POST_DETAILS') }}</h2>
+{% endif %}
+
+<div class="panel">
+	<div class="inner">
+
+	<div class="postbody">
+		<h3><a href="{{ U_VIEW_POST }}">{{ POST_SUBJECT }}</a></h3>
+
+		<ul class="post-buttons">
+			<li id="expand">
+				<a href="#post_details" onclick="viewableArea(getElementById('post_details'), true); var rev_text = getElementById('expand').getElementsByTagName('a').item(0).firstChild; if (rev_text.data.trim() == '{{ lang('EXPAND_VIEW')|escape('js') }}'){rev_text.data = '{{ lang('COLLAPSE_VIEW')|escape('js') }}'; } else if (rev_text.data.trim() == '{{ lang('COLLAPSE_VIEW')|escape('js') }}'){rev_text.data = '{{ lang('EXPAND_VIEW')|escape('js') }}';} return false;">
+					{{ lang('EXPAND_VIEW') }}
+				</a>
+			</li>
+			{% if U_EDIT %}
+				<li>
+					<a href="{{ U_EDIT }}" title="{{ lang('EDIT_POST') }}" class="button btn-blue">
+						<i class="icon fa-pencil fa-fw" aria-hidden="true"></i><span class="sr-only">{{ lang('EDIT_POST') }}</span>
+					</a>
+				</li>
+			{% endif %}
+		</ul>
+
+		{% if S_PM %}
+		<p class="author">
+			<strong>{{ lang('SENT_AT') }}{{ lang('COLON') }}</strong> {{ POST_DATE }}
+			<br /><strong>{{ lang('PM_FROM') }}{{ lang('COLON') }}</strong> {{ POST_AUTHOR_FULL }}
+			{% if S_TO_RECIPIENT %}<br /><strong>{{ lang('TO') }}{{ lang('COLON') }}</strong> {% for to_recipient in loops.to_recipient %}{% if to_recipient.NAME_FULL %}{{ to_recipient.NAME_FULL }}{% else %}<a href="{{ to_recipient.U_VIEW }}"{% if to_recipient.COLOUR %} style="color:{{ to_recipient.COLOUR }};"{% endif %}><strong>{{ to_recipient.NAME }}</strong></a>{% endif %}&nbsp;{% endfor %}{% endif %}
+			{% if S_BCC_RECIPIENT %}<br /><strong>{{ lang('BCC') }}{{ lang('COLON') }}</strong> {% for bcc_recipient in loops.bcc_recipient %}{% if bcc_recipient.NAME_FULL %}{{ bcc_recipient.NAME_FULL }}{% else %}<a href="{{ bcc_recipient.U_VIEW }}"{% if bcc_recipient.COLOUR %} style="color:{{ bcc_recipient.COLOUR }};"{% endif %}><strong>{{ bcc_recipient.NAME }}</strong></a>{% endif %}&nbsp;{% endfor %}{% endif %}
+		</p>
+		{% else %}
+		<p class="author"><span><i class="icon fa-file fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{{ MINI_POST_IMG }}</span></span> {{ lang('POSTED') }} {{ lang('POST_BY_AUTHOR') }} {{ POST_AUTHOR_FULL }} &raquo; {{ POST_DATE }}</p>
+		{% endif %}
+
+		{% if S_POST_UNAPPROVED %}
+			<form method="post" id="mcp_approve" action="{{ U_APPROVE_ACTION }}">
+
+			<p class="post-notice unapproved">
+				<input class="button2" type="submit" value="{{ lang('DISAPPROVE') }}" name="action[disapprove]" /> &nbsp;
+				<input class="button1" type="submit" value="{{ lang('APPROVE') }}" name="action[approve]" />
+				{% if not S_FIRST_POST %}<input type="hidden" name="mode" value="unapproved_posts" />{% endif %}
+				<input type="hidden" name="post_id_list[]" value="{{ POST_ID }}" />
+				{{ S_FORM_TOKEN }}
+			</p>
+			</form>
+		{% elseif S_POST_DELETED %}
+			<form method="post" id="mcp_approve" action="{{ U_APPROVE_ACTION }}">
+
+			<p class="post-notice deleted">
+				{% if S_CAN_DELETE_POST %}<input class="button2" type="submit" value="{{ lang('DELETE') }}" name="action[delete]" /> &nbsp;{% endif %}
+				<input class="button1" type="submit" value="{{ lang('RESTORE') }}" name="action[restore]" />
+				{% if not S_FIRST_POST %}<input type="hidden" name="mode" value="deleted_posts" />{% endif %}
+				<input type="hidden" name="post_id_list[]" value="{{ POST_ID }}" />
+				{{ S_FORM_TOKEN }}
+			</p>
+			</form>
+		{% endif %}
+
+		{% if S_POST_REPORTED and not S_MCP_REPORT %}
+			<p class="post-notice reported">
+				<i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span class="sr-only">{{ lang('TOPIC_REPORTED') }}</span> <a href="{{ U_MCP_REPORT }}"><strong>{{ lang('POST_REPORTED') }}</strong></a>
+			</p>
+		{% endif %}
+
+		{% EVENT mcp_post_text_before %}
+
+		<div id="post_details" class="content post_details">
+			{{ POST_PREVIEW }}
+		</div>
+
+		{% EVENT mcp_post_text_after %}
+
+		{% if S_HAS_ATTACHMENTS %}
+			<dl class="attachbox">
+				<dt>{{ lang('ATTACHMENTS') }}</dt>
+				{% for attachment in loops.attachment %}
+					<dd>{{ attachment.DISPLAY_ATTACHMENT }}</dd>
+				{% endfor %}
+			</dl>
+		{% endif %}
+
+		{% if DELETED_MESSAGE or DELETE_REASON %}
+			<div class="notice">
+				{{ DELETED_MESSAGE }}
+				{% if DELETE_REASON %}<br /><strong>{{ lang('REASON') }}{{ lang('COLON') }}</strong> <em>{{ DELETE_REASON }}</em>{% endif %}
+			</div>
+		{% endif %}
+
+		{% if SIGNATURE %}
+			<div id="sig{{ POST_ID }}" class="signature">{{ SIGNATURE }}</div>
+		{% endif %}
+
+		{% if S_MCP_REPORT and S_CAN_VIEWIP %}
+			<hr />
+			<div>{% if S_PM %}{{ lang('THIS_PM_IP') }}{% else %}{{ lang('THIS_POST_IP') }}{% endif %}{{ lang('COLON') }} {% if U_WHOIS %}
+				<a href="{{ U_WHOIS }}">{% if POST_IPADDR %}{{ POST_IPADDR }}{% else %}{{ POST_IP }}{% endif %}</a> ({% if POST_IPADDR %}{{ POST_IP }}{% else %}<a href="{{ U_LOOKUP_IP }}">{{ lang('LOOKUP_IP') }}</a>{% endif %})
+			{% else %}
+				{% if POST_IPADDR %}{{ POST_IPADDR }} ({{ POST_IP }}){% else %}{{ POST_IP }}{% if U_LOOKUP_IP %} (<a href="{{ U_LOOKUP_IP }}">{{ lang('LOOKUP_IP') }}</a>){% endif %}{% endif %}
+			{% endif %}</div>
+		{% endif %}
+
+	</div>
+
+	</div>
+</div>
+
+{% if S_CAN_LOCK_POST or S_CAN_DELETE_POST or S_CAN_CHGPOSTER or S_MCP_POST_ADDITIONAL_OPTS %}
+	<div class="panel">
+		<div class="inner">
+
+		<h3>{{ lang('MOD_OPTIONS') }}</h3>
+		{% if S_CAN_CHGPOSTER %}
+			<form method="post" id="mcp_chgposter" action="{{ U_POST_ACTION }}">
+
+			<fieldset>
+			<dl>
+				<dt><label>{{ lang('CHANGE_POSTER') }}{{ lang('COLON') }}</label></dt>
+				{% if S_USER_SELECT %}<dd><select name="u">{{ S_USER_SELECT }}</select> <input type="submit" class="button2" name="action[chgposter_ip]" value="{{ lang('CONFIRM') }}" /></dd>{% endif %}
+				<dd style="margin-top:3px;">
+					<input class="inputbox autowidth" type="text" name="username" value="" />
+					<input type="submit" class="button2" name="action[chgposter]" value="{{ lang('CONFIRM') }}" />
+					<br />
+					<span>[ <a href="{{ U_FIND_USERNAME }}" onclick="find_username(this.href); return false;">{{ lang('FIND_USERNAME') }}</a> ]</span>
+				</dd>
+			</dl>
+			{{ S_FORM_TOKEN }}
+			</fieldset>
+			</form>
+		{% endif %}
+
+		{% EVENT mcp_post_additional_options %}
+
+		{% if S_CAN_LOCK_POST or S_CAN_DELETE_POST %}
+			<form method="post" id="mcp" action="{{ U_MCP_ACTION }}">
+
+			<fieldset>
+			<dl>
+				<dt><label>{{ lang('MOD_OPTIONS') }}{{ lang('COLON') }}</label></dt>
+				<dd><select name="action">
+					{% if S_CAN_LOCK_POST %}{% if S_POST_LOCKED %}<option value="unlock_post">{{ lang('UNLOCK_POST') }} [{{ lang('UNLOCK_POST_EXPLAIN') }}]</option>{% else %}<option value="lock_post">{{ lang('LOCK_POST') }} [{{ lang('LOCK_POST_EXPLAIN') }}]</option>{% endif %}{% endif %}
+					{% if S_CAN_DELETE_POST %}<option value="delete_post">{{ lang('DELETE_POST') }}</option>{% endif %}
+					</select> <input class="button2" type="submit" value="{{ lang('SUBMIT') }}" />
+				</dd>
+			</dl>
+			{{ S_FORM_TOKEN }}
+			</fieldset>
+			</form>
+		{% endif %}
+
+		</div>
+	</div>
+{% endif %}
+
+
+{% if S_MCP_QUEUE or S_MCP_REPORT or RETURN_TOPIC %}
+	<div class="panel">
+		<div class="inner">
+
+		<p>{% if S_MCP_QUEUE %}{{ RETURN_QUEUE }} | {{ RETURN_TOPIC_SIMPLE }} | {{ RETURN_POST }}{% elseif S_MCP_REPORT %}{{ RETURN_REPORTS }}{% if not S_PM %} | <a href="{{ U_VIEW_POST }}">{{ lang('VIEW_POST') }}</a> | <a href="{{ U_VIEW_TOPIC }}">{{ lang('VIEW_TOPIC') }}</a> | <a href="{{ U_VIEW_FORUM }}">{{ lang('VIEW_FORUM') }}</a>{% endif %}{% else %}{{ RETURN_TOPIC }}{% endif %}</p>
+
+		</div>
+	</div>
+{% endif %}
+
+{% if S_MCP_QUEUE %}
+{% else %}
+
+	{% if S_SHOW_USER_NOTES %}
+		<div class="panel" id="usernotes">
+			<div class="inner">
+
+			<form method="post" id="mcp_notes" action="{{ U_POST_ACTION }}">
+
+			{% if S_USER_NOTES %}
+				<h3>{{ lang('FEEDBACK') }}</h3>
+
+				{% for usernotes in loops.usernotes %}
+					<span class="small"><strong>{{ lang('REPORTED_BY') }}{{ lang('COLON') }} {{ usernotes.REPORT_BY }} &laquo; {{ usernotes.REPORT_AT }}</strong></span>
+					{% if S_CLEAR_ALLOWED %}<div class="right-box"><input type="checkbox" name="marknote[]" value="{{ usernotes.ID }}" /></div>{% endif %}
+					<div class="postbody">{{ usernotes.ACTION }}</div>
+
+					<hr class="dashed" />
+				{% endfor %}
+
+				{% if S_CLEAR_ALLOWED %}
+					<fieldset class="submit-buttons">
+						<input class="button2" type="submit" name="action[del_all]" value="{{ lang('DELETE_ALL') }}" />&nbsp;
+						<input class="button2" type="submit" name="action[del_marked]" value="{{ lang('DELETE_MARKED') }}" />
+					</fieldset>
+				{% endif %}
+			{% endif %}
+
+			<h3>{{ lang('ADD_FEEDBACK') }}</h3>
+			<p>{{ lang('ADD_FEEDBACK_EXPLAIN') }}</p>
+
+			<fieldset>
+				<textarea name="usernote" rows="4" cols="76" class="inputbox"></textarea>
+			</fieldset>
+
+			<fieldset class="submit-buttons">
+				<input class="button1" type="submit" name="action[add_feedback]" value="{{ lang('SUBMIT') }}" />&nbsp;
+				<input class="button2" type="reset" value="{{ lang('RESET') }}" />
+				{{ S_FORM_TOKEN }}
+			</fieldset>
+			</form>
+
+			</div>
+		</div>
+	{% endif %}
+
+	{% if S_SHOW_REPORTS %}
+		<div class="panel" id="reports">
+			<div class="inner">
+
+			<h3>{{ lang('MCP_POST_REPORTS') }}</h3>
+
+			{% for reports in loops.reports %}
+				<span class="small"><strong>{{ lang('REPORTED_BY') }}{{ lang('COLON') }} {% if reports.U_REPORTER %}<a href="{{ reports.U_REPORTER }}">{{ reports.REPORTER }}</a>{% else %}{{ reports.REPORTER }}{% endif %} &laquo; {{ reports.REPORT_TIME }}</strong></span>
+				<p><em>{{ reports.REASON_TITLE }}{{ lang('COLON') }} {{ reports.REASON_DESC }}</em>{% if reports.REPORT_TEXT %}<br />{{ reports.REPORT_TEXT }}{% endif %}</p>
+			{% endfor %}
+
+			</div>
+		</div>
+	{% endif %}
+
+	{% if S_CAN_VIEWIP and not S_MCP_REPORT %}
+		<div class="panel" id="ip">
+			<div class="inner">
+
+			<p>{{ lang('THIS_POST_IP') }}{{ lang('COLON') }} {% if U_WHOIS %}
+				<a href="{{ U_WHOIS }}">{% if POST_IPADDR %}{{ POST_IPADDR }}{% else %}{{ POST_IP }}{% endif %}</a> ({% if POST_IPADDR %}{{ POST_IP }}{% else %}<a href="{{ U_LOOKUP_IP }}">{{ lang('LOOKUP_IP') }}</a>{% endif %})
+			{% else %}
+				{% if POST_IPADDR %}{{ POST_IPADDR }} ({{ POST_IP }}){% else %}{{ POST_IP }}{% if U_LOOKUP_IP %} (<a href="{{ U_LOOKUP_IP }}">{{ lang('LOOKUP_IP') }}</a>){% endif %}{% endif %}
+			{% endif %}</p>
+
+			<table class="table1">
+			<thead>
+			<tr>
+				<th class="name">{{ lang('OTHER_USERS') }}</th>
+				<th class="posts">{{ lang('POSTS') }}</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for userrow in loops.userrow %}
+			<tr class="{% if userrow.S_ROW_COUNT is odd %}bg1{% else %}bg2{% endif %}">
+				<td>{% if userrow.U_PROFILE %}<a href="{{ userrow.U_PROFILE }}">{{ userrow.USERNAME }}</a>{% else %}{{ userrow.USERNAME }}{% endif %}</td>
+				<td class="posts"><a href="{{ userrow.U_SEARCHPOSTS }}" title="{{ lang('SEARCH_POSTS_BY') }} {{ userrow.USERNAME }}">{{ userrow.NUM_POSTS }}</a></td>
+			</tr>
+			{% else %}
+				<tr>
+					<td colspan="2">{{ lang('NO_MATCHES_FOUND') }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+			</table>
+
+			<div class="pagination">
+				{% INCLUDE 'pagination.html' %}
+			</div>
+			</div>
+		</div>
+
+		<div class="panel">
+			<div class="inner">
+			<table class="table1">
+			<thead>
+			<tr>
+				<th class="name">{{ lang('IPS_POSTED_FROM') }}</th>
+				<th class="posts">{{ lang('POSTS') }}</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for iprow in loops.iprow %}
+			<tr class="{% if iprow.S_ROW_COUNT is odd %}bg1{% else %}bg2{% endif %}">
+				<td>{% if iprow.HOSTNAME %}<a href="{{ iprow.U_WHOIS }}">{{ iprow.HOSTNAME }}</a> ({{ iprow.IP }}){% else %}<a href="{{ iprow.U_WHOIS }}">{{ iprow.IP }}</a> (<a href="{{ iprow.U_LOOKUP_IP }}">{{ lang('LOOKUP_IP') }}</a>){% endif %}</td>
+				<td class="posts">{{ iprow.NUM_POSTS }}</td>
+			</tr>
+			{% else %}
+				<tr>
+					<td colspan="2">{{ lang('NO_MATCHES_FOUND') }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+			</table>
+			{% if U_LOOKUP_ALL %}
+				<div class="buttons">
+					<p><a href="{{ U_LOOKUP_ALL }}#ip">{{ lang('LOOKUP_ALL') }}</a></p>
+				</div>
+			{% endif %}
+			<div class="pagination">
+				<ul>
+				{% for pagination_ips in loops.pagination_ips %}
+					{% if pagination_ips.S_IS_PREV %}
+					<li class="arrow previous"><a class="button button-icon-only" href="{{ pagination_ips.PAGE_URL }}" rel="prev" role="button"><i class="icon fa-chevron-{{ S_CONTENT_FLOW_BEGIN }} fa-fw" aria-hidden="true"></i><span class="sr-only">{{ lang('PREVIOUS') }}</span></a></li>
+					{% elseif pagination_ips.S_IS_CURRENT %}
+					<li class="active"><span>{{ pagination_ips.PAGE_NUMBER }}</span></li>
+					{% elseif pagination_ips.S_IS_ELLIPSIS %}
+					<li class="ellipsis" role="separator"><span>{{ lang('ELLIPSIS') }}</span></li>
+					{% elseif pagination_ips.S_IS_NEXT %}
+					<li class="arrow next"><a class="button button-icon-only" href="{{ pagination_ips.PAGE_URL }}" rel="next" role="button"><i class="icon fa-chevron-{{ S_CONTENT_FLOW_END }} fa-fw" aria-hidden="true"></i><span class="sr-only">{{ lang('NEXT') }}</span></a></li>
+					{% else %}
+					<li><a class="button" href="{{ pagination_ips.PAGE_URL }}" role="button">{{ pagination_ips.PAGE_NUMBER }}</a></li>
+					{% endif %}
+				{% endfor %}
+				</ul>
+			</div>
+
+			</div>
+		</div>
+	{% endif %}
+
+{% endif %}
+
+{% if S_TOPIC_REVIEW %}{% INCLUDE 'posting_topic_review.html' %}{% endif %}
+
+{% INCLUDE 'mcp_footer.html' %}

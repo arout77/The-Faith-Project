@@ -1,0 +1,128 @@
+{% extends "docs.html.twig" %}
+{% block title %}Register an account{% endblock %}
+{% block content %}
+
+<!-- jQuery -->
+<script src="{{ base_url }}public/template/default/plugins/jquery/jquery.min.js"></script>
+<div class="login-page">
+<div class="login-box">
+  <!-- /.login-logo -->
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a href="{{ base_url }}" class="h1"><b>Rhapsody</b> Helpdesk</a>
+    </div>
+    <div class="card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form action="{{ base_url }}community/ucp.php?mode=login" data-focus="username" method="post">
+        <input type="hidden" name="sid" value="{{ sid }}">
+        <input type="hidden" name="redirect" value="{{ base_url }}">
+        <input type="hidden" name="creation_time" value="1718305415">
+        <input type="hidden" name="form_token" value="90a86e7af5aff3217a9ee9d49a2550b20692a17c">
+
+      	<div class="mb-3">
+        <div id="notfound" class="redText"></div>
+	        <div class="input-group">
+	          <input type="text" tabindex="1" name="username" id="username" size="25" value="" class="form-control" placeholder="Username" autocomplete="username">
+	          <div class="input-group-append">
+	            <div class="input-group-text">
+	              <span class="fas fa-user"></span>
+	            </div>
+	          </div>
+	        </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" tabindex="2" id="password" name="password" size="25" class="form-control" placeholder="Password" autocomplete="current-password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <div class="icheck-primary">
+              <input type="checkbox" name="autologin" id="autologin" tabindex="4">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="icheck-primary">
+              <label for="viewonline"><input type="checkbox" name="viewonline" id="viewonline" tabindex="5"> Hide my online status this session</label>
+            </div>
+          </div>
+          
+          <!-- /.col -->
+          <div class="col-3">
+            <a href="{{ base_url }}community/app.php/user/forgot_password">I forgot my password</a>
+          </div>
+          <div class="col-3">
+            <button type="submit" id="submit" name="login" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <div class="social-auth-links text-center mt-2 mb-3">
+        <a href="{{ base_url }}" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+        </a>
+        <a href="{{ base_url }}" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+        </a>
+      </div>
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="{{ base_url }}login/forgot-password">I forgot my password</a>
+      </p>
+      <p class="mb-0">
+        <a href="{{ base_url }}register" class="text-center">Register a new account</a>
+      </p>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+</div>
+{# 
+<script>
+
+$('form').on("submit", function(e) {
+  e.preventDefault();
+	    $.ajax({
+	    method: "POST",
+	    url: "{{ base_url }}login/verify_login/",
+	    data: { 
+	        email: $("#email").val(),
+          password: $("#password").val(),
+	    }
+	    })
+	    .done(function( message ) {
+	        if( message == '0' )
+	        {
+	            $("#email").addClass('is-invalid');
+              $("#password").addClass('is-invalid');
+	            $("#notfound").text('Invalid email or password');
+	        } else {
+              $('form').submit();
+	            $("#email").removeClass('is-invalid');
+              $("#password").removeClass('is-invalid');
+	            $("#notfound").text('');
+              window.location.replace('{{ base_url }}home',{
+              param1: "value1", param2: "value2"} ,
+                function(){
+                /* Stuff to do after the page is loaded */
+              });
+              
+	        }
+	    })
+	    .fail(function( message ) {
+	        $("#log").show();
+	        $("#log").text("An unexpected error occurred. If you continue to receive this message, please let us know and try again later.");
+	    });
+	});
+</script> #}
+{% endblock %}

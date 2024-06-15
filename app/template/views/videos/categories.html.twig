@@ -3,11 +3,11 @@
 {% block content %}
 <section>
     <div class="card mb-4">
-        <div class="card-body"  id="categoriesSelection">
-            <h3 class="card-title text-center">Video Categories</h3>
+        <div class="card-body" id="categoriesSelection">
+            <h3 class="card-title text-center" style="text-shadow: 2px 1px 8px;" id="videosintro">Videos of The Bible Series</h3>
             <div class="card-subtitle mb-3">
                 <div class="controls">
-                    <div id="catShuffle" class="row">
+                    <div id="catShuffle" class="row" style="">
                         <div class="col-sm-3">
                             <select id="selectCat" class="select-filter form-select">
                                 <option value="all">All</option>
@@ -32,7 +32,7 @@
                     {% for vid in video_list %}
                     <div class="mix card-body {{ vid.category|replace({' ': '-'}) }}" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                         <img class="card-img-top" style="border: 1px solid goldenrod;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="Card image cap">
-                        <div class="text-center" style="background-color: goldenrod; padding: 10px;"><strong>{{ vid.title }}</strong></div>
+                        <div class="catVidTitle text-center" style="background-color: goldenrod; padding: 10px;"><strong>{{ vid.title }}</strong></div>
                     </div>
 
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">

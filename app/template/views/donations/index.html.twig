@@ -1,0 +1,221 @@
+{# {% extends 'docs.html.twig' %}
+{% block title %}Make a Donation{% endblock %}
+{% block content %}
+<div class="container" style="background-color: rgb(17, 17, 17);">
+	<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+	<div class="elfsight-app-d4e4a0d5-f502-46f5-8ddf-cfb60c37f168" data-elfsight-app-lazy></div>
+</div>
+
+<script>
+$(document).mousemove(function () {
+	//$('body').addClass('dark');
+	document.body.classList.add("dark");
+});
+</script>
+{% endblock %} #}
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ base_url }}public/template/material/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="{{ base_url }}public/template/material/assets/img/favicon.png">
+  <title>
+    Donate to Word of God Ministries
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{{ base_url }}public/template/material/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="{{ base_url }}public/template/material/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{{ base_url }}public/template/material/assets/css/material-kit.css?v=3.0.4" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  {# <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script> #}
+</head>
+
+<body class="contact-us">
+  <!-- -------- START HEADER 8 w/ card over right bg image ------- -->
+  <section>
+    <div class="page-header min-vh-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+            <div class="position-relative h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('{{ base_url }}public/media/img/backgrounds/14ffe0927a4a5d990e1c4dc773116226.jpg'); background-size: cover;" loading="lazy"></div>
+          </div>
+          <div class="col-xl-5 col-lg-6 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+            <div class="card d-flex blur justify-content-center shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                <img src="{{ base_url }}public/media/img/logo.png">
+                  <h3 class="text-center mt-3">Donation Form</h3>
+              </div>
+              <div class="card-body">
+                <p class="pb-3">
+                  Your donation will help us continue our mission to spread God's Word all around the world.
+                </p>
+                {# <form id="donation-form" method="post" autocomplete="off"> #}
+                  <div class="card-body p-0 my-3">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="input-group input-group-dynamic mb-4">
+                          <label class="form-label">First Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6 ps-md-2">
+                        <div class="input-group input-group-dynamic mb-4">
+                          <label class="form-label">Last Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-12 ps-md-2">
+                        <div class="input-group input-group-dynamic mb-4">
+                          <label class="form-label">Email</label>
+                          <input type="email" class="form-control">
+                        </div>
+                      </div>
+                      <div class="row mt-2">
+                      	<h5 class="card-title">Amount</h5>
+					  </div>
+                      <div class="col-md-3 ps-md-2">
+                      	<div class="form-check mb-3">
+						  <input class="form-check-input" type="radio" name="amount" id="customRadio1">
+						  <label class="custom-control-label" for="customRadio1">$10</label>
+						</div>
+					  </div>
+					  <div class="col-md-3 ps-md-2">
+                      	<div class="form-check mb-3">
+						  <input class="form-check-input" type="radio" name="amount" id="customRadio2">
+						  <label class="custom-control-label" for="customRadio2">$25</label>
+						</div>
+					  </div>
+					  <div class="col-md-3 ps-md-2">
+                      	<div class="form-check mb-3">
+						  <input class="form-check-input" type="radio" name="amount" id="customRadio3">
+						  <label class="custom-control-label" for="customRadio3">$50</label>
+						</div>
+					  </div>
+					  <div class="col-md-3 ps-md-2">
+                      	<div class="form-check mb-3">
+						  <input class="form-check-input" type="radio" name="amount" id="customRadio4">
+						  <label class="custom-control-label" for="customRadio4">$100</label>
+						</div>
+					  </div>
+					  <div class="col-md-6 ps-md-2">
+                      	<div class="form-check mb-3">
+						  <input class="form-check-input" type="radio" name="amount" id="other">
+						  <label class="custom-control-label" for="other">Other amount</label>
+						</div>
+					  </div>
+					  <div class="col-md-6 ps-md-2" id="customAmountDiv" style="display: none;">
+                      	<div class="form-check mb-3">
+						  <div class="input-group input-group-dynamic mb-4">
+                          <label class="form-label">Minimum amount $1</label>
+                          <input type="number" name="amount" id="customAmount" class="form-control">
+                        </div>
+						</div>
+					  </div>
+					  <div class="row mt-2">
+                      	<h5 class="card-title">Payment Type</h5>
+					  </div>
+            <div class="row">
+					  <div class="col-md-6 ps-md-2">
+                      	<div class="form-check mb-3">
+						  <input class="form-check-input" type="radio" name="paymethod" id="PayPal">
+						  <label class="custom-control-label" for="PayPal">PayPal</label>
+						</div>
+            <div class="col-md-6 ps-md-2" style="display: none;" id="pp_donate">
+                <form action="https://www.paypal.com/donate" method="post" target="_top">
+                    <input type="hidden" name="hosted_button_id" value="GHD4TUYRAB7PA" />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                    <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                </form>
+					  </div>
+					  <div class="col-md-12 ps-md-2">
+                      	<div class="form-check mb-3">
+						  <input class="form-check-input" type="radio" name="paymethod" id="CashApp">
+						  <label class="custom-control-label" for="CashApp">CashApp</label>
+						</div>
+					  </div>
+                    </div>
+            <div class="col-md-12" style="display: none;" id="cashapp_msg">
+              <div class="alert alert-primary">
+                <span style="color: white;">If you wish to donate via CashApp, your payment can be sent to the following CashApp user tag: <h5 class="text-center" style="color: white; padding-top: 6px;">$arout1977</h5></span>
+              </div>
+            </div>
+            <div class="col-md-12 ps-md-2">
+                <h6>You can also use your phone's camera to scan the QR code below to quickly make a donation</h6>
+                <img src="{{ base_url }}public/media/img/QR_Code.png">
+            </div>
+                    <div class="form-group mb-0 mt-md-0 mt-4">
+                      <div class="input-group input-group-dynamic mb-4">
+                        <textarea name="message" class="form-control" id="message" rows="3" placeholder="If you wish to send us a message, you can enter it below"></textarea>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <button type="submit" class="btn bg-gradient-primary mt-3 mb-0">Send Blessing</button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+  <!--   Core JS Files   -->
+  <script src="{{ base_url }}public/template/material/assets/js/core/popper.min.js" type="text/javascript"></script>
+  <script src="{{ base_url }}public/template/docs/assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="{{ base_url }}public/template/material/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+  <script src="{{ base_url }}public/template/material/assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+  <script src="{{ base_url }}public/template/material/assets/js/material-kit.min.js?v=3.0.4" type="text/javascript"></script>
+
+  <script>
+$(document).ready(function () {
+    
+    $("#other").click( function(){
+        $("#customAmountDiv").show();
+    });
+    $("#customRadio1").click( function(){
+        $("#customAmountDiv").hide();
+        $("#customAmount").val(' ');
+    });
+    $("#customRadio2").click( function(){
+        $("#customAmountDiv").hide();
+        $("#customAmount").val(' ');
+    });
+    $("#customRadio3").click( function(){
+        $("#customAmountDiv").hide();
+        $("#customAmount").val(' ');
+    });
+    $("#customRadio4").click( function(){
+        $("#customAmountDiv").hide();
+        $("#customAmount").val(' ');
+    });
+
+    $("#PayPal").click( function(){
+        $("#pp_donate").show();
+        $("#cashapp_msg").hide();
+    });
+
+    $("#CashApp").click( function(){
+        $("#cashapp_msg").show();
+        $("#pp_donate").hide();
+    });
+});
+</script>
+
+</body>
+
+</html>

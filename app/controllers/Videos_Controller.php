@@ -136,11 +136,21 @@ class Videos_Controller extends Base_Controller
 
 	public function watch()
 	{
-		$slug = urldecode( $this->route->parameter[1] );
+		if ( empty( $this->route->parameter[1] ) )
+		{
+			$this->redirect( 'videos' );
+		}
+
+		$slug = strip_tags( urldecode( $this->route->parameter[1] ) );
 
 		$videomodel = $this->model( 'Videos' );
 		$thumbnail  = $videomodel->getThumbnail( $slug );
 		$title      = $videomodel->getVideoRawTitle( $slug );
+
+		if ( is_null( $title ) )
+		{
+			$this->redirect( 'error/not_found' );
+		}
 
 		$this->template->render( "videos\watch.html.twig", [
 			'video'         => $slug,

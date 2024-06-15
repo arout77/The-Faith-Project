@@ -1,6 +1,64 @@
 {% extends "docs.html.twig" %}
 {% block title %}King James Version - Word of God Online Bible{% endblock %}
 {% block content %}
+<script>
+$(document).ready(function () {
+
+const STORAGE_KEY = 'savedVerses';
+
+$('.bogus').on('click', function() {
+  const { book, chapter, verse } = $(this).data();
+
+  highlighter(book, chapter, verse);
+  
+});
+
+function highlighter( book, chapter, verse )
+{
+    // Hightlight / remove highlight from verse
+    if($("#" + verse).hasClass('highlight'))
+    {
+        $("#" + verse).removeClass('highlight');
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}bible/removeHighlight/",
+            data: {
+                book: book,
+                chapter: chapter,
+                verse: verse
+            },
+            dataType: "json",
+            encode: true,
+        });
+
+    } else {
+        $("#" + verse).addClass('highlight');
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}bible/addHighlight/",
+            data: {
+                book: book,
+                chapter: chapter,
+                verse: verse
+            },
+            dataType: "json",
+            encode: true,
+        });
+    } 
+    
+}
+
+});
+</script>
+
+{% for mark in highlighted_verses %}
+<script>
+    $(document).ready(function () {
+        $("#" + {{ mark.verse }}).addClass('highlight');
+    });
+</script>
+{% endfor %}
+
 <div class="container mb-2">
     <div class="row">
         <div class="col-sm-5"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
@@ -17,21 +75,30 @@
     <div class="mb-3 mt-2">
         <div style="scroll-margin-top: 120px;">
             {% if results|length > 0 %}
-            {% for result in results %}
-            {% if result.verse == 1 %}
-            <span id="verse-{{ result.verse }}">
-            <sup class="verse">{{ result.verse }}</sup> &nbsp;&nbsp; {{ result.text|replace({'¶' : '  '}) }}
-            </sup>
+                {% for result in results %}
+                    {% if result.verse == 1 %}
+                        <span id="{{ result.verse }}" class="bogus" data-book="{{ book }}" data-chapter="{{ chapter }}" data-verse="{{ result.verse }}">
+                            <sup class="verse">{{ result.verse }}</sup> &nbsp;&nbsp; 
+                            <span id="verseText-{{ result.verse }}">{{ result.text|replace({'¶' : '  '}) }}</span>
+                        </span>
+                    {% else %}
+                        {% if '¶' in result.text %}
+                            <p>
+                                <span id="{{ result.verse }}" class="bogus" data-book="{{ book }}" data-chapter="{{ chapter }}" data-verse="{{ result.verse }}">
+                                    <sup class="verse"><em>{{ result.verse }}</em></sup>
+                                    <span id="verseText-{{ result.verse }}">{{ result.text|replace({'¶' : '  '}) }}</span>
+                                </span> 
+                            </p>
+                        {% else %}
+                            <span id="{{ result.verse }}" class="bogus" data-book="{{ book }}" data-chapter="{{ chapter }}" data-verse="{{ result.verse }}">
+                                <sup class="verse"><em>{{ result.verse }}</em></sup>
+                                <span id="verseText-{{ result.verse }}">{{ result.text|replace({'¶' : '  '}) }}</span>
+                            </span> 
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
             {% else %}
-            {% if '¶' in result.text %}
-            <p><span id="verse-{{ result.verse }}"><sup class="verse"><em>{{ result.verse }}</em></sup></span> {{ result.text|replace({'¶' : '  '}) }}</p>
-            {% else %}
-            <span id="verse-{{ result.verse }}"><sup class="verse"><em>{{ result.verse }}</em></sup></span> {{ result.text|replace({'¶' : '  '}) }}
-            {% endif %}
-            {% endif %}
-            {% endfor %}
-            {% else %}
-            <p>No results found</p>
+                <p>No results found</p>
             {% endif %}
         </div>
         <p>

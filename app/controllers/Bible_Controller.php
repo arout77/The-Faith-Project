@@ -12,6 +12,11 @@ class Bible_Controller extends Base_Controller
 	/**
 	 * @var mixed
 	 */
+	public $bookSelectionMap;
+
+	/**
+	 * @var mixed
+	 */
 	public $books_of_bible;
 
 	/**
@@ -40,6 +45,11 @@ class Bible_Controller extends Base_Controller
 	public $version;
 
 	/**
+	 * @var mixed
+	 */
+	protected $username = null;
+
+	/**
 	 * @param $app
 	 */
 	public function __construct( $app )
@@ -56,6 +66,11 @@ class Bible_Controller extends Base_Controller
 			'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation',
 		];
 
+		if ( isset( $_SESSION['wog-username'] ) )
+		{
+			$this->username = $_SESSION['wog-username'];
+		}
+
 		$this->version = $_COOKIE['bibleVersion'] ?? 'kjv';
 
 		$book       = $this->route->parameter[1] ?? "Genesis";
@@ -71,25 +86,84 @@ class Bible_Controller extends Base_Controller
 
 		$this->num_chapters = $intromodel->getChapterCountMap();
 
+		$bookMap = $intromodel->getChapterCountMap();
+		$map     = [];
+
+		foreach ( $bookMap as $k => $v )
+		{
+			for ( $i = 1; $i <= $v; $i++ )
+			{
+				if ( $i === 1 )
+				{
+					$map[$k][] = "<option value='$i' selected>$i</option>";
+				}
+				else
+				{
+					$map[$k][] = "<option value='$i'>$i</option>";
+				}
+			}
+		}
+
+		$this->bookSelectionMap = $map;
+		//var_dump( $this->bookSelectionMap );exit;
+
 		// Add global var for all template files
 		$this->template->twigEnv->addGlobal( 'book', $this->book );
+		$this->template->twigEnv->addGlobal( 'bookMap', $this->bookSelectionMap );
 		$this->template->twigEnv->addGlobal( 'intro', $this->intro );
 		$this->template->twigEnv->addGlobal( 'chapter', $this->chapter );
 		$this->template->twigEnv->addGlobal( 'version', $this->version );
 		$this->template->twigEnv->addGlobal( 'books_of_bible', $this->books_of_bible );
 	}
 
+	public function addHighlight()
+	{
+		$model = $this->model( 'Bible' );
+		$model->addHighlight( $this->username, $_POST['book'], $_POST['chapter'], $_POST['verse'] );
+	}
+
 	public function asv()
 	{
-		$model       = $this->model( 'Bible' );
-		$dataset     = $model->getASV( $this->book, $this->chapter );
-		$numchapters = $model->getChapterCount( $this->book );
+		$model                  = $this->model( 'Bible' );
+		$dataset                = $model->getASV( $this->book, $this->chapter );
+		$numchapters            = $model->getChapterCount( $this->book );
+		$get_highlighted_verses = null;
+
+		if ( !is_null( $this->username ) )
+		{
+			$get_highlighted_verses = $model->getHighlightedVerses( $this->username, $this->book, $this->chapter );
+		}
 
 		$this->template->render( "bible\kjv.html.twig", [
 			'results'     => $dataset,
 			'numchapters' => $numchapters['total'], // Number of chapters for this book
 			'chapter_count' => $this->num_chapters, // Array containing each book and its chapter count
+			'highlighted_verses' => $get_highlighted_verses,
 		] );
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function checkIfVersesHighlighted()
+	{
+		$model = $this->model( 'Bible' );
+
+		if ( !is_null( $this->username ) )
+		{
+			$get_highlighted_verses = $model->getHighlightedVerses( $this->username, $_POST['book'] );
+
+			if ( is_null( $get_highlighted_verses ) )
+			{
+				echo '0';
+				exit;
+			}
+
+			echo json_encode( $get_highlighted_verses );
+		}
+
+		echo '0';
+		exit;
 	}
 
 	/**
@@ -109,7 +183,7 @@ class Bible_Controller extends Base_Controller
 	{
 		// Model was created and stored at: /app/models/BibleModel.php
 		// View was created and stored at: /app/template/views/bible/inde.html.twig
-		$this->template->render( "bible\index.html.twig" );
+		return self::intro();
 	}
 
 	public function intro()
@@ -126,15 +200,48 @@ class Bible_Controller extends Base_Controller
 
 	public function kjv()
 	{
-		$model       = $this->model( 'Bible' );
-		$dataset     = $model->getKJV( $this->book, $this->chapter );
-		$numchapters = $model->getChapterCount( $this->book );
+		$model                  = $this->model( 'Bible' );
+		$dataset                = $model->getKJV( $this->book, $this->chapter );
+		$numchapters            = $model->getChapterCount( $this->book );
+		$get_highlighted_verses = null;
+
+		if ( !is_null( $this->username ) )
+		{
+			$get_highlighted_verses = $model->getHighlightedVerses( $this->username, $this->book, $this->chapter );
+		}
 
 		$this->template->render( "bible\kjv.html.twig", [
 			'results'     => $dataset,
 			'numchapters' => $numchapters['total'], // Number of chapters for this book
 			'chapter_count' => $this->num_chapters, // Array containing each book and its chapter count
+			'highlighted_verses' => $get_highlighted_verses,
 		] );
+	}
+
+	public function reina()
+	{
+		$model                  = $this->model( 'Bible' );
+		$dataset                = $model->getReina( $this->book, $this->chapter );
+		$numchapters            = $model->getChapterCount( $this->book );
+		$get_highlighted_verses = null;
+
+		if ( !is_null( $this->username ) )
+		{
+			$get_highlighted_verses = $model->getHighlightedVerses( $this->username, $this->book, $this->chapter );
+		}
+
+		$this->template->render( "bible\kjv.html.twig", [
+			'results'     => $dataset,
+			'numchapters' => $numchapters['total'], // Number of chapters for this book
+			'chapter_count' => $this->num_chapters, // Array containing each book and its chapter count
+			'highlighted_verses' => $get_highlighted_verses,
+		] );
+	}
+
+	public function removeHighlight()
+	{
+		$model = $this->model( 'Bible' );
+		$model->removeHighlight( $this->username, $_POST['book'], $_POST['chapter'], $_POST['verse'] );
 	}
 
 	public function summary()

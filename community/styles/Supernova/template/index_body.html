@@ -1,0 +1,92 @@
+{% INCLUDE 'overall_header.html' %}
+
+{% EVENT index_body_markforums_before %}
+{% if U_MARK_FORUMS %}
+	<div class="action-bar compact">
+		<a href="{{ U_MARK_FORUMS }}" class="mark-read rightside" accesskey="m" data-ajax="mark_forums_read">{{ lang('MARK_FORUMS_READ') }}</a>
+	</div>
+
+{% endif %}
+{% EVENT index_body_markforums_after %}
+
+{% INCLUDE 'forumlist_body.html' %}
+
+{% EVENT index_body_forumlist_body_after %}
+
+{% if not S_USER_LOGGED_IN and not S_IS_BOT %}
+<div class="stat-block">
+	<i class="icon fa-lock fa-fw" aria-hidden="true"></i>
+	<div class="quick-login-outer">
+		<form method="post" action="{{ S_LOGIN_ACTION }}" class="headerspace">
+		<h3><a href="{{ U_LOGIN_LOGOUT }}">{{ lang('LOGIN_LOGOUT') }}</a>{% if S_REGISTER_ENABLED %}&nbsp; &bull; &nbsp;<a href="{{ U_REGISTER }}">{{ lang('REGISTER') }}</a>{% endif %}</h3>
+			<fieldset class="quick-login">
+				<label for="username"><span>{L_USERNAME}{L_COLON}</span> <input type="text" tabindex="1" name="username" id="username" size="10" class="inputbox" title="{L_USERNAME}" autocomplete="username" /></label>
+				<label for="password"><span>{L_PASSWORD}{L_COLON}</span> <input type="password" tabindex="2" name="password" id="password" size="10" class="inputbox" title="{L_PASSWORD}" autocomplete="current-password" /></label>
+				{% if U_SEND_PASSWORD %}
+					<a href="{{ U_SEND_PASSWORD }}">{{ lang('FORGOT_PASS') }}</a>
+				{% endif %}
+				{% if S_AUTOLOGIN_ENABLED %}
+					<span class="responsive-hide">|</span> <label for="autologin">{{ lang('LOG_ME_IN') }} <input type="checkbox" tabindex="4" name="autologin" id="autologin" /></label>
+				{% endif %}
+				<input type="submit" tabindex="5" name="login" value="{{ lang('LOGIN') }}" class="button2" />
+				{{ S_LOGIN_REDIRECT }}
+				{{ S_FORM_TOKEN_LOGIN }}
+			</fieldset>
+		</form>
+	</div>	
+</div>	
+{% endif %}
+
+{% EVENT index_body_stat_blocks_before %}
+
+{% if S_DISPLAY_ONLINE_LIST %}
+<div class="stat-block">
+	<i class="icon fa-users fa-fw" aria-hidden="true"></i>
+	<div class="online-list">
+		{% if U_VIEWONLINE %}<h3><a href="{{ U_VIEWONLINE }}">{{ lang('WHO_IS_ONLINE') }}</a></h3>{% else %}<h3>{{ lang('WHO_IS_ONLINE') }}</h3>{% endif %}
+		<p>
+			{% EVENT index_body_block_online_prepend %}
+			{{ TOTAL_USERS_ONLINE }} ({{ lang('ONLINE_EXPLAIN') }})<br />{{ RECORD_USERS }}<br /> 
+			{% if U_VIEWONLINE %}
+				<br />{{ LOGGED_IN_USER_LIST }}
+				{% if LEGEND %}<br /><strong>{{ lang('LEGEND') }}{{ lang('COLON') }} {{ LEGEND }}</strong>{% endif %}
+			{% endif %}
+			{% EVENT index_body_block_online_append %}
+		</p>
+	</div>
+</div>
+{% endif %}
+
+{% EVENT index_body_birthday_block_before %}
+
+{% if S_DISPLAY_BIRTHDAY_LIST %}
+<div class="stat-block">
+	<i class="icon fa-birthday-cake fa-fw" aria-hidden="true"></i>
+	<div class="birthday-list">
+		<h3>{{ lang('BIRTHDAYS') }}</h3>
+		<p>
+			{% EVENT index_body_block_birthday_prepend %}
+			{% if loops.birthdays|length %}{{ lang('CONGRATULATIONS') }}{{ lang('COLON') }} <strong>{% for birthdays in loops.birthdays %}{{ birthdays.USERNAME }}{% if birthdays.AGE !== '' %} ({{ birthdays.AGE }}){% endif %}{% if not birthdays.S_LAST_ROW %}, {% endif %}{% endfor %}</strong>{% else %}{{ lang('NO_BIRTHDAYS') }}{% endif %}
+			{% EVENT index_body_block_birthday_append %}
+		</p>
+	</div>
+</div>
+{% endif %}
+
+{% if NEWEST_USER %}
+<div class="stat-block">
+	<i class="icon fa-bar-chart fa-fw" aria-hidden="true"></i>
+	<div class=" statistics">
+		<h3>{{ lang('STATISTICS') }}</h3>
+		<p>
+			{% EVENT index_body_block_stats_prepend %}
+			{{ TOTAL_POSTS }} &bull; {{ TOTAL_TOPICS }} &bull; {{ TOTAL_USERS }} &bull; {{ NEWEST_USER }}
+			{% EVENT index_body_block_stats_append %}
+		</p>
+	</div>
+</div>
+{% endif %}
+
+{% EVENT index_body_stat_blocks_after %}
+
+{% INCLUDE 'overall_footer.html' %}

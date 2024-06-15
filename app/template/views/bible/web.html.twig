@@ -1,0 +1,164 @@
+{% extends "docs.html.twig" %}
+{% block title %}World English Bible - Word of God Online Bible{% endblock %}
+{% block content %}
+<script>
+$(document).ready(function () {
+
+const STORAGE_KEY = 'savedVerses';
+
+$('.bogus').on('click', function() {
+  const { book, chapter, verse } = $(this).data();
+
+  highlighter(book, chapter, verse);
+  
+});
+
+function highlighter( book, chapter, verse )
+{
+    // Hightlight / remove highlight from verse
+    if($("#" + verse).hasClass('highlight'))
+    {
+        $("#" + verse).removeClass('highlight');
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}bible/removeHighlight/",
+            data: {
+                book: book,
+                chapter: chapter,
+                verse: verse
+            },
+            dataType: "json",
+            encode: true,
+        });
+
+    } else {
+        $("#" + verse).addClass('highlight');
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}bible/addHighlight/",
+            data: {
+                book: book,
+                chapter: chapter,
+                verse: verse
+            },
+            dataType: "json",
+            encode: true,
+        });
+    } 
+    
+}
+
+});
+</script>
+
+{% for mark in highlighted_verses %}
+<script>
+    $(document).ready(function () {
+        $("#" + {{ mark.verse }}).addClass('highlight');
+    });
+</script>
+{% endfor %}
+
+<div class="container mb-2">
+    <div class="row">
+        <div class="col-sm-5"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
+        <div class="col-sm-2"><button type="button" id="viewIntro" class="btn btn-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStart">View Introduction</button></div>
+        <div class="col-sm-5"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
+    </div>
+</div>
+<section id="biblecontainer" class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 style="color: #242424;" class="pull-left">{{ book }} <span style="color: #242424; float: right; font-size: 0.8em;">Chapter {{ chapter }}</span></h2>
+        </div>
+    </div>
+    <div class="mb-3 mt-2">
+        <div style="scroll-margin-top: 120px;">
+            {% if results|length > 0 %}
+                {% for result in results %}
+                    {% if result.verse == 1 %}
+                        <span id="{{ result.verse }}" class="bogus" data-book="{{ book }}" data-chapter="{{ chapter }}" data-verse="{{ result.verse }}">
+                            <sup class="verse">{{ result.verse }}</sup> &nbsp;&nbsp; 
+                            <span id="verseText-{{ result.verse }}">{{ result.text|replace({'¶' : '  '}) }}</span>
+                        </span>
+                    {% else %}
+                        {% if '¶' in result.text %}
+                            <p>
+                                <span id="{{ result.verse }}" class="bogus" data-book="{{ book }}" data-chapter="{{ chapter }}" data-verse="{{ result.verse }}">
+                                    <sup class="verse"><em>{{ result.verse }}</em></sup>
+                                    <span id="verseText-{{ result.verse }}">{{ result.text|replace({'¶' : '  '}) }}</span>
+                                </span> 
+                            </p>
+                        {% else %}
+                            <span id="{{ result.verse }}" class="bogus" data-book="{{ book }}" data-chapter="{{ chapter }}" data-verse="{{ result.verse }}">
+                                <sup class="verse"><em>{{ result.verse }}</em></sup>
+                                <span id="verseText-{{ result.verse }}">{{ result.text|replace({'¶' : '  '}) }}</span>
+                            </span> 
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No results found</p>
+            {% endif %}
+        </div>
+        <p>
+            {% if chapter == 1 %}
+        <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3"><a class="nextChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter + 1 }}">Next chapter <i class="fa fa-chevron-right"></i></a></div>
+        </div>
+        {% elseif chapter == numchapters %}
+        <div class="col-md-10"><a class="prevChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter - 1 }}">Previous chapter</a></div>
+        {% else %}
+        <div class="row">
+            <div class="col-md-9"><a class="prevChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter - 1 }}">Previous chapter</a></div>
+            <div class="col-md-3"><a class="nextChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter + 1 }}">Next chapter</a></div>
+        </div>
+        {% endif %}
+        </p>
+        {% set testament = results.0.testament %}
+        <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title text-center" id="exampleModalLabel3">Introduction to {{ book }}</h3>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                            ></button>
+                    </div>
+                    <div class="modal-body" style="padding: 3.5rem;">
+                        <div class="row">
+                            {% for description in intro %}
+                            {{ description.text }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasStart" aria-labelledby="offcanvasStartLabel" style="visibility: hidden;" aria-hidden="true">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasStartLabel" class="offcanvas-title">Introduction to {{ book }}</h5>
+            <br>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+            <p class="text-center">
+                {% for description in intro %}
+                {{ description.text }}
+                {% endfor %}
+            </p>
+            <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Continue</button>
+        </div>
+    </div>
+</section>
+{% endblock %}

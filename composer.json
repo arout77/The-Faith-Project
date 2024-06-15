@@ -32,7 +32,8 @@
         "symfony/console": "^7.0",
         "giggsey/libphonenumber-for-php": "^8.13",
         "geoip2/geoip2": "~2.0",
-        "tronovav/geoip2-update": "^2.3"
+        "tronovav/geoip2-update": "^2.3",
+        "authorizenet/authorizenet": "2.0.3"
     },
     "autoload": {
         "psr-4": {

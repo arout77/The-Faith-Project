@@ -1,0 +1,291 @@
+{% extends "standalone-pages.html.twig" %}
+{% block title %}Register a new agent{% endblock %}
+{% block content %}
+<!-- jQuery -->
+<script src="{{ base_url }}public/template/default/plugins/jquery/jquery.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            window.stepper = new Stepper(document.querySelector('.bs-stepper'), function(){
+          animation: true
+        })
+    });
+    
+    $(document).on('keyup keypress', 'form input[type="text"] , input[type="password"] ,  input[type="email"] ,  input[type="phone"]', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    $(document).ready(function(){
+    
+        // Form input fields
+        var company_phone_field = $('#phone');
+        var email_field = $('#email');
+        var firstname_field = $('#firstname');
+        var lastname_field = $('#lastname');
+    
+        // Form input field values
+        var company_phone = $('#phone').val();
+        var email = $('#email').val();
+        var firstname = $('#firstname').val();
+        var lastname = $('#lastname').val();
+    
+        // 'Next' buttons
+        var nextbtn1 = $('#section1nextbtn');
+    
+        // First hide the next button until a radio button is clicked
+        nextbtn1.prop('disabled',true);
+        nextbtn1.hide();
+    
+        $('#firstname').on("input", function() {
+            if($('#firstname').val() == '' || $('#lastname').val() == '' || $('#email').val() == '') {
+               nextbtn1.prop('disabled',true);
+               nextbtn1.hide();
+            } else {
+                nextbtn1.prop('disabled',false);
+                nextbtn1.show();  
+            }
+        });
+    
+        $('#lastname').on("input", function() {
+            if($('#firstname').val() == '' || $('#lastname').val() == '' || $('#email').val() == '') {
+               nextbtn1.prop('disabled',true);
+               nextbtn1.hide();
+            } else {
+                nextbtn1.prop('disabled',false);
+                nextbtn1.show();  
+            }
+        });
+    
+        $('#email').on("input", function() {
+            if($('#firstname').val() == '' || $('#lastname').val() == '' || $('#email').val() == '') {
+               nextbtn1.prop('disabled',true);
+               nextbtn1.hide();
+            } else {
+                nextbtn1.prop('disabled',false);
+                nextbtn1.show();  
+            }
+        });
+    
+        var phoneInput = document.getElementById('phone');
+    
+        phoneInput.addEventListener('input', function (e) {
+          var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+          e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+    
+    });
+</script>
+
+{% if session.validation.exists == 'no' %} 
+    <script>
+    $(document).ready(function(){ 
+        $("#cname").show();
+        $('#section1nextbtn').prop('disabled',false).show();
+    });
+    </script> 
+{% endif %}
+{% if session.validation.exists == 'yes' %} 
+    <script>
+    $(document).ready(function(){ 
+        $("#cid").show();
+        $('#section1nextbtn').prop('disabled',false).show();
+    });
+    </script> 
+{% endif %}
+
+<div class="container">
+    <div class="bs-stepper linear">
+        <div class="bs-stepper-header" role="tablist">
+            <div class="line"></div>
+            <div class="step" data-target="#information-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger" aria-selected="false" disabled="disabled">
+                <span class="bs-stepper-circle">1</span>
+                <span class="bs-stepper-label">Personal Information</span>
+                </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#profile-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="profile-part" id="profile-part-trigger" aria-selected="false" disabled="disabled">
+                <span class="bs-stepper-circle">2</span>
+                <span class="bs-stepper-label">Profile</span>
+                </button>
+            </div>
+        </div>
+        <div class="bs-stepper-content">
+        {% if session.validation.errors|length > 0 %}
+                    <div class="alert alert-danger">
+                    {{ dump(session.validation.errors) }}
+                    </div>
+        {% endif %}
+            {% if session.validation.errors|length > 0 %}
+            <div class="alert alert-danger text-center">
+                We found some errors in your submission. Please review your information and resubmit the form.
+            </div>
+            {% endif %}
+            <form method="post" action="{{ base_url }}register/process_new_agent/" enctype="multipart/form-data">
+                <!-- your steps content here -->
+                <div id="information-part" class="content fade" role="tabpanel" aria-labelledby="information-part-trigger">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <strong>First Name</strong>
+                            <small>
+                                <div class="redText">
+                                    {% if session.validation.errors.input.field == 'firstname' %}
+                                    {% for error in session.validation.errors %}
+                                    <br>{{ error.messages }}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </small>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <strong>Last Name</strong>
+                            <small>
+                                <div class="redText">
+                                    {% if session.validation.errors.input.field == 'lastname' %}
+                                    {% for error in session.validation.errors %}
+                                    <br>{{ error.messages }}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </small>
+                        </div>
+                        <div class="input-group mb-3 col-xs-12 col-md-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" id="firstname" name="firstname" class="form-control col-xs-12" value="{{ session.validation.fname }}" placeholder="First Name">
+                        </div>
+                        <div class="input-group mb-3 col-xs-12 col-md-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" id="lastname" name="lastname" class="form-control col-xs-12" value="{{ session.validation.lname }}" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input type="email" name="email" id="email" class="form-control col-xs-12" value="{{ session.validation.email }}" placeholder="Email">
+                        <small>
+                            <div class="redText">
+                                {% if session.validation.errors.input.field == 'email' %}
+                                {% for error in session.validation.errors %}
+                                {{ error.messages }}
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </small>
+                    </div>
+                    <div>
+                        <label for="phone">Agent Phone Number</label>
+                    </div>
+                    <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                </div>
+                                <input type="tel" id="phone" name="phone" class="form-control col-xs-12" value="{{ session.validation.phone }}" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                <small>
+                                    <div class="redText">
+                                        {% if session.validation.errors.input.field == 'phone' %}
+                                        {% for error in session.validation.errors %}
+                                        {{ error.messages }}
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </small>
+                    </div>
+                    <div>
+                        <label for="phoneext">Extension</label>
+                    </div>
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><strong>X</strong></span>
+                                </div>
+                    <input type="tel" id="phoneext" name="phoneext" class="form-control col-xs-12" value="{{ session.validation.phoneext }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select id="role_in_company" name="role_in_company" class="form-control select2" style="width: 100%;">
+                            <option value="back end developer">Back End Developer</option>
+                            <option value="front end developer">Front End Developer</option>
+                            <option value="project manager">Project Management</option>
+                            <option value="owner">Executive / Owner</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="sales">Sales</option>
+                            <option value="support">Support / Customer Service</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="section1nextbtn" type="button" onclick="stepper.next()">Next</button>
+                </div>
+                <div id="profile-part" class="content fade" role="tabpanel" aria-labelledby="profile-part-trigger">
+                    <div>
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                        </div>
+                        <input type="password" name="password" id="password" class="form-control col-xs-12" value="{{ session.validation.password }}" placeholder="Password" minlength="8">
+                        <small>
+                            <div class="redText">
+                                {% if session.validation.errors.input.field == 'password' %}
+                                {% for error in session.validation.errors %}
+                                {{ error.messages }}
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </small>
+                    </div>
+                    <div>
+                        <label for="cpassword">Confirm Password</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                        </div>
+                        <input type="password" name="cpassword" id="cpassword" class="form-control col-xs-12" value="{{ session.validation.cpassword }}" placeholder="Confirm Password" minlength="8">
+                        <small>
+                            <div class="redText">
+                                {% if session.validation.errors.input.field == 'cpassword' %}
+                                {% for error in session.validation.errors %}
+                                {{ error.messages }}
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">Upload Avatar</label>
+                        <p><em>* Optional. Only JPG/JPEG, PNG and GIF files are allowed.</em></p>
+                        <div class="input-group">
+                            <div class="custom-file mb-3">
+                                <input type="file" class="custom-file-input" name="avatar" id="avatar" oninput="pic.src=window.URL.createObjectURL(this.files[0])">
+                                <label class="custom-file-label" for="avatar">Choose file</label>
+                            </div>
+                            <div>
+                                <p><img id="pic" height="150px"/></p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="button" onclick="stepper.previous()">Previous</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        function preview() {
+            frame.src=URL.createObjectURL(event.target.files[0]);
+        }
+    });
+</script>
+{% endblock %}

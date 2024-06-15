@@ -5,10 +5,19 @@ class Config
 {
 	const DS = DIRECTORY_SEPARATOR;
 
+	/**
+	 * @var array
+	 */
 	public $setting = [];
 
+	/**
+	 * @var mixed
+	 */
 	private $db;
 
+	/**
+	 * @param $env
+	 */
 	public function __construct( $env )
 	{
 		# Database Connection
@@ -31,6 +40,10 @@ class Config
 		// $this->setting['smtp_html'] = $env->get_global_configuration('smtp_html');
 		// $this->setting['smtp_debug'] = $env->get_global_configuration('smtp_debug');
 		$this->setting['mailer_dsn'] = $env->get_global_configuration( 'MAILER_DSN' );
+
+		# Authorizenet Sandbox settings
+		$this->setting['api_login_id']    = $env->get_global_configuration( 'api_login_id' );
+		$this->setting['transaction_key'] = $env->get_global_configuration( 'transaction_key' );
 
 		# Default controller
 		$this->setting['default_controller'] = $env->get_global_configuration( 'default_controller' );
@@ -193,6 +206,10 @@ class Config
 	{
 	}
 
+	/**
+	 * @param $setting
+	 * @return mixed
+	 */
 	public final function setting( $setting )
 	{
 		return $this->setting["$setting"];

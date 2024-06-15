@@ -24,6 +24,9 @@ class Router
 
 	public array $parameter = [];
 
+	/**
+	 * @param $subdir
+	 */
 	public function getRoute( $subdir = null ): void
 	{
 		// This function will take all URL segments
@@ -86,12 +89,27 @@ class Router
 			{
 				continue;
 			}
-			$this->parameter[$index - 1] = $val;
+			if ( isset( $urlSegments[2] ) )
+			{
+				$this->parameter[1] = $urlSegments[2];
+				// var_dump( $this->parameter[$index - 1] );exit;
+			}
+			if ( isset( $urlSegments[3] ) )
+			{
+				$this->parameter[2] = $urlSegments[3];
+				// var_dump( $this->parameter[$index - 1] );exit;
+			}
+
 		}
+
 		unset( $urlSegments );
 		unset( $keys );
 	}
 
+	/**
+	 * @param $app
+	 * @return mixed
+	 */
 	public function interceptGet( $app )
 	{
 		return $_GET = strip_tags( $_GET );
@@ -109,6 +127,11 @@ class Router
 		);
 	}
 
+	/**
+	 * @param array $post
+	 * @param $app
+	 * @return mixed
+	 */
 	public function interceptPost( array $post, $app )
 	{
 		return $_POST = $app["validate"]->xss_clean( $post );

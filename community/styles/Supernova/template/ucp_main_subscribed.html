@@ -1,0 +1,180 @@
+{% INCLUDE 'ucp_header.html' %}
+
+<form id="ucp" method="post" action="{{ S_UCP_ACTION }}"{{ S_FORM_ENCTYPE }}>
+
+<h2>{{ lang('TITLE') }}</h2>
+<div class="panel">
+	<div class="inner">
+
+	<p>{{ lang('WATCHED_EXPLAIN') }}</p>
+
+{% if loops.forumrow|length %}
+<div class="sn-cat-header">
+	<ul class="topiclist missing-column">
+		<li class="header">
+			<dl class="row-item">
+				<dt><div class="list-inner">{{ lang('WATCHED_FORUMS') }}</div></dt>
+				<dd class="lastpost"><span>{{ lang('LAST_POST') }}</span></dd>
+				<dd class="mark">{{ lang('MARK') }}</dd>
+			</dl>
+		</li>
+	</ul>
+</div>
+	<div class="sn-cat-row" id="sn-row-{{ forumrow.FORUM_ID }}">
+	<ul class="topiclist cplist missing-column">
+
+	{% for forumrow in loops.forumrow %}
+		<li class="row{% if forumrow.S_ROW_COUNT is odd %} bg1{% else %} bg2{% endif %}">
+			<dl class="row-item sn-index-icon {{ forumrow.FORUM_IMG_STYLE }}">
+				<dt>
+					{% if forumrow.S_UNREAD_FORUM %}<a href="{{ forumrow.U_VIEWFORUM }}" class="row-item-link"></a>{% endif %}
+					<div class="list-inner">
+						<a href="{{ forumrow.U_VIEWFORUM }}" class="forumtitle">{{ forumrow.FORUM_NAME }}</a><br />
+						{{ forumrow.FORUM_DESC }}
+						{% if forumrow.LAST_POST_TIME %}
+						<div class="responsive-show" style="display: none;">
+							{{ lang('LAST_POST') }} {{ lang('POST_BY_AUTHOR') }} {{ forumrow.LAST_POST_AUTHOR_FULL }} &laquo; <a href="{{ forumrow.U_LAST_POST }}">{{ forumrow.LAST_POST_TIME }}</a>
+						</div>
+						{% endif %}
+					</div>
+				</dt>
+				<dd class="lastpost">
+					{% if forumrow.LAST_POST_TIME_RFC3339 %}
+						<span><dfn>{{ lang('LAST_POST') }} </dfn>{{ lang('POST_BY_AUTHOR') }} {{ forumrow.LAST_POST_AUTHOR_FULL }}
+							<a href="{{ forumrow.U_LAST_POST }}">
+								<i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{{ VIEW_LATEST_POST }}</span>
+							</a>
+							<br /><time datetime="{forumrow.LAST_POST_TIME_RFC3339}">{forumrow.LAST_POST_TIME}</time></span>
+					{% else %}
+						{{ lang('NO_POSTS') }}<br />&nbsp;
+					{% endif %}
+				</dd>
+				<dd class="mark"><input type="checkbox" name="f[{{ forumrow.FORUM_ID }}]" id="f{{ forumrow.FORUM_ID }}" /></dd>
+			</dl>
+		</li>
+	{% endfor %}
+	</ul>
+	</div>
+	<div class="sn-cat-footer"></div>
+{% elseif S_FORUM_NOTIFY %}
+    <ul class="topiclist no-sub">
+        <li class="header">
+            <dl class="row-item">
+                <dt>{{ lang('WATCHED_FORUMS') }}</dt>
+            </dl>
+        </li>
+    </ul>
+	<p><strong>{{ lang('NO_WATCHED_FORUMS') }}</strong></p>
+{% endif %}
+    <br />
+
+{% if loops.topicrow|length %}
+<div class="forabg">
+	<ul class="topiclist missing-column">
+		<li class="header">
+			<dl class="row-item">
+				<dt><div class="list-inner">{{ lang('WATCHED_TOPICS') }}</div></dt>
+				<dd class="lastpost"><span>{{ lang('LAST_POST') }}</span></dd>
+				<dd class="mark">{{ lang('MARK') }}</dd>
+			</dl>
+		</li>
+	</ul>
+
+
+	<ul class="topiclist cplist missing-column">
+
+	{% for topicrow in loops.topicrow %}
+		<li class="row{% if topicrow.S_TOPIC_REPORTED %} reported{% elseif topicrow.S_ROW_COUNT is odd %} bg1{% else %} bg2{% endif %}">
+			<dl class="row-item {{ topicrow.TOPIC_IMG_STYLE }}">
+				<dt{% if topicrow.TOPIC_ICON_IMG %} style="background-image: url({{ T_ICONS_PATH }}{{ topicrow.TOPIC_ICON_IMG }}); background-repeat: no-repeat;"{% endif %} title="{{ topicrow.TOPIC_FOLDER_IMG_ALT }}">
+					{% if topicrow.S_UNREAD_TOPIC %}<a href="{{ topicrow.U_NEWEST_POST }}" class="row-item-link"></a>{% endif %}
+					<div class="list-inner">
+						{% if topicrow.S_UNREAD_TOPIC %}
+							<a class="unread" href="{{ topicrow.U_NEWEST_POST }}">
+								<i class="icon fa-file fa-fw icon-red icon-md" aria-hidden="true"></i><span class="sr-only">{{ NEW_POST }}</span>
+							</a>
+						{% endif %}<a href="{{ topicrow.U_VIEW_TOPIC }}" class="topictitle">{{ topicrow.TOPIC_TITLE }}</a>
+						{% if topicrow.S_TOPIC_UNAPPROVED or topicrow.S_POSTS_UNAPPROVED %}
+							<a href="{{ topicrow.U_MCP_QUEUE }}" title="{{ lang('TOPIC_UNAPPROVED') }}">
+								<i class="icon fa-question fa-fw icon-blue" aria-hidden="true"></i><span class="sr-only">{{ lang('TOPIC_UNAPPROVED') }}</span>
+							</a>
+						{% endif %}
+						{% if topicrow.S_TOPIC_REPORTED %}
+							<a href="{{ topicrow.U_MCP_REPORT }}" title="{{ lang('TOPIC_REPORTED') }}">
+								<i class="icon fa-exclamation fa-fw icon-red" aria-hidden="true"></i><span class="sr-only">{{ lang('TOPIC_REPORTED') }}</span>
+							</a>
+						{% endif %}
+						<br />
+						{% EVENT ucp_main_subscribed_topic_title_after %}
+						{% if topicrow.pagination|length %}
+						<div class="pagination">
+							<ul>
+							{% for pagination in topicrow.pagination %}
+								{% if pagination.S_IS_PREV %}
+								{% elseif pagination.S_IS_CURRENT %}<li class="active"><span>{{ pagination.PAGE_NUMBER }}</span></li>
+								{% elseif pagination.S_IS_ELLIPSIS %}<li class="ellipsis"><span>{{ lang('ELLIPSIS') }}</span></li>
+								{% elseif pagination.S_IS_NEXT %}
+								{% else %}<li><a href="{{ pagination.PAGE_URL }}">{{ pagination.PAGE_NUMBER }}</a></li>
+								{% endif %}
+							{% endfor %}
+							</ul>
+						</div>
+						{% endif %}
+						<div class="responsive-hide">
+							{% if topicrow.ATTACH_ICON_IMG %}<i class="icon fa-paperclip fa-fw" aria-hidden="true"></i> {% endif %}
+							{{ lang('POST_BY_AUTHOR') }} {{ topicrow.TOPIC_AUTHOR_FULL }} &raquo; {{ topicrow.FIRST_POST_TIME }}
+						</div>
+						<div class="responsive-show" style="display: none;">
+							{% if topicrow.ATTACH_ICON_IMG %}<i class="icon fa-paperclip fa-fw" aria-hidden="true"></i> {% endif %}
+							{{ lang('LAST_POST') }} {{ lang('POST_BY_AUTHOR') }} {{ topicrow.LAST_POST_AUTHOR_FULL }} &laquo; <a href="{{ topicrow.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST') }}">{{ topicrow.LAST_POST_TIME }}</a>
+						</div>
+					</div>
+				</dt>
+				<dd class="lastpost"><span><dfn>{{ lang('LAST_POST') }} </dfn>{{ lang('POST_BY_AUTHOR') }} {{ topicrow.LAST_POST_AUTHOR_FULL }}
+					<a href="{{ topicrow.U_LAST_POST }}" title="{{ lang('GOTO_LAST_POST') }}">
+						<i class="icon fa-external-link-square fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{{ VIEW_LATEST_POST }}</span>
+					</a>
+					<br />{{ topicrow.LAST_POST_TIME }}</span>
+				</dd>
+				<dd class="mark"><input type="checkbox" name="t[{{ topicrow.TOPIC_ID }}]" id="t{{ topicrow.TOPIC_ID }}" /></dd>
+			</dl>
+		</li>
+	{% endfor %}
+	</ul>
+</div>
+
+	<div class="action-bar bar-bottom">
+		<div class="pagination">
+			{{ TOTAL_TOPICS }}
+			{% if loops.pagination|length %}
+				{% INCLUDE 'pagination.html' %}
+			{% else %}
+				 &bull; {{ PAGE_NUMBER }}
+			{% endif %}
+		</div>
+	</div>
+
+{% elseif S_TOPIC_NOTIFY %}
+    <ul class="topiclist no-sub">
+        <li class="header">
+            <dl class="row-item">
+                <dt>{{ lang('WATCHED_TOPICS') }}</dt>
+            </dl>
+        </li>
+    </ul>
+	<p><strong>{{ lang('NO_WATCHED_TOPICS') }}</strong></p>
+{% endif %}
+
+	</div>
+</div>
+
+{% if loops.topicrow|length or loops.forumrow|length %}
+	<fieldset class="display-actions">
+		<input type="submit" name="unwatch" value="{{ lang('UNWATCH_MARKED') }}" class="button2" />
+		<div><a href="#" onclick="marklist('ucp', 't', true); marklist('ucp', 'f', true); return false;">{{ lang('MARK_ALL') }}</a> &bull; <a href="#" onclick="marklist('ucp', 't', false); marklist('ucp', 'f', false); return false;">{{ lang('UNMARK_ALL') }}</a></div>
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+{% endif %}
+</form>
+
+{% INCLUDE 'ucp_footer.html' %}

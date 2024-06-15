@@ -1,0 +1,91 @@
+
+<h3 id="review" class="review">
+	<span class="right-box"><a href="#review" onclick="viewableArea(getElementById('topicreview'), true); var rev_text = getElementById('review').getElementsByTagName('a').item(0).firstChild; if (rev_text.data == '{{ lang('EXPAND_VIEW')|escape('js') }}'){rev_text.data = '{{ lang('COLLAPSE_VIEW')|escape('js') }}'; } else if (rev_text.data == '{{ lang('COLLAPSE_VIEW')|escape('js') }}'){rev_text.data = '{{ lang('EXPAND_VIEW')|escape('js') }}'};">{{ lang('EXPAND_VIEW') }}</a></span>
+	{{ lang('TOPIC_REVIEW') }}{{ lang('COLON') }} {{ TOPIC_TITLE }}
+</h3>
+
+<div id="topicreview" class="topicreview">
+<script>
+	bbcodeEnabled = {{ S_BBCODE_ALLOWED }};
+</script>
+	{% for topic_review_row in loops.topic_review_row %}
+
+	{% if topic_review_row.S_IGNORE_POST %}
+	<div class="post bg3 post-ignore">
+		<div class="inner">
+			{topic_review_row.L_IGNORE_POST}<br>
+			<a class="display_post_review" href="{{ post_review_row.U_MINI_POST }}">{{ lang('POST_DISPLAY') }}</a>
+	{% elseif topic_review_row.S_POST_DELETED %}
+	<div class="post bg3 post-ignore">
+		<div class="inner">
+			{topic_review_row.L_DELETE_POST}<br>
+			<a class="display_post_review" href="{{ post_review_row.U_MINI_POST }}">{{ lang('POST_DISPLAY') }}</a>
+	{% else %}
+	<div class="post {% if topic_review_row.S_ROW_COUNT is odd %}bg1{% else %}bg2{% endif %}{% if topic_review_row.POST_ID == REPORTED_POST_ID %} reported{% endif %}">
+		<div class="inner">
+	{% endif %}
+
+		<div class="postbody" id="pr{{ topic_review_row.POST_ID }}">
+			<h3><a href="{{ topic_review_row.U_MINI_POST }}">{{ topic_review_row.POST_SUBJECT }}</a></h3>
+
+			{% if (topic_review_row.POSTER_QUOTE and topic_review_row.DECODED_MESSAGE) or topic_review_row.U_MCP_DETAILS %}
+			<ul class="post-buttons">
+			{% if topic_review_row.U_MCP_DETAILS %}
+				<li>
+					<a href="{{ topic_review_row.U_MCP_DETAILS }}" title="{{ lang('POST_DETAILS') }}" class="button button-icon-only btn-green">
+						<i class="icon fa-info fa-fw" aria-hidden="true"></i><span class="sr-only">{{ lang('POST_DETAILS') }}</span>
+					</a>
+				</li>
+			{% endif %}
+			{% if topic_review_row.POSTER_QUOTE and topic_review_row.DECODED_MESSAGE %}
+				<li>
+					<a href="#postingbox" onclick="addquote({{ topic_review_row.POST_ID }}, '{{ topic_review_row.POSTER_QUOTE }}', '{{ lang('WROTE')|escape('js') }}', {post_id:{{ topic_review_row.POST_ID }},time:{{ topic_review_row.POST_TIME }},user_id:{{ topic_review_row.USER_ID }}});" title="{{ lang('QUOTE') }} {{ topic_review_row.POST_AUTHOR }}" class="button button-icon-only">
+						<i class="icon fa-quote-left fa-fw" aria-hidden="true"></i><span class="sr-only">{{ lang('QUOTE') }} {{ topic_review_row.POST_AUTHOR }}</span>
+					</a>
+				</li>
+			{% endif %}
+			</ul>
+			{% endif %}
+
+			{% EVENT posting_topic_review_row_post_details_before %}
+			<p class="author">
+				{% if S_IS_BOT %}
+					<span><i class="icon fa-file fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{{ topic_review_row.MINI_POST }}</span></span>
+				{% else %}
+					<a href="{{ topic_review_row.U_MINI_POST }}" title="{{ topic_review_row.MINI_POST }}">
+						<i class="icon fa-file fa-fw icon-lightgray icon-md" aria-hidden="true"></i><span class="sr-only">{{ topic_review_row.MINI_POST }}</span>
+					</a>
+				{% endif %}
+				{{ lang('POST_BY_AUTHOR') }} {% EVENT posting_topic_review_row_post_author_username_prepend %}<strong>{{ topic_review_row.POST_AUTHOR_FULL }}</strong>{% EVENT posting_topic_review_row_post_author_username_append %} &raquo; {{ topic_review_row.POST_DATE }}
+			</p>
+			{% EVENT posting_topic_review_row_post_details_after %}
+
+			<div class="content">{{ topic_review_row.MESSAGE }}</div>
+
+			{% EVENT posting_topic_review_row_content_after %}
+
+			{% if topic_review_row.S_HAS_ATTACHMENTS %}
+				<dl class="attachbox">
+					<dt>{{ lang('ATTACHMENTS') }}</dt>
+					{% for attachment in topic_review_row.attachment %}
+						<dd>{{ attachment.DISPLAY_ATTACHMENT }}</dd>
+					{% endfor %}
+				</dl>
+			{% endif %}
+
+			{% if topic_review_row.POSTER_QUOTE and topic_review_row.DECODED_MESSAGE %}
+				<div id="message_{{ topic_review_row.POST_ID }}" style="display: none;">{{ topic_review_row.DECODED_MESSAGE }}</div>
+			{% endif %}
+		</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+<hr />
+
+<p>
+	<a href="{% if S_MCP_REPORT %}#report{% else %}#postingbox{% endif %}" class="top">
+		<i class="icon fa-chevron-circle-up fa-fw icon-gray" aria-hidden="true"></i><span>{{ lang('BACK_TO_TOP') }}</span>
+	</a>
+</p>

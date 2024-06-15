@@ -2,7 +2,7 @@
     class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
     id="layout-navbar"
     >
-    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+    <div id="toggleSidebar" class="layout-menu-toggle navbar-nav align-items-xl-center me-3">
         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
         <i class="bx bx-menu bx-sm"></i>
         </a>
@@ -28,14 +28,6 @@
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
-        
-              
-        {# <li class="nav-item lh-1 me-3">
-            <a class="dropdown-item" href="#">
-            <i class="bx bx-cloud-download me-2"></i>
-            <span class="align-middle">Download</span>
-            </a>
-        </li> #}
         <li class="nav-item lh-1 me-3">
             <div class="input-group"  id="nav-books">
               <button type="button" class="input-group-text"><i class="fa fa-bible"></i></button>
@@ -132,36 +124,29 @@ $(document).ready(function () {
     $("#selectChapter").hide();
     $("#submitBtn").prop("disabled", true);
 
-
   $("#selectBook").change(function (event) {
     $('#selectBook').width(160);
     $("#selectChapter").width(65);
     $("#selectChapter").show();
-    var formData = {
-      book: $("#selectBook").val(),
-    };
 
-    $.ajax({
-      type: "POST",
-      url: "{{ base_url }}bible/get_chapter_count/",
-      data: formData,
-      dataType: "json",
-      encode: true,
-    }).done(function (data) {
-        for (let i = 1; i <= data; i++) {
-          $('#selectChapter')
-            .append($("<option></option>")
-            .attr("value", i)
-            .text(i));
-          }
-        let selbook = $("#selectBook").val();
+    {% for key, chap in bookMap %}
+        var chapter = $('#selectBook').find(":selected").text();
+        if(chapter == "{{ key }}")
+        {
+            $('#selectChapter').empty();
 
-        $('#selectChapter').change( function(){
+            {% for c in chap %}
+                $('#selectChapter').append( "{{ c|raw }}" );
+            {% endfor %}
+
             $('#submitBtn').addClass('btn-success');
             $("#submitBtn").prop("disabled", false);
-        });
+        }
+  {% endfor %}
 
-      $("#submitBtn").click( function(){
+    let selbook = $("#selectBook").val();
+
+    $("#submitBtn").click( function(){
         window.location.replace( 
             "{{ base_url }}" + 
             'bible/' + 
@@ -171,10 +156,32 @@ $(document).ready(function () {
             '/' +  
             $('#selectChapter').find(":selected").val()
         )
-      });
     });
+    // var formData = {
+    //   book: $("#selectBook").val(),
+    // };
 
-    event.preventDefault();
-  });
+    // $.ajax({
+    //   type: "POST",
+    //   url: "{{ base_url }}bible/get_chapter_count/",
+    //   data: formData,
+    //   dataType: "json",
+    //   encode: true,
+    // }).done(function (data) {
+    //     for (let i = 1; i <= data; i++) {
+    //       $('#selectChapter')
+    //         .append($("<option></option>")
+    //         .attr("value", i)
+    //         .text(i));
+    //       }
+    //     let selbook = $("#selectBook").val();
+
+    //     $('#selectChapter').change( function(){
+    //         $('#submitBtn').addClass('btn-success');
+    //         $("#submitBtn").prop("disabled", false);
+    //     });
+
+
+    });
 });
 </script>

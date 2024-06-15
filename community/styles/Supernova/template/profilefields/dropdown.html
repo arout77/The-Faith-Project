@@ -1,0 +1,5 @@
+{% for dropdown in loops.dropdown %}
+<select name="{{ dropdown.FIELD_IDENT }}" id="{{ dropdown.FIELD_IDENT }}">
+	{% for options in dropdown.options %}<option value="{{ options.OPTION_ID }}"{{ options.SELECTED }}>{{ options.VALUE }}</option>{% endfor %}
+</select>
+{% endfor %}

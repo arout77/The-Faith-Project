@@ -54,14 +54,23 @@ class Study_Controller extends Base_Controller
 	public function quiz()
 	{
 		// Quiz on Old / New Testament or both
-		$type      = $this->route->parameter[1] ?? "general";
-		$model     = $this->model( 'Study' );
-		$questions = $model->getQuiz( $type );
+		if ( !isset( $this->route->parameter[1] ) )
+		{
+			$type = "general";
+		}
+		else
+		{
+			$type = $this->route->parameter[1];
+		}
+
+		$num_questions = 20;
+		$model         = $this->model( 'Study' );
+		$questions     = $model->getQuiz( $type );
 
 		$this->template->render( "study\quiz.html.twig",
 			[
 				'results'       => $questions,
-				'total_records' => count( $questions ),
+				'total_records' => $num_questions,
 			]
 		);
 
@@ -83,7 +92,7 @@ class Study_Controller extends Base_Controller
 		{
 			// Gather questions and answers to pass to twig
 			$question[$i]['text']          = $_POST["questionText-$i"];
-			$question[$i]['answergiven']   = $_COOKIE["question{$i}"];
+			$question[$i]['answergiven']   = $_POST["question{$i}"];
 			$question[$i]['correctanswer'] = $_POST["answer-{$i}"];
 
 			// Grade the responses
