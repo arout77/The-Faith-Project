@@ -29,12 +29,16 @@
     </div>
 </footer>
 <!-- / Footer -->
+
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 <script src="{{ base_url }}public/template/docs/assets/vendor/libs/popper/popper.js"></script>
 <script src="{{ base_url }}public/template/docs/assets/vendor/js/bootstrap.js"></script>
 <script src="{{ base_url }}public/template/docs/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 <script src="{{ base_url }}public/template/docs/assets/vendor/js/menu.js"></script>
+<script src="{{ base_url }}public/template/docs/js/jquery.timeago.js"></script>
+<script src="{{ base_url }}public/template/docs/assets/js/ui-toasts.js"></script>
+<script async src="{{ base_url }}public/template/docs/js/social.js"></script>
 <!-- endbuild -->
 <!-- Vendors JS -->
 <script src="{{ base_url }}public/template/docs/assets/vendor/libs/apex-charts/apexcharts.js"></script>
@@ -43,26 +47,35 @@
 <!-- Page JS -->
 <script src="{{ base_url }}public/template/docs/assets/js/dashboards-analytics.js"></script>
 <script>
-    $( document ).ready(function() {
-    
-      const checkbox = document.getElementById("checkbox")
-      checkbox.addEventListener("change", () => {
-      document.body.classList.toggle("dark")
-          if(document.body.classList == "dark") {
-            localStorage.setItem('mode', 'dark');
-          } else {
-            localStorage.setItem('mode', 'light');
-          }
-      });
-      
-      let mode;
-      mode = localStorage.getItem('mode');
-    
-      if (mode === 'light'){
-          lightMode();
-      }else{
-          darkMode();
+$( document ).ready(function() {
+    // --- Start timers to get message and notification counts
+    setInterval(getUnreadNotif, 9000);      // Every 9 secs
+    setInterval(getUnreadPM, 10000);        // Every 10 secs
+    setTimeout(showPMToast, 300000);        // Show once after 5 minutes
+    setTimeout(showNotifToast, 240000);     // Show once after 4 minutes
+
+    // --- Convert dates to 'time ago...'
+    $("time.timeago").timeago();
+
+    // --- Dark mode
+    const checkbox = document.getElementById("checkbox")
+    checkbox.addEventListener("change", () => {
+    document.body.classList.toggle("dark")
+      if(document.body.classList == "dark") {
+        localStorage.setItem('mode', 'dark');
+      } else {
+        localStorage.setItem('mode', 'light');
       }
+    });
+
+    let mode;
+    mode = localStorage.getItem('mode');
+
+    if (mode === 'light'){
+      lightMode();
+    }else{
+      darkMode();
+    }
     
     function darkMode() {
         document.body.classList.add("dark");
@@ -75,11 +88,95 @@
         localStorage.setItem('mode', 'light');
         mode = localStorage.getItem('mode');
     }
-    });
-</script>
-<script>
-$(document).ready(function () {
+    // --- end dark mode
+
+    // --- Get unread PM count
+    function getUnreadPM()
+    {
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}notifications/unread_pm_count/",
+            data: {
+                userid: {{ user_id }}
+            },
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            if(data >= 1)
+            {
+                $("#pmcount").show();
+                $("#pmcount").html( data );
+            } else {
+                $("#pmcount").hide();
+            }
+        });
+    }
+    // --- End Get unread PM count
+
+    // --- Get unread Notifications count
+    function getUnreadNotif()
+    {
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}notifications/unread_notif_count/",
+            data: {
+                userid: {{ user_id }}
+            },
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            if(data >= 1)
+            {
+                $("#notifcount").show();
+                $("#notifcount").html( data );
+                $("#useravatar").addClass( 'notifbubble' );
+                // document.title = "(" + data + ")"+ ' ' + document.title;
+            } else {
+                $("#notifcount").hide();
+                $("#useravatar").removeClass( 'notifbubble' );
+            }
+        });
+    }
+    // --- End Get unread Notifications count
+
+    // --- Toasts
+    function showPMToast()
+    {
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}notifications/unread_pm_count/",
+            data: {
+                userid: {{ user_id }}
+            },
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            if(data >= 1)
+            {
+               $('#toast-pm').toast('show');
+            }
+        });
+    }
+
+    function showNotifToast()
+    {
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}notifications/unread_notif_count/",
+            data: {
+                userid: {{ user_id }}
+            },
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            if(data >= 1)
+            {
+               $('#toast-notif').toast('show');
+            }
+        });
+    }
     
+    // --- Language and bible version 
     $("#eng").click( function(){
         document.cookie = "lang=english";
     });
@@ -111,26 +208,27 @@ $(document).ready(function () {
     $("#lutherver").click( function(){
         document.cookie = "bibleVersion=luther";
     });
+    // --- End Language and bible version 
 
     // Toggle sidebar and adjust navbar and video size/positioning
     // when viewing videos for nicer experience
-    const url = window.location.href;
-    const find = 'videos/watch/';
-    const found = url.match(find);
+    // const url = window.location.href;
+    // const find = 'videos/watch/';
+    // const found = url.match(find);
 
-    if(found !== null && found[0] === find){
-      $('#layout-menu').toggle();
-      $('#toggleSidebar').click(function(){
-        $('#layout-menu').toggle();
-        if( $("#layout-menu").is(":hidden") )
-        {
-            $('#layout-navbar').css("left", "11rem");
-            $('#watchVideo').css("width", "80%");
-        } else {
-            $('#layout-navbar').css("left", "17rem");
-            $('#watchVideo').css("width", "60%");
-        }
-      });
-    }
+    // if(found !== null && found[0] === find){
+    //   $('#layout-menu').toggle();
+    //   $('#toggleSidebar').click(function(){
+    //     $('#layout-menu').toggle();
+    //     if( $("#layout-menu").is(":hidden") )
+    //     {
+    //         $('#layout-navbar').css("left", "11rem");
+    //         $('#watchVideo').css("width", "80%");
+    //     } else {
+    //         $('#layout-navbar').css("left", "17rem");
+    //         $('#watchVideo').css("width", "60%");
+    //     }
+    //   });
+    // }
 });
 </script>

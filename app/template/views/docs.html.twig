@@ -24,7 +24,11 @@ data-assets-path="../../assets/" data-template="vertical-menu-template"></html>
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ base_url }}public/template/docs/assets/img/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="{{ base_url }}favicon.ico" />
     
     <link rel="canonical" href="{{ base_url }}">
 
@@ -49,6 +53,9 @@ data-assets-path="../../assets/" data-template="vertical-menu-template"></html>
     <link rel="stylesheet" href="{{ base_url }}public/template/docs/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="{{ base_url }}public/template/docs/assets/vendor/libs/apex-charts/apex-charts.css" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+<!--[if (lt IE 9)]><script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/min/tiny-slider.helper.ie8.js"></script><![endif]-->
+
     <!-- Page CSS -->
     <link rel="stylesheet" href="{{ base_url }}public/template/docs/assets/css/custom.css"/>
     {% if current_page == 'videos' and current_action == 'watch' %}
@@ -63,6 +70,11 @@ data-assets-path="../../assets/" data-template="vertical-menu-template"></html>
     <script src="{{ base_url }}public/template/docs/assets/vendor/js/helpers.js"></script>
     <script src="{{ base_url }}public/template/docs/js/mixitup.min.js"></script>
     <script src="{{ base_url }}public/template/docs/js/jquery.steps.min.js"></script>
+    {# <script src="{{ base_url }}public/template/docs/js/tiny-slider.js"></script> #}
+    <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+    <script async src="{{ base_url }}public/template/docs/js/social.js"></script>
+<script src="https://unpkg.com/embla-carousel-autoplay/embla-carousel-autoplay.umd.js"></script>
+
     
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        {% block head %}
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>{% block title %}{% endblock %} - Word of God Ministries Online Bible</title>
+            <meta content="" name="description">
+            <meta content="" name="keywords">
+
+            <link rel="canonical" href="{{ base_url }}">
+            
+            <!-- Google Font: Source Sans Pro -->
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/fontawesome-free/css/all.min.css">
+            <!-- Ionicons -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/dist/css/ionicons.min.css">
+            <!-- Tempusdominus Bootstrap 4 -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+            <!-- iCheck -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+            <!-- JQVMap -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/jqvmap/jqvmap.min.css">
+            <!-- Theme style -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/dist/css/adminlte.min.css">
+            <!-- overlayScrollbars -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+            <!-- Daterange picker -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/daterangepicker/daterangepicker.css">
+            <!-- summernote -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/summernote/summernote-bs4.min.css">
+            <!-- Select2 -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/select2/css/select2.min.css">
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+            <!-- bs step form wizard -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/bs-stepper/css/bs-stepper.min.css">
+            <!-- dropzonejs -->
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/plugins/dropzone/min/dropzone.min.css">
+
+            <link rel="stylesheet" href="{{ base_url }}public/template/lte/dist/css/custom.css">
+
+            <!-- jQuery -->
+            <script src="{{ base_url }}public/template/lte/plugins/jquery/jquery.min.js"></script>
+            <!-- jQuery UI 1.11.4 -->
+            <script src="{{ base_url }}public/template/lte/plugins/jquery-ui/jquery-ui.min.js"></script>
+        {% endblock %}
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="{{ base_url }}public/template/lte/dist/img/logo.png" alt="{{ base_url }}" height="100" width="100">
+        </div>
+
+        {{ include('lte-header.html.twig') }}
+        {{ include('lte-sidebar.html.twig') }}
+
+          <!-- Content Wrapper. Contains page content -->
+          <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                  </div><!-- /.col -->
+                  <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                  </div><!-- /.col -->
+                </div><!-- /.row -->
+              </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <section class="content">
+            <div class="container-fluid">
+                {% block content %}{% endblock %}
+            </div>
+            </section>
+            </div>
+
+            {% block footer %}
+                {{ include('lte-footer.html.twig') }}
+            {% endblock %}
+
+<script src="{{ base_url }}public/template/lte/dist/js/session.js"></script>
+
+<script>
+
+  $( document ).ready(function() {
+
+    sessionTimeout();
+    sessionTimeout({
+      warnAfter: 1080000,  // The amount of time, in milliseconds, to wait until displaying a warning to the user. 
+      timeOutAfter: 1200000,  // The amount of time, in milliseconds, to wait until automatically timing out the user and redirecting their client to the time-out URL. You will usually want to set this to the same amount of time your server keeps sessions alive. This timer gets reset if the users clicks the "stay connected" button on the warning dialog.
+      timeOutUrl: '{{ base_url }}lockscreen',
+      message: 'Your session is about to expire. You will be automatically logged off if you do not choose to extend your session now.',
+      logOutUrl: '/login/logout',
+      titleText: 'Warning'
+    });
+
+    const checkbox = document.getElementById("checkbox")
+    checkbox.addEventListener("change", () => {
+    document.body.classList.toggle("dark-mode")
+        if(document.body.classList.contains("dark-mode")) {
+          localStorage.setItem('mode', 'dark-mode');
+        } else {
+          localStorage.setItem('mode', 'light');
+        }
+    });
+    
+    let mode;
+    mode = localStorage.getItem('mode');
+
+    if (mode === 'light'){
+        lightMode();
+    }else{
+        darkMode();
+    }
+
+  function darkMode() {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem('mode', 'dark-mode');
+      mode = localStorage.getItem('mode');
+  }
+
+  function lightMode() {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem('mode', 'light');
+      mode = localStorage.getItem('mode');
+  }
+});
+</script>
+        </div>
+    </body>
+</html>

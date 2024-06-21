@@ -2400,6 +2400,7 @@ function login_box( $redirect = '', $l_explain = '', $l_success = '', $admin = f
 			$_COOKIE['wog-username'] = $username;
 			session_start();
 			$_SESSION['wog-username'] = $username;
+			$_SESSION['wog-email']    = $user->data['user_email'];
 			$redirect                 = $request->variable( 'redirect', "{$phpbb_root_path}index.$phpEx" );
 
 			/**

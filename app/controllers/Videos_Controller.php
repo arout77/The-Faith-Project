@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller;
-use Src\Controller\Base_Controller;
 
-class Videos_Controller extends Base_Controller
+class Videos_Controller extends Init_Controller
 {
 	/**
 	 * @var mixed
@@ -44,57 +43,6 @@ class Videos_Controller extends Base_Controller
 	 */
 	public $version;
 
-	/**
-	 * @param $app
-	 */
-	public function __construct( $app )
-	{
-		parent::__construct( $app );
-
-		$this->books_of_bible = [
-			'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel',
-			'1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs',
-			'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel',
-			'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi', 'Matthew',
-			'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians',
-			'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews',
-			'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation',
-		];
-
-		$this->version = $_COOKIE['bibleVersion'] ?? 'kjv';
-
-		$book       = $this->route->parameter[1] ?? "Genesis";
-		$book       = urldecode( ucwords( $book ) );
-		$book       = str_replace( "-", " ", $book );
-		$this->book = $book;
-
-		$chapter       = $this->route->parameter[2] ?? 1;
-		$this->chapter = $chapter;
-
-		$intromodel  = $this->model( 'Bible' );
-		$this->intro = $intromodel->getIntro( $this->book );
-
-		$this->num_chapters = $intromodel->getChapterCountMap();
-
-		$this->categories = [
-			'Biblical Themes',
-			'Character of God',
-			'Creation',
-			'Intro to The Bible',
-			'New Testament Overviews',
-			'Old Testament Overviews',
-			'Spiritual Beings',
-			'Visual Commentaries',
-		];
-
-		// Add global var for all template files
-		$this->template->twigEnv->addGlobal( 'book', $this->book );
-		$this->template->twigEnv->addGlobal( 'intro', $this->intro );
-		$this->template->twigEnv->addGlobal( 'chapter', $this->chapter );
-		$this->template->twigEnv->addGlobal( 'version', $this->version );
-		$this->template->twigEnv->addGlobal( 'books_of_bible', $this->books_of_bible );
-	}
-
 	public function category()
 	{
 		if ( isset( $this->route->parameter[1] ) )
@@ -114,7 +62,7 @@ class Videos_Controller extends Base_Controller
 
 		$cat        = str_replace( "-", " ", $category );
 		$videomodel = $this->model( 'Videos' );
-		$videos     = $videomodel->getVideosByCat( $cat );
+		$videos     = $videomodel->getVideosByCat();
 
 		$this->template->render( "videos\\" . $twigfile . ".html.twig", [
 			'videos' => $videos,
@@ -122,15 +70,49 @@ class Videos_Controller extends Base_Controller
 
 	}
 
+	public function collections()
+	{
+		// Book Collections
+		if ( !isset( $this->route->parameter[1] ) || $this->route->parameter[1] == '' )
+		{
+			$collection = 'all';
+		}
+		else
+		{
+			$collection = urldecode( strip_tags( $this->route->parameter[1] ) );
+		}
+
+		$model = $this->model( 'Videos' );
+
+		if ( $collection == 'all' )
+		{
+			$collections = $model->getBookCollections();
+			$this->template->render( "videos\collections.html.twig", [
+				'collections' => $collections,
+			] );
+		}
+		else
+		{
+			$episodes = $model->getBookCollection( $collection );
+			$this->template->render( "videos\\" . $collection . ".html.twig", [
+				'episodes' => $episodes,
+			] );
+		}
+	}
+
 	public function index()
 	{
 		// Model was created and stored at: /app/models/VideosModel.php
 		// View was created and stored at: /app/template/views/videos/index.html.twig
 		$videomodel = $this->model( 'Videos' );
-		$videos     = $videomodel->getAllVideos();
+		$videos     = $videomodel->getVideosByCat();
+		$popular    = $videomodel->getMostPopular();
+		$latest     = $videomodel->getLatest();
 		$this->template->render( "videos\categories.html.twig", [
-			'video_list' => $videos,
-			'categories' => $this->categories,
+			'video_list'   => $videos,
+			'most_popular' => $popular,
+			'lastest'      => $latest,
+			'categories'   => $this->categories,
 		] );
 	}
 
@@ -144,8 +126,32 @@ class Videos_Controller extends Base_Controller
 		$slug = strip_tags( urldecode( $this->route->parameter[1] ) );
 
 		$videomodel = $this->model( 'Videos' );
-		$thumbnail  = $videomodel->getThumbnail( $slug );
-		$title      = $videomodel->getVideoRawTitle( $slug );
+		$videomodel->updateViewsCount( $slug );
+		$thumbnail = $videomodel->getThumbnail( $slug );
+		$title     = $videomodel->getVideoRawTitle( $slug );
+		$intro     = $videomodel->getVideoIntro( $slug );
+		$cat       = $videomodel->getVideoCat( $slug );
+		$subcat    = $videomodel->getVideoSubcat( $slug );
+		$episode   = $videomodel->getEpisodeNum( $slug );
+		// Videos that are not part of a collection,
+		// get other videos from this category
+		$related_videos = $videomodel->getRelatedVideos( $cat );
+		// For videos that are part of a collection
+		$getAllEpisodesFromCollection = null;
+
+		$epcount              = 0;
+		$related_videos_count = 0;
+
+		if ( $episode != 0 )
+		{
+			$getAllEpisodesFromCollection = $videomodel->getAllEpisodesFromCollection( $subcat );
+			$epcount                      = count( $getAllEpisodesFromCollection );
+		}
+
+		if ( !is_null( $related_videos ) )
+		{
+			$related_videos_count = count( $related_videos );
+		}
 
 		if ( is_null( $title ) )
 		{
@@ -153,9 +159,17 @@ class Videos_Controller extends Base_Controller
 		}
 
 		$this->template->render( "videos\watch.html.twig", [
-			'video'         => $slug,
-			'videoRawTitle' => $title,
-			'thumbnail'     => $thumbnail,
+			'video'                => $slug,
+			'videoRawTitle'        => $title,
+			'video_category'       => $cat,
+			'video_subcategory'    => $subcat,
+			'intro'                => $intro,
+			'thumbnail'            => $thumbnail,
+			'episode'              => $episode,
+			'all_episodes'         => $getAllEpisodesFromCollection,
+			'ep_count'             => $epcount,
+			'related_videos'       => $related_videos,
+			'related_videos_count' => $related_videos_count,
 		] );
 	}
 }

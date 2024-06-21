@@ -7,7 +7,7 @@
         {% for video in videos %}
         <div class="col-md-4 col-xl-3" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ video.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ video.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
             <div class="card mb-3">
-                <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}{{ video.thumbnail }}" alt="Card image cap">
+                <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}{{ video.thumbnail }}" alt="{{ video.title }}">
                 <div class="card-body">
                     <h5 class="card-title text-center">{{ video.title }}</h5>
                     <p class="card-text text-center">

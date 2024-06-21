@@ -13,6 +13,35 @@
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
+        <li class="mt-4 mb-2">
+            <!-- Search -->
+        <form method="get" action="{{ base_url }}search/results/" id="searchbar" class="d-flex">
+            <div class="input-group"  id="searchbar">
+              <button type="submit" class="input-group-text"><i class="tf-icons bx bx-search"></i></button>
+              <input type="text" id="navSearch" name="navSearch" value="{{ session.validation.navSearch }}" class="form-control" placeholder="Search the Bible..." >
+              <input type="hidden" name="bibleVersion" value="{{ session_bible_version }}">
+              <span style="margin-left: 16px;">
+                {% if session.validation.errors.input.field == 'navSearch' %}
+                    {% for error in session.validation.errors %}
+                        {{ error.messages }}
+                    {% endfor %}
+                {% endif %}
+              </span>
+            </div>
+        </form>
+        <!-- /Search -->
+        </li>
+        <li class="menu-header small text-uppercase align-items-center">
+                Toggle Dark Mode
+        </li>
+        <li class="d-flex align-items-center justify-content-end ml-3">
+            <input type="checkbox" class="checkbox" id="checkbox">
+                <label for="checkbox" class="checkbox-label">
+                    <i class="fas fa-moon" title="Toggle light / dark mode"></i>
+                    <i class="fas fa-sun" title="Toggle light / dark mode"></i>
+                    <span class="ball" title="Toggle light / dark mode"></span>
+                </label>
+        </li>
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text"><i class="menu-icon tf-icons bx bx-bible"></i> Intro to Bible</span>
         </li>

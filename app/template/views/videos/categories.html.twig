@@ -4,15 +4,17 @@
 <section>
     <div class="card mb-4">
         <div class="card-body" id="categoriesSelection">
-            <h3 class="card-title text-center" style="text-shadow: 2px 1px 8px;" id="videosintro">Videos of The Bible Series</h3>
+            <h3 class="card-title text-center" style="text-shadow: 2px 1px 8px;" id="videosintro">Videos of The Bible Collection</h3>
             <div class="card-subtitle mb-3">
                 <div class="controls">
                     <div id="catShuffle" class="row" style="">
                         <div class="col-sm-3">
                             <select id="selectCat" class="select-filter form-select">
                                 <option value="all">All</option>
+                                <option value=".popular">Most Popular</option>
+                                <option value=".latest">Latest</option>
                                 {% for cat in video_categories %}
-                                    <option value=".{{ cat|replace({' ': '-'}) }}">{{ cat }}</option>
+                                <option value=".{{ cat|replace({' ': '-'}) }}">{{ cat }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -29,26 +31,430 @@
                     </div>
                 </div>
                 <div class="vidcontainer">
-                    {% for vid in video_list %}
-                    <div class="mix card-body {{ vid.category|replace({' ': '-'}) }}" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
-                        <img class="card-img-top" style="border: 1px solid goldenrod;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="Card image cap">
-                        <div class="catVidTitle text-center" style="background-color: goldenrod; padding: 10px;"><strong>{{ vid.title }}</strong></div>
-                    </div>
-
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
-                        <div class="offcanvas-header">
-                            <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title }}</h5>
-                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <div class="vidlistthumb">
+                        {% for vid in most_popular %}
+                        <div class="mix vidlistthumb popular">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Most Popular</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                            <p class="text-center">
-                                {{ vid.intro }}
-                            </p>
-                            <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
-                            <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                        {% endfor %}
+                    </div>
+                    <div class="vidlistthumb">
+                        {% for vid in latest %}
+                        <div class="mix vidlistthumb latest">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Latest Videos</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="vidlistthumb">
+                        {% for vid in video_list["Intro to The Bible"] %}
+                        <div class="mix vidlistthumb {{ vid.category|replace({' ': '-'}) }}">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Intro to The Bible</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="vidlistthumb">
+                        {% for vid in video_list["Biblical Themes"] %}
+                        <div class="mix vidlistthumb {{ vid.category|replace({' ': '-'}) }}">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Biblical Themes</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="vidlistthumb">
+                        <div class="mix vidlistthumb Book-Collections">
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Book Collections</h5>
+                            </div>
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#luke_acts" aria-controls="luke_acts">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}luke-acts2.webp" alt="Luke-Acts Series">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;"><strong>Luke-Acts Series</strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="luke_acts" aria-labelledby="luke_actsLabel" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="luke_actsLabel" class="offcanvas-title">Luke-Acts Series</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        Dive into the two-part work of Luke and Acts and gain a unique perspective on the life of Jesus and the early Church.
+                                        <p><small>Book Collections Series - 9 episodes</small></p>
+                                    </p>
+                                    <a href="{{ base_url }}videos/collections/luke_acts" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">View Episodes</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mix vidlistthumb Book-Collections">
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">&nbsp;</h5>
+                            </div>
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#mark" aria-controls="mark">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}mark-series.webp" alt="Mark">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;"><strong>Mark</strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="mark" aria-labelledby="markLabel" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="markLabel" class="offcanvas-title">Mark</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        Mark is one of the earliest Gospel accounts and addresses the basic question of whether Jesus was the true Messiah for whom Israel had been waiting.
+                                        <p><small>Book Collections Series - 1 episode</small></p>
+                                    </p>
+                                    <a href="{{ base_url }}videos/collections/mark" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">View Episodes</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mix vidlistthumb Book-Collections">
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">&nbsp;</h5>
+                            </div>
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#torah" aria-controls="torah">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}torah_rich.webp" alt="Torah Series">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;"><strong>Torah Series</strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="torah" aria-labelledby="torahLabel" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="torahLabel" class="offcanvas-title">Torah Series</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        The Torah, or the first five books of the Bible, is one epic storyline that starts with creation and ends with God’s covenant with Israel.
+                                        <p><small>Book Collections Series - 7 episode</small></p>
+                                    </p>
+                                    <a href="{{ base_url }}videos/collections/torah" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">View Episodes</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    {% endfor %}
+                    <div class="vidlistthumb">
+                        {% for vid in video_list["Character of God"] %}
+                        <div class="mix vidlistthumb {{ vid.category|replace({' ': '-'}) }}">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Character of God</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="vidlistthumb">
+                        {% for vid in video_list["Creation"] %}
+                        <div class="mix vidlistthumb {{ vid.category|replace({' ': '-'}) }}">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Creation</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="vidlistthumb">
+                        {% for vid in video_list["New Testament Overviews"] %}
+                        <div class="mix vidlistthumb {{ vid.category|replace({' ': '-'}) }}">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">New Testament Overviews</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="vidlistthumb">
+                        {% for vid in video_list["Old Testament Overviews"] %}
+                        <div class="mix vidlistthumb {{ vid.category|replace({' ': '-'}) }}">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Old Testament Overviews</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="vidlistthumb">
+                        {% for vid in video_list["Spiritual Beings"] %}
+                        <div class="mix vidlistthumb {{ vid.category|replace({' ': '-'}) }}">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Spiritual Beings</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="vidlistthumb">
+                        {% for vid in video_list["Visual Commentaries"] %}
+                        <div class="mix vidlistthumb {{ vid.category|replace({' ': '-'}) }}">
+                            {% if loop.index0 == 0 %}
+                            <div class="mb-2">
+                                <h5 class="menu-header-text">Visual Commentaries</h5>
+                            </div>
+                            {% else %}
+                            <div class="mb-2"><h5 class="menu-header-text">&nbsp;</h5></div>
+                            {% endif %}
+                            <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                                <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
+                                    {% if vid.title_raw|default %}
+                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
+                                    {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                                <div class="offcanvas-header">
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                    <p class="text-center">
+                                        {{ vid.intro }}
+                                    </p>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                     <div class="gap"></div>
                     <div class="gap"></div>
                     <div class="gap"></div>
@@ -79,17 +485,16 @@
             </div>
         </div>
     </div>
-
-<script>
-$(document).ready(function () {
-    $("#selectCat").change( function(){
-        let category = $("#selectCat").val().replaceAll('-', ' ').replaceAll('.', '');
-        if(category == 'all'){
-            category = 'All Categories';
-        }
-        $("#catName").text(category);
-    });
-});
-</script>
+    <script>
+        $(document).ready(function () {
+            $("#selectCat").change( function(){
+                let category = $("#selectCat").val().replaceAll('-', ' ').replaceAll('.', '');
+                if(category == 'all'){
+                    category = 'All Categories';
+                }
+                $("#catName").text(category);
+            });
+        });
+    </script>
 </section>
 {% endblock %}

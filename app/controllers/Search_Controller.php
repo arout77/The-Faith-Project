@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller;
-use Src\Controller\Base_Controller;
 
-class Search_Controller extends Base_Controller
+class Search_Controller extends Init_Controller
 {
 	public function index()
 	{

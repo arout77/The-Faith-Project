@@ -1,23 +1,127 @@
 {% extends 'docs.html.twig' %}
-{% block title %}Videos  | Word of God{% endblock %}
+{% block title %}Video Categories  | Word of God{% endblock %}
 {% block content %}
-<section id="searchpage">
+<section>
+
+
     <div class="card mb-4">
-        <div class="card-body">
-            <h3 class="card-title text-center">Videos</h3>
-            <div class="card-subtitle text-muted mb-3">
-                <p class="card-text">
-                <video width="400" controls>
-                  <source src="{{ base_url }}{{ video_url }}{{ video }}.mp4" type="video/mp4">
-                  <source src="{{ base_url }}{{ video_url }}{{ video }}.ogg" type="video/ogg">
-                  Your browser does not support HTML5 video.
-                </video>
-                {% for cat in categories %}
-                    <p>{{ cat }}</p>
-                {% endfor %}
-                </p>
+        <div class="card-body" id="categoriesSelection">
+            <h3 class="card-title text-center" style="text-shadow: 2px 1px 8px;" id="videosintro">Videos of The Bible Series</h3>
+            <div class="card-subtitle mb-3">
+                <div class="controls">
+                    <div id="catShuffle" class="row" style="">
+                        <div class="col-sm-3">
+                            <select id="selectCat" class="select-filter form-select">
+                                <option value="all">All</option>
+                                {% for cat in video_categories %}
+                                    <option value=".{{ cat|replace({' ': '-'}) }}">{{ cat }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3 id="catName" class="text-center">All Categories</h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="select-sort form-select">
+                                <option value="default:asc">Ascending</option>
+                                <option value="default:desc">Descending</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </div>
+                <div class="vidcontainer">
+
+
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                    <ol class="carousel-indicators">
+                      <li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true"></li>
+                      <li data-bs-target="#carouselExample" data-bs-slide-to="1" class=""></li>
+                      <li data-bs-target="#carouselExample" data-bs-slide-to="2" class=""></li>
+                    </ol>
+                    <div class="carousel-inner">
+                    {% for vid in video_list %}
+                      <div class="carousel-item active">
+                        <img class="d-block w-100" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                          <h3>First slide</h3>
+                          <p>Eos mutat malis maluisset et, agam ancillae quo te, in vim congue pertinacia.</p>
+                        </div>
+                      </div>
+                  {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </a>
+                  </div>
+
+                  
+                    {% for vid in video_list %}
+                    <div class="mix card-body {{ vid.category|replace({' ': '-'}) }}" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
+                        <img class="card-img-top" style="border: 1px solid goldenrod;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="Card image cap">
+                        <div class="catVidTitle text-center" style="background-color: goldenrod; padding: 10px;"><strong>{{ vid.title }}</strong></div>
+                    </div>
+
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                        <div class="offcanvas-header">
+                            <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title }}</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                            <p class="text-center">
+                                {{ vid.intro }}
+                            </p>
+                            <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                            <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="gap"></div>
+                    <div class="gap"></div>
+                    <div class="gap"></div>
+                </div>
+                <script>
+                    // In this example, we must bind 'change' event handlers to
+                    // our <select> elements, then interact with the mixer via
+                    // its .filter() and .sort() API methods.
+                    
+                    var containerEl = document.querySelector('.vidcontainer');
+                    var selectFilter = document.querySelector('.select-filter');
+                    var selectSort = document.querySelector('.select-sort');
+                    
+                    var mixer = mixitup(containerEl);
+                    
+                    selectFilter.addEventListener('change', function() {
+                        var selector = selectFilter.value;
+                    
+                        mixer.filter(selector);
+                    });
+                    
+                    selectSort.addEventListener('change', function() {
+                        var order = selectSort.value;
+                    
+                        mixer.sort(order);
+                    });
+                </script>
             </div>
         </div>
     </div>
+
+<script>
+$(document).ready(function () {
+    $("#selectCat").change( function(){
+        let category = $("#selectCat").val().replaceAll('-', ' ').replaceAll('.', '');
+        if(category == 'all'){
+            category = 'All Categories';
+        }
+        $("#catName").text(category);
+    });
+});
+</script>
 </section>
 {% endblock %}

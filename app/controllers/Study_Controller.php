@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller;
-use Src\Controller\Base_Controller;
 
-class Study_Controller extends Base_Controller
+class Study_Controller extends Init_Controller
 {
 	/**
 	 * @param $app
