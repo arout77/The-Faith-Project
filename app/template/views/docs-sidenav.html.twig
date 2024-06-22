@@ -31,17 +31,19 @@
         </form>
         <!-- /Search -->
         </li>
-        <li class="menu-header small text-uppercase align-items-center">
+
+{#         <li class="menu-header small text-uppercase align-items-center">
                 Toggle Dark Mode
         </li>
         <li class="d-flex align-items-center justify-content-end ml-3">
             <input type="checkbox" class="checkbox" id="checkbox">
-                <label for="checkbox" class="checkbox-label">
-                    <i class="fas fa-moon" title="Toggle light / dark mode"></i>
-                    <i class="fas fa-sun" title="Toggle light / dark mode"></i>
-                    <span class="ball" title="Toggle light / dark mode"></span>
-                </label>
-        </li>
+            <label for="checkbox" class="checkbox-label">
+                <i class="fas fa-moon" title="Toggle light / dark mode"></i>
+                <i class="fas fa-sun" title="Toggle light / dark mode"></i>
+                <span class="ball" title="Toggle light / dark mode"></span>
+            </label>
+        </li> #}
+
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text"><i class="menu-icon tf-icons bx bx-bible"></i> Intro to Bible</span>
         </li>
@@ -59,8 +61,8 @@
                 {% endfor %}
             </ul>
         </li>
-        <li class="menu-header small text-uppercase">
-            <i class="menu-icon tf-icons bx bx-video"></i> <span class="">Videos</span>
+        <li class="menu-header small text-uppercase"  id="vmenulink">
+            <i class="menu-icon tf-icons bx bx-video"></i> <span>Videos</span>
         </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -84,7 +86,7 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text"><i class="menu-icon tf-icons bx bx-pencil"></i> Bible Study</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item" id="qmenulink">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <div data-i18n="">Quizzes</div>
             </a>

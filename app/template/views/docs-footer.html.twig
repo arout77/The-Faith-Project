@@ -30,6 +30,10 @@
 </footer>
 <!-- / Footer -->
 
+{% if session['user-first-visit-to-site'] == 1 %}}
+    {{ include('partials/mobile-user-warning.html.twig') }}
+{% endif %}
+
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 <script src="{{ base_url }}public/template/docs/assets/vendor/libs/popper/popper.js"></script>
@@ -38,6 +42,8 @@
 <script src="{{ base_url }}public/template/docs/assets/vendor/js/menu.js"></script>
 <script src="{{ base_url }}public/template/docs/js/jquery.timeago.js"></script>
 <script src="{{ base_url }}public/template/docs/assets/js/ui-toasts.js"></script>
+<script src="{{ base_url }}public/template/docs/js/jquery.aSimpleTour.min.js"></script>
+<script src="{{ base_url }}public/template/docs/js/scrollTo.js"></script>
 <script async src="{{ base_url }}public/template/docs/js/social.js"></script>
 <!-- endbuild -->
 <!-- Vendors JS -->
@@ -48,6 +54,95 @@
 <script src="{{ base_url }}public/template/docs/assets/js/dashboards-analytics.js"></script>
 <script>
 $( document ).ready(function() {
+    // --- Notify mobile users to view in landscape mode
+    browserWidth = $(window).width();
+
+    if(browserWidth < 480) {
+        // browser width is under 900px
+        var showMessage = localStorage.getItem('wog_mobileUsersWarning');
+        if(showMessage != 'dismissed')
+        {
+            $('#newVisitor').show();
+
+            $("#dismissMobileWarning").click(function() {
+                localStorage.setItem('wog_mobileUsersWarning', 'dismissed');
+            });
+        }
+    }
+
+    // --- Show tour if first visit to site
+    {% if session['user-first-visit-to-site'] == 1 %}
+    var myData = [{
+        // target element
+        element: '#dropdown-icon-demo',
+
+        // content displayed in the tooltip
+        tooltip: 'Select a book and chapter to turn to',
+
+        // position of the tooltip
+        // T, B, L, R, TL, TR, BL, BR, LT, RT, LB, RB
+        position: 'R',
+
+        // content displayed in the control panel
+        text: 'Flip through to different books / pages of the Bible here'
+    }, {
+        element: '#searchbar',
+        tooltip: 'Search the Bible',
+        position: 'R',
+        text: 'Use the searchbar to look up biblical passages'
+    }, {
+        element: '#vmenulink',
+        tooltip: 'Free videos access',
+        position: 'R',
+        text: 'Watch animated bible study videos, covering a large range of topics!'
+    }, {
+        element: '#qmenulink',
+        tooltip: 'Bible Study Quizzes',
+        position: 'R',
+        text: 'Test your knowledge of the Bible by taking a 20 question, multiple choice quiz'
+    }, {
+        element: '#1',
+        tooltip: 'Click on verses to highlight them',
+        position: 'L', 
+        text: 'Simply click on verses to highlight them; to erase your highlight just click on the verse again'
+    }, {
+        element: '#checkbox',
+        tooltip: 'Toggle light / dark modes',
+        position: 'B', 
+        text: 'Toggle between light and dark mode to save strain on your eyes as you read'
+    }, {
+        element: '#checkbox',
+        tooltip: 'Join the community!',
+        position: 'R', 
+        text: 'By joining our community, you\'ll gain access to a message board where you will be able to talk about many different topics with fellow Christians. Share advice, send a prayer request, private messaging and so much more!'
+    }]
+
+    $.aSimpleTour({
+      data: myData,
+      autoStart:true,
+      useOverlay: false,
+      // overlayZindex: 10,
+      welcomeMessage: '<h4>Welcome!</h4> We detected that this is your first visit to our site, so we wanted to show you around. This will only take a few seconds!',
+      controlsPosition:'BR',
+      buttons: {
+        next  : { text : 'Next', class : 'btn btn-info mt-2'},
+        prev  : { text : 'Previous', class: 'btn btn-info mt-2' },
+        start : { text : 'Start', class: 'btn btn-primary mt-2' },
+        end   : { text : 'End', class: 'btn btn-danger mt-2' }
+      },
+      controlsCss: {
+        background: 'rgba(0,0,0, 0.80)',
+        color: '#fff', 
+        width: '400px',
+      },
+      tooltipCss: {
+        background: 'rgba(0, 0, 0, 0.70)',
+        color: '#fff'
+      }
+    });
+    {% endif %}
+    // --- End tour
+
     // --- Start timers to get message and notification counts
     setInterval(getUnreadNotif, 9000);      // Every 9 secs
     setInterval(getUnreadPM, 10000);        // Every 10 secs
@@ -209,26 +304,5 @@ $( document ).ready(function() {
         document.cookie = "bibleVersion=luther";
     });
     // --- End Language and bible version 
-
-    // Toggle sidebar and adjust navbar and video size/positioning
-    // when viewing videos for nicer experience
-    // const url = window.location.href;
-    // const find = 'videos/watch/';
-    // const found = url.match(find);
-
-    // if(found !== null && found[0] === find){
-    //   $('#layout-menu').toggle();
-    //   $('#toggleSidebar').click(function(){
-    //     $('#layout-menu').toggle();
-    //     if( $("#layout-menu").is(":hidden") )
-    //     {
-    //         $('#layout-navbar').css("left", "11rem");
-    //         $('#watchVideo').css("width", "80%");
-    //     } else {
-    //         $('#layout-navbar').css("left", "17rem");
-    //         $('#watchVideo').css("width", "60%");
-    //     }
-    //   });
-    // }
 });
 </script>

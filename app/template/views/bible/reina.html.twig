@@ -1,5 +1,5 @@
 {% extends "docs.html.twig" %}
-{% block title %}Reina Valera 1909 - Word of God Online Bible{% endblock %}
+{% block title %}Reina Valera 1909{% endblock %}
 {% block content %}
 <script>
 $(document).ready(function () {
@@ -61,9 +61,9 @@ function highlighter( book, chapter, verse )
 
 <div class="container mb-2">
     <div class="row">
-        <div class="col-sm-5"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
-        <div class="col-sm-2"><button type="button" id="viewIntro" class="btn btn-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStart">View Introduction</button></div>
-        <div class="col-sm-5"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
+        <div class="col-sm-5 d-none d-lg-block"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
+        <div class="col-sm-12 col-lg-2 d-flex align-self-center justify-content-center"><button type="button" id="viewIntroBtn" class="btn btn-xl btn-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStart">View Introduction</button></div>
+        <div class="col-sm-5 d-none d-lg-block"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
     </div>
 </div>
 <section id="biblecontainer" class="container">

@@ -4,7 +4,7 @@
 <section id="videooverview">
     <div class="row mb-5">
     <h4 class="text-center">Videos about Spiritual Beings in the Bible</h4>
-        {% for video in videos %}
+        {% for video in video_list %}
         <div class="col-md-4 col-xl-3" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ video.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ video.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
             <div class="card mb-3">
                 <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}{{ video.thumbnail }}" alt="Card image cap">

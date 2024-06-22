@@ -163,7 +163,7 @@
         <div class="navbar-nav align-items-center">
 
         <div class="btn-group" id="dropdown-icon-demo">
-          <button type="button" class="btn btn-outline-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
+          <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true">
             <i class="fa fa-bible"></i> &nbsp; Table of Contents
           </button>
           <ul class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 41px);" data-popper-placement="bottom-start">
@@ -174,7 +174,7 @@
                 <div class="input-group"  id="nav-books">
                   <select style="width: 155px;" class="form-control" name="books" id="selectBook" role="navigation" required="required" title="Select or type name of book you wish to read">
                   <optgroup label="Select Book">
-                    <option disabled selected value="">Search for books</option>
+                    <option disabled selected value="">Select Book</option>
                         {% for book in books_of_bible %}
                             <option value="{{ book }}">{{ book }}</option>
                         {% endfor %}
@@ -213,14 +213,14 @@
             </div>
         </li> #}
 
-        {# <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+        <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
             <input type="checkbox" class="checkbox" id="checkbox">
             <label for="checkbox" class="checkbox-label">
                 <i class="fas fa-moon" title="Toggle light / dark mode"></i>
                 <i class="fas fa-sun" title="Toggle light / dark mode"></i>
                 <span class="ball" title="Toggle light / dark mode"></span>
             </label>
-        </li> #}
+        </li>
 
         {% if session['wog-username']|default %}
         <!-- User -->
@@ -241,7 +241,7 @@
                 <a class="dropdown-item" href="#">
                 <div class="d-flex">
                     <div class="flex-shrink-0 me-3">
-                    <div class="avatar avatar-online">
+                    <div class="avatar avatar-online" id="userprofilemenu">
                         {% if avatar_type == 'gravatar' %}
                             <img src="{{ avatar }}" alt class="w-px-40 h-auto rounded-circle" />
                         {% elseif avatar_type == 'upload' %}

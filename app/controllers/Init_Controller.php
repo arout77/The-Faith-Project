@@ -103,6 +103,15 @@ class Init_Controller extends Base_Controller
 			'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation',
 		];
 
+		if ( empty( $_SESSION['user-first-visit-to-site'] ) )
+		{
+			$_SESSION['user-first-visit-to-site'] = 1;
+		}
+		else
+		{
+			$_SESSION['user-first-visit-to-site'] = $_SESSION['user-first-visit-to-site'] + 1;
+		}
+
 		if ( isset( $_SESSION['wog-username'] ) )
 		{
 			$model                 = $this->model( "Members" );

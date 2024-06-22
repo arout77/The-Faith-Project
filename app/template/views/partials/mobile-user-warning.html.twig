@@ -1,0 +1,26 @@
+<div class="modal fade show" id="newVisitor" tabindex="-1" aria-modal="true" role="dialog" style="display: block; padding-left: 0px;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newVisitorTitle">Mobile Users</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <p>
+              It appears that you're visiting us from a mobile device. Our site works best on displays with a screen width of at least 480px. We highly recommend landscape mode (turn phone to side) for phones with smaller screens for best results.
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="dismissMobileWarning" class="btn btn-primary" data-bs-dismiss="modal">Don't show this warning again</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#dismissMobileWarning").click(function() {
+      localStorage.setItem('wog_mobileUsersWarning', 'dismissed');
+      $("#newVisitor").hide();
+  });
+</script>
