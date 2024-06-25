@@ -53,3 +53,6 @@
 .env
 .htaccess
 composer.lock
+
+# Video files
+/public/media/videos/

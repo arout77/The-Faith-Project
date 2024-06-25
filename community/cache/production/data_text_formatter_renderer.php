@@ -1,4 +1,4 @@
 <?php exit; ?>
-1749846126
-79
-a:1:{s:5:"class";s:53:"s9e_renderer_e785987080494d8a7bda20cb06bbb142f30ab488";}
+1750220593
+873
+a:2:{s:5:"class";s:53:"s9e_renderer_04ed29d68d78e5be2444d7e7a5ba9d09df0f211c";s:6:"censor";O:39:"s9e\TextFormatter\Plugins\Censor\Helper":7:{s:7:"allowed";N;s:8:"attrName";s:4:"with";s:18:"defaultReplacement";s:4:"****";s:6:"regexp";s:171:"/(?<![\pL\pN])[\pL\pN]*(?:asshole|bitch|c(?:ock\s*sucker|unt)|dick(?:\s*)?head|f(?:ag(?:got)?|uck)|k[iy]ke|motherfucker|nigg(?:a|er)|s(?:hit|pic))[\pL\pN]*(?![\pL\pN])/Siu";s:10:"regexpHtml";s:171:"/(?<![\pL\pN])[\pL\pN]*(?:asshole|bitch|c(?:ock\s*sucker|unt)|dick(?:\s*)?head|f(?:ag(?:got)?|uck)|k[iy]ke|motherfucker|nigg(?:a|er)|s(?:hit|pic))[\pL\pN]*(?![\pL\pN])/Siu";s:12:"replacements";a:1:{i:0;a:2:{i:0;s:148:"/^[\pL\pN]*(?:asshole|bitch|c(?:ock\s*sucker|unt)|dick(?:\s*)?head|f(?:ag(?:got)?|uck)|k[iy]ke|motherfucker|nigg(?:a|er)|s(?:hit|pic))[\pL\pN]*$/Diu";i:1;s:19:"[expletive-deleted]";}}s:7:"tagName";s:10:"censor:tag";}}

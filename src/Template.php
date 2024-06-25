@@ -39,8 +39,11 @@ class Template
 	 */
 	public function __construct( ServiceLocator $app )
 	{
+		// Make sure to make same changes to list
+		// in Videos model
 		$video_categories = [
 			'Biblical Themes',
+			'Book Collections',
 			'Character of God',
 			'Creation',
 			'Intro to The Bible',
@@ -48,6 +51,12 @@ class Template
 			'Old Testament Overviews',
 			'Spiritual Beings',
 			'Visual Commentaries',
+		];
+
+		$video_subcategories = [
+			'Acts/Luke Series',
+			'Mark',
+			'Torah Series',
 		];
 		$this->app                    = $app;
 		$this->_settings              = $app['config'];
@@ -64,6 +73,7 @@ class Template
 		// Add var_dump to template files
 		$this->twigEnv->addExtension( new \Twig\Extension\DebugExtension() );
 		// Pass some global vars to Twig templates
+		$this->twigEnv->addGlobal( 'site_name', $this->_settings->setting( 'site_name' ) );
 		$this->twigEnv->addGlobal( 'base_url', $this->_settings->setting( 'site_url' ) );
 		$this->twigEnv->addGlobal( 'current_page', $app['router']->controller );
 		$this->twigEnv->addGlobal( 'current_action', $app['router']->action );
@@ -75,6 +85,7 @@ class Template
 		$this->twigEnv->addGlobal( 'lang', $_COOKIE['lang'] ?? 'english' );
 		$this->twigEnv->addGlobal( 'session_bible_version', $_COOKIE['bibleVersion'] ?? 'kjv' );
 		$this->twigEnv->addGlobal( 'video_categories', $video_categories );
+		$this->twigEnv->addGlobal( 'video_subcategories', $video_subcategories );
 		$this->twigEnv->addGlobal( 'video_url', 'public/media/videos/' );
 		$this->twigEnv->addGlobal( 'video_thumbnail_url', 'public/media/img/thumbnails/' );
 	}

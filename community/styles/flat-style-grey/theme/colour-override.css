@@ -87,3 +87,7 @@ html, body {
 .topic_unread_hot_mine				{ background-image: url("./images/topic_unread_hot_mine.png"); }
 .topic_unread_locked				{ background-image: url("./images/topic_unread_locked.png"); }
 .topic_unread_locked_mine			{ background-image: url("./images/topic_unread_locked_mine.png"); }
+
+.badge {
+    background-color: #ff4e4e;
+}

@@ -71,6 +71,8 @@ if ( strtoupper( $app['config']->setting( 'debug_mode' ) ) === Boolean::ON )
 	$profiler->start_timer();
 }
 
+date_default_timezone_set( 'America/New_York' );
+
 $maintenance_mode = Boolean::tryFrom( strtoupper( $app['config']->setting( 'maintenance_mode' ) ) );
 if ( is_null( $maintenance_mode ) )
 {

@@ -19,6 +19,21 @@ if ( !defined( 'IN_PHPBB' ) )
 	exit;
 }
 
+if ( isset( $_GET['mode'] ) )
+{
+	if ( $_GET['mode'] == 'logout' )
+	{
+		session_start();
+		session_destroy();
+	}
+}
+
+if ( isset( $_GET['sid'] ) )
+{
+	session_start();
+	$_SESSION['wog-session-id'] = $_GET['sid'];
+}
+
 // Common global functions
 /**
  * Generates an alphanumeric random string of given length
@@ -2370,8 +2385,10 @@ function login_box( $redirect = '', $l_explain = '', $l_success = '', $admin = f
 		else
 		{
 			// If authentication is successful we redirect user to previous page
-			$_COOKIE['wog-username']  = $username;
+			session_start();
+			$_SESSION['user_id']      = $user->data['user_id'];
 			$_SESSION['wog-username'] = $username;
+			$_SESSION['wog-email']    = $user->data['user_email'];
 			$result                   = $auth->login( $username, $password, $autologin, $viewonline, $admin );
 		}
 
@@ -2397,8 +2414,8 @@ function login_box( $redirect = '', $l_explain = '', $l_success = '', $admin = f
 		// The result parameter is always an array, holding the relevant information...
 		if ( $result['status'] == LOGIN_SUCCESS )
 		{
-			$_COOKIE['wog-username'] = $username;
 			session_start();
+			$_SESSION['user_id']      = $user->data['user_id'];
 			$_SESSION['wog-username'] = $username;
 			$_SESSION['wog-email']    = $user->data['user_email'];
 			$redirect                 = $request->variable( 'redirect', "{$phpbb_root_path}index.$phpEx" );

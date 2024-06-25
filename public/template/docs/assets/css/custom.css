@@ -326,6 +326,7 @@ select#selectChapter.form-control {
   box-shadow: 4px 4px 12px #333;
 }
 
+/* lighten table header font color  */
 .table:not(.table-dark) th {
     color: #98b7d9;
 }
