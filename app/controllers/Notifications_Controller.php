@@ -6,6 +6,7 @@ class Notifications_Controller extends Init_Controller
 	public function index()
 	{
 		// Model was created and stored at: /app/models/NotificationsModel.php
+		$this->redirect( 'error/_404' );
 	}
 
 	public function unread_notif_count()

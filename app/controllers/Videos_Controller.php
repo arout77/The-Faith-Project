@@ -48,7 +48,6 @@ class Videos_Controller extends Init_Controller
 		if ( isset( $this->route->parameter[1] ) )
 		{
 			$category = urldecode( $this->route->parameter[1] );
-			$twigfile = strtolower( $category );
 		}
 		else
 		{
@@ -60,12 +59,36 @@ class Videos_Controller extends Init_Controller
 			return self::index();
 		}
 
+		if ( $category == 'Book-Collections' )
+		{
+			$this->redirect( 'videos/collections/' );
+		}
+
+		$thumbs = [
+			'Biblical Themes'         => 'john-1_standard.webp',
+			'Character of God'        => 'jesusingardenatnight.webp',
+			'Creation'                => 'creation.webp',
+			'Intro to The Bible'      => 'psa_standard.webp',
+			'New Testament Overviews' => 'nto.webp',
+			'Old Testament Overviews' => 'oto.webp',
+			'Spiritual Beings'        => 'spbeings.webp',
+			'Visual Commentaries'     => 'cor-2_standard.webp',
+		];
+
 		$cat        = str_replace( "-", " ", $category );
 		$videomodel = $this->model( 'Videos' );
-		$videos     = $videomodel->getVideosByCat();
+		$videos     = $videomodel->getVideosByCat( $cat );
 
-		$this->template->render( "videos\\" . $twigfile . ".html.twig", [
-			'videos' => $videos,
+		if ( is_null( $videos ) )
+		{
+			$this->redirect( 'error' );
+		}
+
+		$this->template->render( "videos/category.html.twig", [
+			'category'   => str_replace( "-", " ", urldecode( $this->route->parameter[1] ) ),
+			'videos'     => $videos,
+			'num_videos' => count( $videos ),
+			'thumbs'     => $thumbs,
 		] );
 
 	}
@@ -73,7 +96,7 @@ class Videos_Controller extends Init_Controller
 	public function collections()
 	{
 		// Book Collections
-		if ( !isset( $this->route->parameter[1] ) || $this->route->parameter[1] == '' )
+		if ( empty( $this->route->parameter[1] ) )
 		{
 			$collection = 'all';
 		}
@@ -94,8 +117,15 @@ class Videos_Controller extends Init_Controller
 		else
 		{
 			$episodes = $model->getBookCollection( $collection );
+
+			if ( is_null( $episodes ) )
+			{
+				$this->redirect( 'error' );
+			}
+
 			$this->template->render( "videos\\" . $collection . ".html.twig", [
-				'episodes' => $episodes,
+				'episodes'     => $episodes,
+				'num_episodes' => count( $episodes ),
 			] );
 		}
 	}
@@ -134,8 +164,8 @@ class Videos_Controller extends Init_Controller
 		$subcat    = $videomodel->getVideoSubcat( $slug );
 		$episode   = $videomodel->getEpisodeNum( $slug );
 		// Videos that are not part of a collection,
-		// get other videos from this category
-		$related_videos = $videomodel->getRelatedVideos( $cat );
+		// get other videos from this category [make sure to dismiss vids from same subcategory]
+		$related_videos = $videomodel->getRelatedVideos( $cat, $subcat );
 		// For videos that are part of a collection
 		$getAllEpisodesFromCollection = null;
 

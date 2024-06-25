@@ -78,13 +78,27 @@ class Bible_Controller extends Init_Controller
 
 	public function intro()
 	{
-		$model       = $this->model( 'Bible' );
-		$dataset     = $model->getIntro( $this->book );
-		$numchapters = $model->getChapterCount( $this->book );
+		if ( !empty( $this->route->parameter[1] ) )
+		{
+			$cat = urldecode( $this->route->parameter[1] );
+			$cat = str_replace( "-", " ", $cat );
+			$cat = strtoupper( $cat );
+			if ( $cat == 'THE PENTATEUCH' )
+			{
+				$cat = "THE PENTATEUCH (Torah)";
+			}
+		}
+		else
+		{
+			$cat = 'all';
+		}
+
+		$model   = $this->model( 'Bible' );
+		$dataset = $model->getIntro( $cat );
 
 		$this->template->render( "bible\intro.html.twig", [
-			'results'     => $dataset,
-			'numchapters' => $numchapters['total'],
+			'results'  => $dataset,
+			'category' => ucwords( strtolower( $cat ) ),
 		] );
 	}
 

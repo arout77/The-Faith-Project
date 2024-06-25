@@ -32,6 +32,17 @@ class SearchModel extends System_Model
 	}
 
 	/**
+	 * @param $url
+	 * @param $description
+	 * @param $keywords
+	 * @return mixed
+	 */
+	public function index( $url, $description, $keywords )
+	{
+		$this->exec( "INSERT IGNORE INTO search (url, description, keywords) VALUES ('$url', '$description', '$keywords')" );
+	}
+
+	/**
 	 * @param $searchTerm
 	 */
 	public function searchDocsPages( $searchTerm )

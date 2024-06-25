@@ -1,5 +1,14 @@
 {% extends 'docs.html.twig' %}
-{% block title %}Video Categories  | Word of God{% endblock %}
+{% block title %}Video Categories{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Videos of The Bible Series. View our animated videos on popular Biblical topics. Current collections include: Luke-Acts Series, Mark and Torah Series" />
+{% endblock %}
+
+{% block keywords %}
+<meta name="keywords" content="Animated videos, videos about the Bible, Bible web series" />
+{% endblock %}
+
 {% block content %}
 <section>
     <div class="card mb-4">
@@ -89,17 +98,5 @@
             </div>
         </div>
     </div>
-
-{# <script>
-$(document).ready(function () {
-    $("#selectCat").change( function(){
-        let category = $("#selectCat").val().replaceAll('-', ' ').replaceAll('.', '');
-        if(category == 'all'){
-            category = 'All Categories';
-        }
-        $("#catName").text(category);
-    });
-});
-</script> #}
 </section>
 {% endblock %}

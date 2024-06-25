@@ -1,5 +1,14 @@
 {% extends 'docs.html.twig' %}
 {% block title %}Now watching: {{ videoRawTitle }}{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Now watching {{ videoRawTitle }}{% if episode != 0 %}, ep. {{ episode }}{% endif %}" />
+{% endblock %}
+
+{% block keywords %}
+<meta name="keywords" content="{{ videoRawTitle }}" />
+{% endblock %}
+
 {% block content %}
 <section>
     <div class="video mb-4">

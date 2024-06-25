@@ -60,9 +60,13 @@ class BibleModel extends System_Model
 	 * @param $book
 	 * @return mixed
 	 */
-	public function getIntro( $book )
+	public function getIntro( $cat )
 	{
-		return $this->getAll( 'SELECT text FROM intro WHERE book = ?', [$book] );
+		if ( $cat == 'all' )
+		{
+			return $this->getAll( 'SELECT id, book, text, category FROM intro' );
+		}
+		return $this->getAll( 'SELECT id, book, text, category FROM intro WHERE category = ?', [$cat] );
 	}
 
 	/**

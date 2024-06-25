@@ -72,7 +72,7 @@ class Init_Controller extends Base_Controller
 	/**
 	 * @var mixed
 	 */
-	public $user_id = null;
+	public $user_id = '0';
 
 	/**
 	 * @var mixed
@@ -139,7 +139,7 @@ class Init_Controller extends Base_Controller
 		else
 		{
 			session_destroy();
-			$this->user_id  = null;
+			$this->user_id  = '0';
 			$this->username = null;
 			$this->email    = null;
 		}

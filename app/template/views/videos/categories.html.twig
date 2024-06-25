@@ -1,5 +1,14 @@
 {% extends 'docs.html.twig' %}
-{% block title %}Video Categories  | Word of God{% endblock %}
+{% block title %}Video Categories{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="View our animated web series on popular Biblical topics. Current most popular videos: {% for vid in most_popular %} {{ vid.title_raw }}, {% endfor %}" />
+{% endblock %}
+
+{% block keywords %}
+<meta name="keywords" content="Animated videos, videos about the Bible, Bible web series" />
+{% endblock %}
+
 {% block content %}
 <section>
     <div class="card mb-4">
@@ -43,16 +52,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">
@@ -78,16 +83,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">
@@ -113,16 +114,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">
@@ -148,16 +145,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">
@@ -257,16 +250,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">
@@ -292,16 +281,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">
@@ -327,16 +312,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">
@@ -362,16 +343,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">
@@ -397,16 +374,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">
@@ -432,16 +405,12 @@
                             {% endif %}
                             <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}">
                                 <img class="card-img-top" style="border: 1px solid goldenrod; height: 175px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title }}">
-                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>
-                                    {% if vid.title_raw|default %}
-                                    {{ vid.title_raw }}{% else %}{{ vid.title }}
-                                    {% endif %}
-                                    </strong>
+                                <div class="catVidTitle text-center" style="background-color: goldenrod;padding: 10px; font-size: 0.8em;">   <strong>{{ vid.title_raw }}</strong>
                                 </div>
                             </div>
                             <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
                                 <div class="offcanvas-header">
-                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{% if vid.title_raw|default %}{{ vid.title_raw }}{% else %}{{ vid.title }}{% endif %}</h5>
+                                    <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
                                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                 </div>
                                 <div class="offcanvas-body my-auto mx-0 flex-grow-0">

@@ -61,6 +61,23 @@ class VideosModel extends System_Model
 	public function getBookCollection( $series )
 	{
 		// Get all videos from book collections series
+		if ( $series == 'luke_acts' )
+		{
+			$series = 'Luke-Acts Series';
+		}
+		elseif ( $series == 'torah' )
+		{
+			$series = 'Torah Series';
+		}
+		elseif ( $series == 'mark' )
+		{
+			$series = 'Mark';
+		}
+		else
+		{
+			return null;
+		}
+
 		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE subcategory = ? ORDER BY episode ASC", [$series] );
 	}
 
@@ -125,10 +142,10 @@ class VideosModel extends System_Model
 	 * @param $category
 	 * @return mixed
 	 */
-	public function getRelatedVideos( $category )
+	public function getRelatedVideos( $category, $subcat )
 	{
 		// var_dump( $category );exit;
-		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? ORDER BY priority DESC", [$category['category']] );
+		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? AND subcategory != ? ORDER BY priority DESC", [$category['category'], $subcat['subcategory']] );
 	}
 
 	/**
@@ -198,19 +215,27 @@ class VideosModel extends System_Model
 	 * @param $cat
 	 * @return mixed
 	 */
-	public function getVideosByCat()
+	public function getVideosByCat( $cat = null )
 	{
-		// Get videos and sort by category
-		$container = [];
-
-		foreach ( $this->video_categories as $cat )
+		if ( is_null( $cat ) )
 		{
-			$q = $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? ORDER BY priority ASC", [$cat] );
+			// Get videos and sort by category
+			$container = [];
 
-			$container[$cat] = $q;
+			foreach ( $this->video_categories as $cat )
+			{
+				$q = $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? ORDER BY priority ASC", [$cat] );
+
+				$container[$cat] = $q;
+			}
+
+			return $container;
 		}
 
-		return $container;
+		$cat = str_replace( "-", " ", $cat );
+
+		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? ORDER BY priority ASC", [$cat] );
+
 	}
 
 	/**

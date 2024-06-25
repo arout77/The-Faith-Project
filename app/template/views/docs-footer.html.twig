@@ -70,6 +70,10 @@ $( document ).ready(function() {
         }
     }
 
+    $(".gsc-input-box").css('margin-left', '10px');
+    $("#gsc-i-id1").addClass('form-control');
+    $(".gsc-search-button-v2").addClass('btn btn-primary');
+
     // --- Show tour if first visit to site
     {% if session['user-first-visit-to-site'] == 1 %}
     var myData = [{
@@ -192,7 +196,7 @@ $( document ).ready(function() {
             type: "POST",
             url: "{{ base_url }}notifications/unread_pm_count/",
             data: {
-                userid: {{ user_id }}
+                userid: '{{ user_id }}'
             },
             dataType: "json",
             encode: true,
@@ -215,7 +219,7 @@ $( document ).ready(function() {
             type: "POST",
             url: "{{ base_url }}notifications/unread_notif_count/",
             data: {
-                userid: {{ user_id }}
+                userid: '{{ user_id }}'
             },
             dataType: "json",
             encode: true,
@@ -241,7 +245,7 @@ $( document ).ready(function() {
             type: "POST",
             url: "{{ base_url }}notifications/unread_pm_count/",
             data: {
-                userid: {{ user_id }}
+                userid: '{{ user_id }}'
             },
             dataType: "json",
             encode: true,
@@ -259,7 +263,7 @@ $( document ).ready(function() {
             type: "POST",
             url: "{{ base_url }}notifications/unread_notif_count/",
             data: {
-                userid: {{ user_id }}
+                userid: '{{ user_id }}'
             },
             dataType: "json",
             encode: true,

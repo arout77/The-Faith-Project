@@ -1,5 +1,15 @@
 {% extends "docs.html.twig" %}
+
 {% block title %}American Standard Version{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="{% for description in intro %}{{ description.text }}{% endfor %}" />
+{% endblock %}
+
+{% block keywords %}
+<meta name="keywords" content="{{ results.0.testament }}, bible, {% for result in results %}{{ book }} Chapter {{ chapter }} {{ result.verse }} {% endfor %}" />
+{% endblock %}
+
 {% block content %}
 <script>
 $(document).ready(function () {
@@ -154,7 +164,7 @@ function highlighter( book, chapter, verse )
         <div class="offcanvas-body my-auto mx-0 flex-grow-0">
             <p class="text-center">
                 {% for description in intro %}
-                {{ description.text }}
+                    {{ description.text }}
                 {% endfor %}
             </p>
             <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Continue</button>

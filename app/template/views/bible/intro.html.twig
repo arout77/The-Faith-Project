@@ -1,26 +1,54 @@
 {% extends 'docs.html.twig' %}
 
-{% block title %}{{ book }} Intro  | Word of God{% endblock %}
+{% block title %}Introduction to {{ category|replace({'torah':'Torah'}) }}{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="In this comprehensive guide, we'll journey through each of the biblical books in chronological order. We've prepared a table that showcases the traditional authorship, dates of composition, and key verses for every book. And for those desiring a deeper dive, a concise summary of each book will further enrich your understanding. Here, we're discussing {{ category|replace({'torah':'Torah'}) }}" />
+{% endblock %}
+
+{% block keywords %}
+<meta name="keywords" content="Bible, Introduction to Bible, {{ category|replace({'torah':'Torah'}) }}, {% for result in results %}{{ result.book }}, {% endfor %}" />
+{% endblock %}
 
 {% block content %}
 <section id="searchresults">
     <div class="card mb-4">
         <div class="card-body">
-            <h3 class="card-title">Introduction to {{ book }}</h3>
-            <div class="card-subtitle text-muted mb-3">
-            <dl class="row">
-                <p class="card-text">
-                {% if results|length > 0 %}
-                	{% for result in results %}                
-                        {{ result.text }}
-                    {% endfor %}
-                </p>
-            </dl>
-                {% else %}
-                	<p>No results found</p>
+            <h3 class="card-title text-center">Introduction to {{ category|replace({'torah':'Torah'}) }}</h3>
+
+                {% if category == 'The Pentateuch (torah)' %}
+                    {{ include('intros/pentateuch.html.twig') }}
+                {% elseif category == 'The Historical Books' %}
+                    {{ include('intros/historical.html.twig') }}
+                {% elseif category == 'The Wisdom And Poetry Books' %}
+                    {{ include('intros/poetry.html.twig') }}
+                {% elseif category == 'The Major Prophets' %}
+                    {{ include('intros/major.html.twig') }}
+                {% elseif category == 'The Minor Prophets' %}
+                    {{ include('intros/minor.html.twig') }}
+                {% elseif category == 'The Gospels' %}
+                    {{ include('intros/gospels.html.twig') }}
+                {% elseif category == 'The Book Of Acts' %}
+                    {{ include('intros/acts.html.twig') }}
+                {% elseif category == 'The Pauline Epistles' %}
+                    {{ include('intros/pauline.html.twig') }}
+                {% elseif category == 'The General Epistles' %}
+                    {{ include('intros/general.html.twig') }}
+                {% elseif category == 'Apocalyptic' %}
+                    {{ include('intros/apocalyptic.html.twig') }}
                 {% endif %}
-                
-            </div>
+            
+            <dl class="row mb-3">
+                {% for result in results %}
+                    <dt class="col-sm-3">Book {{ result.id }}: {{ result.book }}</dt>
+                    <dd class="col-sm-9">
+                        {{ result.text }} 
+                        <span class="justify-content-end">
+                        <a href="{{ base_url }}bible/kjv/{{ result.book|replace({' ':'-'}) }}/1">(Read {{ result.book }} now)</a>
+                        </span>
+                    </dd>
+                {% endfor %}
+            </dl>
         </div>
     </div>
 </section>

@@ -3,50 +3,17 @@ body {
   font-family: "Open Sans", sans-serif;
   color: #1a1a1a;
   background-color: #624404;
-  background-image: url('../../../../media/img/backgrounds/purple-gradient-background_591496-68.avif');
+  background-image: url('../../../../media/img/backgrounds/Usign-Gradients-Featured-Image.jpg');
   background-size: cover;
   background-repeat: no-repeat;
 }
-@media (min-width: 1200px){
-.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar, .layout-menu-fixed.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar, .layout-menu-fixed-offcanvas.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar {
-    left: 10rem;
-}
-@media (min-width: 1400px){
-.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar, .layout-menu-fixed.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar, .layout-menu-fixed-offcanvas.layout-navbar-fixed:not(.layout-menu-collapsed) .layout-content-navbar:not(.layout-without-menu) .layout-navbar {
-    left: 11rem;
-}
-@media (min-width: 1200px) {
-  .layout-menu-fixed .layout-menu,
-.layout-menu-fixed-offcanvas .layout-menu, .layout-navbar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-  }
 
-  .layout-menu-fixed:not(.layout-menu-collapsed) .layout-page,
-.layout-menu-fixed-offcanvas:not(.layout-menu-collapsed) .layout-page {
-    padding-left: 0;
-  }
-}
-
-@media (min-width: 1400px) {
-  .layout-menu-fixed .layout-menu,
-.layout-menu-fixed-offcanvas .layout-menu, .layout-navbar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-  }
-
-  .layout-menu-fixed:not(.layout-menu-collapsed) .layout-page,
-.layout-menu-fixed-offcanvas:not(.layout-menu-collapsed) .layout-page {
-    padding-left: 0rem;
-  }
+body.dark {
+  color: #ccc;
+  background-color: #666;
+  background-image: url('../../../../media/img/backgrounds/purple-gradient-background_591496-68.avif');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 video {
@@ -54,6 +21,32 @@ video {
   max-height: 500px;
 }
 
+.video {
+    background-color: rgb(0, 0, 0, 0.79) !important;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: padding-box;
+    background-clip: border-box;
+    border: 0 solid #d9dee3;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
+}
+
+.videoDescription {
+    background-color: #161515 !important;
+    border-radius: 0;
+    font-size: 1.1em;
+}
+
 #watchVideo {
 	width: 80%;
+}
+
+body.dark .card-body {
+    background-color: rgb(0, 0, 0, 0.79) !important;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
 }

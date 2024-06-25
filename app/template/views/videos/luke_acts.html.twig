@@ -1,0 +1,100 @@
+{% extends 'docs.html.twig' %}
+{% block title %}Video Categories{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Videos of The Bible Series. In this series, we dive into the two-part work of Luke and Acts and gain a unique perspective on the life of Jesus and the early Church." />
+{% endblock %}
+
+{% block keywords %}
+<meta name="keywords" content="Animated videos, videos about the Bible, Bible web series" />
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="card mb-4">
+        <div class="card-body" id="collections">
+            {# <h3 class="card-title text-center" style="text-shadow: 2px 1px 8px;" id="videosintro">Videos of The Bible Series</h3> #}
+            <div class="card-subtitle container mb-3">
+                <div class="controls">
+                    <div id="catShuffle" class="row" style="">
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-6">
+                            <h2 id="catName" class="text-center">Luke / Acts Series</h2>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </div>
+                
+
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div>
+                                <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}luke-acts-series.png">
+                            </div>
+                            <div class="row mt-2 mb-4">
+                                <span class="col-md-6 justify-content-start"><small>{{ num_episodes }} episodes</small></span> 
+                                <div class="col-md-6 btn-group dropup justify-content-end">
+                                  <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-upload"></i> &nbsp;Share
+                                  </button>
+                                  <ul class="dropdown-menu" style="">
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                                                <a class="a2a_button_facebook"></a>
+                                                <a class="a2a_button_x"></a>
+                                                <a class="a2a_button_whatsapp"></a>
+                                                <a class="a2a_button_snapchat"></a>
+                                                <a class="a2a_button_tumblr"></a>
+                                            </div>
+                                        </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                            </div>
+                            <h2>Luke-Acts Series</h2>
+                            <div>
+                                <p>
+                                    In this series, we dive into the two-part work of Luke and Acts and gain a unique perspective on the life of Jesus and the early Church.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="table-responsive text-nowrap">
+                              <table class="table">
+                                <tbody>
+                                  {% for vid in episodes %}
+                                  <tr>
+                                    <td>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}">
+                                        <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#torah" aria-controls="torah">
+                                        <img class="" style="border: 1px solid goldenrod; height: 140px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title_raw }}">
+                                        </div>
+                                        <div class="catVidTitle text-center" style="padding: 10px; font-size: 0.8em;">Episode {{ vid.episode }}
+                                        </div>
+                                    </a>
+                                    </td>
+                                    <td class="w-50 text-break" style="word-break: break-all !important;">
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}">
+                                        <h5>{{ vid.title_raw }}</h5>
+                                            {{ vid.intro }}
+                                    </a>
+                                    </td>
+                                    <td><a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}"><i class="fa fa-chevron-right"></i></a></td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

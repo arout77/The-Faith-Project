@@ -1,0 +1,120 @@
+{% extends 'docs.html.twig' %}
+{% block title %}Viewing {{ category }} videos{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="View our animated web series on popular Biblical topics. Currently viewing: {{ category }}" />
+{% endblock %}
+
+{% block keywords %}
+<meta name="keywords" content="Animated videos, videos about the Bible, Bible web series, {{ category }}" />
+{% endblock %}
+
+
+{% block content %}
+<section>
+    <div class="card mb-4">
+        <div class="card-body" id="collections">
+            {# <h3 class="card-title text-center" style="text-shadow: 2px 1px 8px;" id="videosintro">Videos of The Bible Series</h3> #}
+            <div class="card-subtitle container mb-3">
+                <div class="controls">
+                    <div id="catShuffle" class="row" style="">
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-6">
+                            <h2 id="catName" class="text-center">{{ category }}</h2>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </div>
+                
+
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                            {% for k,v in thumbs %}
+                                {% if category == k %}
+                                <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}{{ v }}">
+                                {% endif %}
+                            {%  endfor %}
+                            </div>
+                            <div class="row mt-2 mb-4">
+                                <span class="col-md-6 justify-content-start"><small>{{ num_videos }} videos</small></span> 
+                                <div class="col-md-6 btn-group dropup justify-content-end">
+                                  <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-upload"></i> &nbsp;Share
+                                  </button>
+                                  <ul class="dropdown-menu" style="">
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);">
+                                            <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                                                <a class="a2a_button_facebook"></a>
+                                                <a class="a2a_button_x"></a>
+                                                <a class="a2a_button_whatsapp"></a>
+                                                <a class="a2a_button_snapchat"></a>
+                                                <a class="a2a_button_tumblr"></a>
+                                            </div>
+                                        </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                            </div>
+                            <h3>{{ category }}</h3>
+                            <div>
+                                <p>
+                                    {# Book Collections is redirected to its own page, so it is excluded here #}
+                                    {% if category == 'Biblical Themes' %}
+                                        Discover big ideas core to the biblical story from their first appearance through the entire narrative of the Bible.
+                                    {% elseif category == 'Character of God' %}
+                                        Learn about the foundational description of God's attributes found in the book of Exodus.
+                                    {% elseif category == 'Creation' %}
+                                        In the creation narrative of Genesis 1, the biblical authors lay the foundation for the entire biblical story. Understanding God’s purpose for creation and humanity’s role brings the Bible’s message into light. Learn more with our Creation series.
+                                    {% elseif category == 'Intro to The Bible' %}
+                                        The Bible is the most influential book in human history, but what is it?...This video series will help you understand the Bible and see its unified message.
+                                    {% elseif category == 'New Testament Overviews' %}
+                                        What is the New Testament about in the Bible? Watch as we explain its major themes and gain a deeper understanding of its place in the biblical story.
+                                    {% elseif category == 'Old Testament Overviews' %}
+                                        What is the Old Testament about in the Bible? Watch as we explain its major themes and gain a deeper understanding of its place in the biblical story.
+                                    {% elseif category == 'Spiritual Beings' %}
+                                        See how the inhabitants of the heavenly realm play a key part in the biblical story with our Spiritual Beings series.
+                                    {% elseif category == 'Visual Commentaries' %}
+                                        This series looks at small sections of the Bible, paying careful attention to the literary style and design of a specific passage or verse.
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="table-responsive text-nowrap">
+                              <table class="table">
+                                <tbody>
+                                  {% for vid in videos %}
+                                  <tr>
+                                    <td>
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}">
+                                        <div style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#torah" aria-controls="torah">
+                                        <img class="" style="height: 100px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title_raw }}">
+                                        </div>
+                                    </a>
+                                    </td>
+                                    <td class="w-50 text-break" style="word-break: break-all !important;">
+                                    <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}">
+                                        <h5>{{ vid.title_raw }}</h5>
+                                            {{ vid.intro }}
+                                    </a>
+                                    </td>
+                                    <td><a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}"><i class="fa fa-chevron-right"></i></a></td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

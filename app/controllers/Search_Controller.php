@@ -3,6 +3,59 @@ namespace App\Controller;
 
 class Search_Controller extends Init_Controller
 {
+	public function crawl()
+	{
+		set_time_limit( 300 );
+		$base_url = $this->config->setting( 'site_url' );
+
+		$doc = new \DOMDocument();
+		$doc->loadHTMLFile( 'http://localhost/wordofgod/bible/kjv' );
+		// Get body tag.
+		$body = $doc->getElementsByTagName( 'body' );
+		if ( $body and $body->length > 0 )
+		{
+			$body = $body->item( 0 );
+
+			// Do stuff with the body tag...
+
+			// Get altered HTML and clean up.
+			$html = $doc->saveHTML();
+			$html = str_replace( '<?xml encoding="UTF-8" ?>', '', $html );
+
+			// Return modified HTML.
+			echo $html;
+		}
+		var_dump( $tables );exit;
+		foreach ( $doc->getElementsByTagName( 'a' ) as $item )
+		{
+			$href = $item->getAttribute( 'href' );
+
+			if ( str_contains( $href, 'javascript:void(0)' ) )
+			{
+				continue;
+			}
+
+			if ( !str_contains( $href, $base_url ) )
+			{
+				$href = $base_url . $href;
+			}
+
+			$tags = get_meta_tags( $href );
+
+			$model = $this->model( 'Search' );
+			if ( !empty( $tags['description'] ) && !empty( $tags['keywords'] ) )
+			{
+				$model->index( $href, $tags['keywords'], $tags['description'] );
+			}
+		}
+	}
+
+	public function gAPI()
+	{
+		https: //www.googleapis.com/customsearch/v1?key={YOUR_API_KEY}&cx={CUSTOM_SEARCH_ENGINE_ID}&q={KEYWORD}
+		$url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyC86D705e2t-i5KhcxxQ-zLoW2Vdgflzgg&cx=";
+	}
+
 	public function index()
 	{
 		// Model was created and stored at: /app/models/SearchModel.php

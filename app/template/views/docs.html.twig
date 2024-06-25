@@ -21,7 +21,13 @@ data-assets-path="../../assets/" data-template="vertical-menu-template"></html>
 
     <title>{% block title %}{% endblock %} | Word of God Online Bible</title>
 
-    <meta name="description" content="" />
+    {% block meta_description %}
+        <meta name="description" content="Word of God Ministries provides free access to an online bible (English, Spanish, French and German versions currently available), fellowship, animated videos, bible study and more!" />
+    {% endblock %}
+
+    {% block keywords %}
+        <meta name="keywords" content="Online Bible, Christian Fellowship, Bible Study, Animated Videos discussing the Bible" />
+    {% endblock %}
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -73,7 +79,7 @@ data-assets-path="../../assets/" data-template="vertical-menu-template"></html>
     {# <script src="{{ base_url }}public/template/docs/js/tiny-slider.js"></script> #}
     <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
     <script async src="{{ base_url }}public/template/docs/js/social.js"></script>
-<script src="https://unpkg.com/embla-carousel-autoplay/embla-carousel-autoplay.umd.js"></script>
+    <script src="https://unpkg.com/embla-carousel-autoplay/embla-carousel-autoplay.umd.js"></script>
 
     
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->

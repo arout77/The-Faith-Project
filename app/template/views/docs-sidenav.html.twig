@@ -13,9 +13,15 @@
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="mt-4 mb-2">
+        <li class="menu-header small text-uppercase mt-4 mb-2">
+        <div>Search</div>
+        </li>
+        <li class="">
+        <script async src="https://cse.google.com/cse.js?cx=70c6a34b24d2e4914">
+        </script>
+        <div class="gcse-searchbox-only"></div>
             <!-- Search -->
-        <form method="get" action="{{ base_url }}search/results/" id="searchbar" class="d-flex">
+        {# <form method="get" action="{{ base_url }}search/results/" id="searchbar" class="d-flex">
             <div class="input-group"  id="searchbar">
               <button type="submit" class="input-group-text"><i class="tf-icons bx bx-search"></i></button>
               <input type="text" id="navSearch" name="navSearch" value="{{ session.validation.navSearch }}" class="form-control" placeholder="Search the Bible..." >
@@ -28,45 +34,16 @@
                 {% endif %}
               </span>
             </div>
-        </form>
+        </form> #}
         <!-- /Search -->
         </li>
 
-{#         <li class="menu-header small text-uppercase align-items-center">
-                Toggle Dark Mode
-        </li>
-        <li class="d-flex align-items-center justify-content-end ml-3">
-            <input type="checkbox" class="checkbox" id="checkbox">
-            <label for="checkbox" class="checkbox-label">
-                <i class="fas fa-moon" title="Toggle light / dark mode"></i>
-                <i class="fas fa-sun" title="Toggle light / dark mode"></i>
-                <span class="ball" title="Toggle light / dark mode"></span>
-            </label>
-        </li> #}
-
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text"><i class="menu-icon tf-icons bx bx-bible"></i> Intro to Bible</span>
-        </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <div data-i18n="Summary of Books in Bible">Books</div>
-            </a>
-            <ul class="menu-sub">
-                {% for book in books_of_bible %}
-                <li class="menu-item" style="list-style: none;">
-                    <a href="{{ base_url }}bible/intro/{{ book|replace({" ": "-"}) }}/" class="menu-link">
-                    <div data-i18n="{{ book }}">{{ book }}</div>
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </li>
-        <li class="menu-header small text-uppercase"  id="vmenulink">
+        <li class="menu-header small text-uppercase" id="vmenulink">
             <i class="menu-icon tf-icons bx bx-video"></i> <span>Videos</span>
         </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <div data-i18n="Video Categories">Categories</div>
+                <div data-i18n="Video Categories">Explore</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item" style="list-style: none;">
@@ -107,6 +84,63 @@
                     </a>
                 </li>
             </ul>
+        </li>
+
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text"><i class="menu-icon tf-icons bx bx-bible"></i> Intro to Bible</span>
+        </li>
+            {# <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <div data-i18n="Summary of Books in Bible">Book Collection</div>
+            </a> #}
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/the-pentateuch/" class="menu-link">
+            <div data-i18n="THE PENTATEUCH">THE PENTATEUCH (Torah)</div>
+            </a>
+        </li>
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/the-historical-books/" class="menu-link">
+            <div data-i18n="THE HISTORICAL BOOKS">THE HISTORICAL BOOKS</div>
+            </a>
+        </li>
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/the-wisdom-and-poetry-books/" class="menu-link">
+            <div data-i18n="THE WISDOM AND POETRY BOOKS">THE WISDOM AND POETRY BOOKS</div>
+            </a>
+        </li>
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/the-major-prophets/" class="menu-link">
+            <div data-i18n="THE MAJOR PROPHETS">THE MAJOR PROPHETS</div>
+            </a>
+        </li>
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/the-minor-prophets/" class="menu-link">
+            <div data-i18n="THE MINOR PROPHETS">THE MINOR PROPHETS</div>
+            </a>
+        </li>
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/the-gospels/" class="menu-link">
+            <div data-i18n="THE GOSPELS">THE GOSPELS</div>
+            </a>
+        </li>
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/the-book-of-acts/" class="menu-link">
+            <div data-i18n="THE BOOK OF ACTS">THE BOOK OF ACTS</div>
+            </a>
+        </li>
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/the-pauline-epistles/" class="menu-link">
+            <div data-i18n="THE PAULINE EPISTLES">THE PAULINE EPISTLES</div>
+            </a>
+        </li>
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/the-general-epistles/" class="menu-link">
+            <div data-i18n="THE GENERAL EPISTLES">THE GENERAL EPISTLES</div>
+            </a>
+        </li>
+        <li class="menu-item" style="list-style: none;">
+            <a href="{{ base_url }}bible/intro/apocalyptic/" class="menu-link">
+            <div data-i18n="APOCALYPTIC">APOCALYPTIC</div>
+            </a>
         </li>
     </ul>
 </aside>
