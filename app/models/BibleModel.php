@@ -66,7 +66,7 @@ class BibleModel extends System_Model
 		{
 			return $this->getAll( 'SELECT id, book, text, category FROM intro' );
 		}
-		return $this->getAll( 'SELECT id, book, text, category FROM intro WHERE category = ?', [$cat] );
+		return $this->getAll( 'SELECT id, book, text, category FROM intro WHERE category = ? OR book = ?', [$cat, $cat] );
 	}
 
 	/**

@@ -69,6 +69,10 @@ class VideosModel extends System_Model
 		{
 			$series = 'Torah Series';
 		}
+		elseif ( $series == 'Torah_Series' )
+		{
+			$series = 'Torah Series';
+		}
 		elseif ( $series == 'mark' )
 		{
 			$series = 'Mark';

@@ -1,4 +1,4 @@
-{% extends 'docs.html.twig' %}
+{% extends 'porto.html.twig' %}
 
 {% block title %}Introduction to {{ category|replace({'torah':'Torah'}) }}{% endblock %}
 
@@ -11,11 +11,17 @@
 {% endblock %}
 
 {% block content %}
-<section id="searchresults">
-    <div class="card mb-4">
-        <div class="card-body">
-            <h3 class="card-title text-center">Introduction to {{ category|replace({'torah':'Torah'}) }}</h3>
+<div class="row py-5">
+    <div class="col-lg-10 text-center offset-lg-1">
+        <h2 class="font-weight-bold text-9 mb-0">Introduction to {{ category|replace({'torah':'Torah'}) }}</h2>
+        {# <p class="sub-title text-primary text-4 font-weight-semibold positive-ls-2 mt-2 mb-4">BIBLE <span class="highlighted-word highlighted-word-animation-1 highlighted-word-animation-1-2 highlighted-word-animation-1 highlighted-word-animation-1-no-rotate alternative-font-4 font-weight-semibold line-height-2 pb-2">STUDY</span></p>
+        <p class="text-1rem text-color-default negative-ls-05 pt-3 container">Test your knowledge of the {{ type }} in the quiz below. The quiz consists of {{ total_records }} questions, and there is no time limit. Feel free to refer to the Bible if needed, but do not search online for answers. Good luck!</p> #}
+    </div>
+</div>
 
+<div class="container">
+    <div class="card border-0 bg-color-grey">
+        <div class="card-body">
                 {% if category == 'The Pentateuch (torah)' %}
                     {{ include('intros/pentateuch.html.twig') }}
                 {% elseif category == 'The Historical Books' %}
@@ -51,5 +57,5 @@
             </dl>
         </div>
     </div>
-</section>
+</div>
 {% endblock %}

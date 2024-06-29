@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% block head %}
+		<!-- Basic -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>{% block title %}{% endblock %} | Word of God Online Bible</title>	
+
+		{% block meta_description %}
+        <meta name="description" content="Word of God Ministries provides free access to an online bible (English, Spanish, French and German versions currently available), fellowship, animated videos, bible study and more!" />
+	    {% endblock %}
+
+	    {% block keywords %}
+	        <meta name="keywords" content="Online Bible, Christian Fellowship, Bible Study, Animated Videos discussing the Bible" />
+	    {% endblock %}
+		<meta name="author" content="Andrew Rout">
+		<link rel="canonical" href="{{ base_url }}">
+
+		<!-- Favicon -->
+	    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	    <link rel="manifest" href="/site.webmanifest">
+	    <link rel="icon" type="image/x-icon" href="{{ base_url }}favicon.ico" />
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+
+		<!-- Web Fonts  -->
+		<link id="googleFonts" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light&display=swap" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/fontawesome-free/css/all.min.css">
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/animate/animate.compat.css">
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/simple-line-icons/css/simple-line-icons.min.css">
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.carousel.min.css">
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.theme.default.min.css">
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/magnific-popup/magnific-popup.min.css">
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme.css">
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-elements.css">
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-blog.css">
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-shop.css">
+
+		<!-- Skin CSS -->
+		<link id="skinCSS" rel="stylesheet" href="{{ base_url }}public/template/porto/css/skins/default.css">
+
+		<!-- Theme Custom CSS -->
+		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/css/skins/skin-landing.css"> #}
+		<link rel="stylesheet" href="{{ base_url }}public/template/porto/css/custom.css">
+
+	    <script src="{{ base_url }}public/template/docs/assets/vendor/libs/jquery/jquery.js"></script>
+	    
+		{% endblock %}
+	</head>
+	<body class="loading-overlay-showing" data-loading-overlay data-plugin-options="{'hideDelay': 500, 'effect': 'default'}">						
+
+		<div class="body">
+
+			{{ include('nav.html.twig') }}
+
+			{% block hero %}{% endblock %}
+
+			<div role="main" class="main">
+				
+				{# <section class="page-header page-header-classic page-header-sm" id="catShuffle">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-8 order-2 order-md-1 align-self-center p-static">
+								<span class="page-header-title-border visible"></span>
+								<h1 data-title-border="">
+								{% block page_intro %}
+									{{ current_page|title }}
+								{% endblock %}
+								</h1>
+							</div>
+							<div class="col-md-4 order-1 order-md-2 align-self-center">
+								<ul class="breadcrumb d-block text-md-end">
+									<li>
+										{% block page_action %}
+											<a href="#">{{ current_page|title }}</a>
+										{% endblock %}
+									</li>
+									<li class="active">
+										{% block page_param %}
+											{{ current_action|title }}
+										{% endblock %}
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section> #}
+
+				{% block content %}{% endblock %}
+
+			</div>
+
+			{% block footer %}
+                {{ include('foot.html.twig') }}
+            {% endblock %}
+
+		</div>
+
+		<!-- Vendor -->
+		<script src="{{ base_url }}public/template/porto/vendor/plugins/js/plugins.min.js"></script>
+
+		<!-- Helpers -->
+		<script src="{{ base_url }}public/template/porto/js/mixitup.min.js"></script>
+	    <script src="{{ base_url }}public/template/porto/js/jquery.steps.min.js"></script>
+	    <script src="{{ base_url }}public/template/docs/js/jquery.timeago.js"></script>
+	    <script src="{{ base_url }}public/template/docs/js/jquery.aSimpleTour.min.js"></script>
+		<script src="{{ base_url }}public/template/docs/js/scrollTo.js"></script>
+		<script async src="{{ base_url }}public/template/docs/js/social.js"></script>
+
+		<!-- Theme Base, Components and Settings -->
+		<script src="{{ base_url }}public/template/porto/js/theme.js"></script>
+
+		<!-- Theme Custom -->
+		<script src="{{ base_url }}public/template/porto/js/custom.js"></script>
+
+		<!-- Theme Initialization Files -->
+		<script src="{{ base_url }}public/template/porto/js/theme.init.js"></script>
+
+		<div class="loading-overlay">
+			<div class="bounce-loader">
+				<div class="bounce1"></div>
+				<div class="bounce2"></div>
+				<div class="bounce3"></div>
+			</div>
+		</div>
+
+	</body>
+</html>

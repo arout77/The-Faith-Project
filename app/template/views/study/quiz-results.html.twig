@@ -1,4 +1,4 @@
-{% extends 'docs.html.twig' %}
+{% extends 'porto.html.twig' %}
 {% block title %}Quiz Results{% endblock %}
 {% block meta_description %}
 <meta name="description" content="View your test results from the Bible study quiz" />
@@ -9,7 +9,24 @@
 {% endblock %}
 {% block content %}
 <section id="searchresults">
-    <div class="card mb-4">
+
+<div class="row py-5">
+    <div class="col-lg-10 text-center offset-lg-1">
+        <h2 class="font-weight-bold text-9 mb-0">You scored {{ percent }}%</h2>
+        <p class="sub-title text-primary text-4 font-weight-semibold positive-ls-2 mt-2 mb-4">BIBLE <span class="highlighted-word highlighted-word-animation-1 highlighted-word-animation-1-2 highlighted-word-animation-1 highlighted-word-animation-1-no-rotate alternative-font-4 font-weight-semibold line-height-2 pb-2">STUDY</span></p>
+        <p class="text-1rem text-color-default negative-ls-05 pt-3 container">{% if percent == 100 %}
+            <h5 class="text-center">Perfect score! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
+            {% elseif percent < 100 and percent >= 90 %}
+            <h5 class="text-center">Excellent! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
+            {% elseif percent < 90 and percent >= 80 %}
+            <h5 class="text-center">Well done! You answered {{ correct_answers }} out of {{ total_records }} questions correctly! But there's still room for improvement, lets take a look below and see where you can focus more of your studies.</h5>
+            {% else %}
+            <h5 class="text-center">You answered {{ correct_answers }} out of {{ total_records }} questions correctly. Lets take a look below and see where you could study more.</h5>
+            {% endif %}</p>
+    </div>
+</div>
+
+<div class="container">
         {% if percent > 89 %}
             <div class="firework"></div>
             <div class="firework"></div>
@@ -18,17 +35,8 @@
             <div class="firework"></div>
             <div class="firework"></div>
         {% endif %}
-        <div class="card-body">
-            <h3 class="card-title text-center">You scored {{ percent }}%</h3>
-            {% if percent == 100 %}
-            <h5 class="text-center">Perfect score! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
-            {% elseif percent < 100 and percent >= 90 %}
-            <h5 class="text-center">Excellent! You answered {{ correct_answers }} out of {{ total_records }} questions correctly!</h5>
-            {% elseif percent < 90 and percent >= 80 %}
-            <h5 class="text-center">Well done! You answered {{ correct_answers }} out of {{ total_records }} questions correctly! But there's still room for improvement, lets take a look below and see where you can focus more of your studies.</h5>
-            {% else %}
-            <h5 class="text-center">You answered {{ correct_answers }} out of {{ total_records }} questions correctly. Lets take a look below and see where you could study more.</h5>
-            {% endif %}
+    <div class="card border-radius-0 bg-color-light border-0 box-shadow-1 mb-4">
+        <div class="card-body">            
             <div class="card-subtitle text-muted mb-3">
                 <p class="card-text">
                 <div class="table-responsive">
@@ -50,13 +58,13 @@
                                     <i class="fa fa-check fa-lg text-success me-3"></i>
                                     {% endif %} <strong>{{ q.text }}</strong>
                                 </td>
-                                <td>{% if q.answergiven != q.correctanswer %}
-                                    <span class="badge bg-label-danger me-1">
+                                <td class="align-content-center">{% if q.answergiven != q.correctanswer %}
+                                    <span class="badge badge-secondary badge-sm rounded-pill text-uppercase px-2 py-1 me-1">
                                     {% else %}
-                                    <span class="badge bg-label-success me-1">
+                                    <span class="badge badge-success badge-sm rounded-pill text-uppercase px-2 py-1 me-1">
                                     {% endif %}{{ q.answergiven }}</span>
                                 </td>
-                                <td class="corans">{{ q.correctanswer }}</td>
+                                <td class="corans align-content-center">{{ q.correctanswer }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -66,5 +74,6 @@
             </div>
         </div>
     </div>
+</div>
 </section>
 {% endblock %}

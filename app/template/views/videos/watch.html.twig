@@ -1,4 +1,4 @@
-{% extends 'docs.html.twig' %}
+{% extends 'porto.html.twig' %}
 {% block title %}Now watching: {{ videoRawTitle }}{% endblock %}
 
 {% block meta_description %}
@@ -9,20 +9,49 @@
 <meta name="keywords" content="{{ videoRawTitle }}" />
 {% endblock %}
 
+{% block page_intro %}
+{{ videoRawTitle }}
+{% endblock %}
+
+{% block page_action %}
+Videos
+{% endblock %}
+
+{% block page_param %}
+Watch
+{% endblock %}
+
 {% block content %}
-<section>
-    <div class="video mb-4">
-        <div class="card-body">
-            <div class="card-subtitle text-muted mb-3">
-                <video width="100%" controls controlslist="nodownload" poster="{{ base_url }}{{ video_thumbnail_url }}{{ thumbnail }}">
-                    <source src="{{ base_url }}{{ video_url }}{{ video }}.mp4" type="video/mp4">
-                    <source src="{{ base_url }}{{ video_url }}{{ video }}.ogg" type="video/ogg">
-                    Your browser does not support HTML5 video.
-                </video>
-            </div>
+
+<div class="container mt-3 mb-4">
+    <div class="col align-self-center p-static">
+        <ul class="breadcrumb d-block">
+            <li><a href="{{ base_url }}videos">Watch</a></li>
+            <li><a href="{{ base_url }}videos/category/{{ video_category['category']|replace({' ': '-'}) }}">{{ video_category['category'] }}</a></li>
+            {% if video_subcategory['subcategory']|default %}    
+                <li><a href="{{ base_url }}videos/collections/{{ video_subcategory['subcategory']|replace({' ': '_'}) }}">{{ video_subcategory['subcategory'] }}</a></li>
+            {% endif %}
+            <li><a style="color: #cc6000;">{{ videoRawTitle }}</a></li>
+        </ul>
+    </div>
+</div>
+
+{# <div class="row align-items-center justify-content-between">
+    <div class="col-sm-12">
+        <h2 class="font-weight-bold text-center text-10 pt-3 mb-4">{{ videoRawTitle }}{% if episode != 0 %}, ep. {{ episode }}{% endif %}</h2>
+    </div> 
+    <div class="col-lg-8 offset-lg-2 px-lg-0 text-center">
+        
+        <div class="video">
+            <video width="100%" controls controlslist="nodownload" poster="{{ base_url }}{{ video_thumbnail_url }}{{ thumbnail }}">
+                <source src="{{ base_url }}{{ video_url }}{{ video }}.mp4" type="video/mp4">
+                <source src="{{ base_url }}{{ video_url }}{{ video }}.ogg" type="video/ogg">
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
             <div class="row">
                 <div class="col-md-9">
-                    <h4 class="card-title">
+                    <h4>
                         <em><span id="videoTitle">{{ videoRawTitle }}{% if episode != 0 %}, ep. {{ episode }}{% endif %}
                         </span></em>
                     </h4>
@@ -46,13 +75,55 @@
                     </ul>
                 </div>
             </div>
-        </div>
+            <p class="text-4">{{ intro.0 }}</p>
     </div>
-    <div class="card videoDescription">
+</div>
+ #}
+<section>
+    <div class="container video mb-4">
         <div class="card-body">
             <div class="card-subtitle text-muted mb-3">
-                <p>{{ intro.0 }}</p>
+                <video width="100%" 
+                    controls 
+                    controlslist="nodownload" 
+                    poster="{{ base_url }}{{ video_thumbnail_url }}{{ thumbnail }}">
+                    <source src="{{ base_url }}{{ video_url }}{{ video }}.mp4" type="video/mp4">
+                    <source src="{{ base_url }}{{ video_url }}{{ video }}.ogg" type="video/ogg">
+                    Your browser does not support HTML5 video.
+                </video>
             </div>
+            <div class="row">
+                <div class="col-sm-9 col-lg-6">
+                    <h4 class="card-title">
+                        {{ videoRawTitle }}{% if episode != 0 %}, ep. {{ episode }}{% endif %}
+                    </h4>
+                    <p>{{ intro.0 }}</p>
+                    <p class="text-muted">{{ video_category['category'] }}</p>
+                </div>
+                <div class="col-sm-3 col-lg-6 justify-content-end">
+                    <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: inline-end;">
+                    <i class="fa fa-upload"></i> &nbsp;Share
+                    </button>
+                    <ul class="dropdown-menu" style="">
+                        <li>
+                            <a class="dropdown-item" href="javascript:void(0);">
+                                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                            <a class="a2a_button_facebook"></a>
+                            <a class="a2a_button_x"></a>
+                            <a class="a2a_button_whatsapp"></a>
+                            <a class="a2a_button_snapchat"></a>
+                            <a class="a2a_button_tumblr"></a>
+                            </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    <div class="card videoDescription">
+        <div class="card-body">
             <div class="row">
                 {% if ep_count >= 1 %}
                 <h6>Other episodes in series</h6>
@@ -120,5 +191,7 @@
     </div>
     </div>
     </div>
+    </div>
 </section>
+
 {% endblock %}

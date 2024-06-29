@@ -119,6 +119,7 @@ class Bible_Controller extends Init_Controller
 			'numchapters' => $numchapters['total'], // Number of chapters for this book
 			'chapter_count' => $this->num_chapters, // Array containing each book and its chapter count
 			'highlighted_verses' => $get_highlighted_verses,
+			'intro'       => $this->intro,
 		] );
 	}
 

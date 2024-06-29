@@ -27,8 +27,22 @@ class Study_Controller extends Init_Controller
 		$model         = $this->model( 'Study' );
 		$questions     = $model->getQuiz( $type );
 
+		if ( $type == 'ot' )
+		{
+			$t = 'Old Testament';
+		}
+		elseif ( $type == 'nt' )
+		{
+			$t = 'New Testament';
+		}
+		else
+		{
+			$t = 'Old & New Testament';
+		}
+
 		$this->template->render( "study\quiz.html.twig",
 			[
+				'type'          => $t,
 				'results'       => $questions,
 				'total_records' => $num_questions,
 			]

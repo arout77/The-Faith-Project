@@ -1,4 +1,4 @@
-{% extends "docs.html.twig" %}
+{% extends "porto.html.twig" %}
 {% block title %}Bible Study Quiz{% endblock %}
 
 {% block meta_description %}
@@ -18,8 +18,8 @@
     padding:40px 0;
     }
     #quizBody {
-    background-color: white !important;
-    }
+    background-color: rgb(209 209 209 / 32%) !important;
+}
 </style>
 
 <script>
@@ -28,11 +28,18 @@ function save(answer, id) {
 }
 </script>
 
+<div class="row py-5">
+    <div class="col-lg-10 text-center offset-lg-1">
+        <h2 class="font-weight-bold text-9 mb-0">{{ type }} Quiz</h2>
+        <p class="sub-title text-primary text-4 font-weight-semibold positive-ls-2 mt-2 mb-4">BIBLE <span class="highlighted-word highlighted-word-animation-1 highlighted-word-animation-1-2 highlighted-word-animation-1 highlighted-word-animation-1-no-rotate alternative-font-4 font-weight-semibold line-height-2 pb-2">STUDY</span></p>
+        <p class="text-1rem text-color-default negative-ls-05 pt-3 container">Test your knowledge of the {{ type }} in the quiz below. The quiz consists of {{ total_records }} questions, and there is no time limit. Feel free to refer to the Bible if needed, but do not search online for answers. Good luck!</p>
+    </div>
+</div>
+
 <div class="container mb-2">
-    <section class="container">
-        <div class="card text-center">
-            <div class="card-header">Question <span id="questID"></span> of <span id="totalrecords">{{ total_records }}</span></div>
+        <div class="card border-radius-0 bg-color-light border-0 box-shadow-1 text-center">
             <div class="card-body" id="quizBody">
+            <div class="card-title mb-1 text-4 font-weight-bold">Question <span id="questID"></span> of <span id="totalrecords">{{ total_records }}</span></div>
                 <div id="wizard" class="aiia-wizard" style="display: none;">
                     <form id="bibleStudyQuiz" method="post" action="{{ base_url }}study/quiz_results/">
                         {% for i in 1..total_records %}
@@ -86,10 +93,10 @@ function save(answer, id) {
                 </div>
             </div>
         </div>
-    </section>
 </div>
 <script>
     $(document).ready(function () {
+        $.noConflict();
         $("#wizard").aiiaWizard();
     
         $("#questID").on('DOMSubtreeModified',function(){
@@ -697,7 +704,7 @@ function save(answer, id) {
     
         $.fn.aiiaWizard.defaults = {
             aiiaWizard: {
-                minHeight: 300,
+                minHeight: 250,
                 activeStep: 1,
                 localization: {
                     buttons: {
@@ -740,7 +747,7 @@ function save(answer, id) {
                     title: {
                         number: {
                             css: {
-                                'background-color': 'rgb(194 193 213)',
+                                'background-color': 'rgb(6 109 255 / 49%)',
                                 '-webkit-border-radius': '266px',
                                 '-moz-border-radius': '266px',
                                 'border-radius': '266px',
@@ -748,11 +755,15 @@ function save(answer, id) {
                                 'float': 'left',
                                 'font-size': '24px',
                                 'height': '40px',
+                                'margin': '10px',
                                 'margin-right': '20px',
                                 'text-align': 'center',
                                 'width': '40px',
                                 'font-weight': 'bold',
-                                'padding-top': '2px'
+                                'padding-top': '7px',
+                                'box-shadow': '0 0 0 0 rgba(52, 172, 224, 1)',
+                                'animation': 'pulse-blue 2s infinite',
+                                'transform': 'scale(1)'
                             }
                         },
                         text: {
@@ -760,13 +771,15 @@ function save(answer, id) {
                                 'color': '#566a7f',
                                 'font-size': '1.125rem',
                                 'float': 'left',
-                                'margin-top': '8px',
+                                'margin-top': '18px',
                                 'text-align': 'center',
                             }
                         }
                     },
                     content: {
-    
+                            css: {
+                                'background-color': 'rgb(6 6 42 / 49%)',
+                            }
                     }
                 },
                 buttons: {

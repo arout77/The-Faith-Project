@@ -1,0 +1,366 @@
+{{ include('partials/donate.html.twig') }}
+
+<footer id="footer" class="footer-texts-more-lighten">
+	<div class="container">
+		<div class="row py-4 my-5">
+			<div class="col-md-6 col-lg-3 mb-5 mb-md-0">
+				<img src="{{ base_url }}public/media/img/cross.png" class="img-fluid">
+			</div>
+			<div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
+				<h5 class="text-4 text-color-light mb-3">MORE INFO</h5>
+				<ul class="list list-unstyled">
+					<li class="mb-0"><a href="{{ base_url }}site/privacy/">Privacy</a></li>
+					<li class="mb-0"><a href="{{ base_url }}site/terms/">Terms</a></li>
+					<li class="mb-0"><a href="{{ base_url }}site/contact/">Contact Us</a></li>
+				</ul>
+				{# <ul class="social-icons social-icons-clean-with-border social-icons-medium">
+					<li class="social-icons-instagram">
+						<a href="http://www.instagram.com/" class="no-footer-css" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+					</li>
+					<li class="social-icons-twitter mx-2">
+						<a href="http://www.twitter.com/" class="no-footer-css" target="_blank" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+					</li>
+					<li class="social-icons-facebook">
+						<a href="http://www.facebook.com/" class="no-footer-css" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+					</li>
+				</ul> #}
+			</div>
+			<div class="col-md-6 col-lg-2 mb-5 mb-lg-0">
+				<h5 class="text-4 text-color-light mb-3">&nbsp;</h5>
+				<ul class="list list-unstyled mb-0">
+					<li class="mb-0"><a href="{{ base_url }}community">Fellowship</a></li>
+					<li class="mb-0"><a href="{{ base_url }}site/attributions">Attributions</a></li>
+					<li class="mb-0"><a href="{{ base_url }}site/donations">Donate</a></li>
+				</ul>
+			</div>
+			<div class="col-md-6 col-lg-4">
+				<h5 class="text-4 text-color-light mb-3">GET VIDEO UPDATES</h5>
+				<p class="mb-2">Get notified when we release new videos and when you get a notification from the community</p>
+				<div class="alert alert-success" style="display: none;" id="newsletterSuccess">
+					<strong>Success!</strong> You've been added to our email list.
+				</div>
+				<div class="alert alert-danger" style="display: none;" id="newsletterError"></div>
+				<form id="newsletterForm" class="form-style-5 opacity-10" action="{{ base_url }}site/subscribe" method="POST">
+					<div class="row">
+						<div class="form-group col">
+							<input class="form-control" placeholder="Email Address" name="email" id="newsletterEmail" type="email" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col">
+							<button class="btn btn-primary btn-rounded btn-px-4 btn-py-2 font-weight-bold" type="submit" id="newsletterFormSubmitBtn">SUBSCRIBE</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="footer-copyright footer-copyright-style-2 pt-4 pb-5">
+			<div class="row">
+				<div class="col-12 text-center">
+					<p class="mb-0">
+						©
+			            <script>
+			                document.write(new Date().getFullYear());
+			            </script> Word of God Ministry, made with ❤️ by
+			            <a href="https://github.com/arout77/Rhapsody-Framework" target="_blank" class="footer-link fw-bolder">Andrew Rout</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+{% if session['user-first-visit-to-site'] == 1 %}}
+    {{ include('partials/mobile-user-warning.html.twig') }}
+{% endif %}
+
+<script>
+$( document ).ready(function() {
+    // --- Notify mobile users to view in landscape mode
+    browserWidth = $(window).width();
+
+    if(browserWidth < 480) {
+        // browser width is under 900px
+        var showMessage = localStorage.getItem('wog_mobileUsersWarning');
+        if(showMessage != 'dismissed')
+        {
+            $('#newVisitor').show();
+
+            $("#dismissMobileWarning").click(function() {
+                localStorage.setItem('wog_mobileUsersWarning', 'dismissed');
+            });
+        }
+    }
+
+    $(".gsc-input-box").css('margin-left', '10px');
+    $("#gsc-i-id1").addClass('form-control');
+    $(".gsc-search-button-v2").addClass('btn btn-primary');
+
+    // --- Show tour if first visit to site
+    {% if session['user-first-visit-to-site'] == 1 %}
+    var myData = [{
+        // target element
+        element: '#dropdown-icon-demo',
+
+        // content displayed in the tooltip
+        tooltip: 'Select a book and chapter to turn to',
+
+        // position of the tooltip
+        // T, B, L, R, TL, TR, BL, BR, LT, RT, LB, RB
+        position: 'B',
+
+        // content displayed in the control panel
+        text: 'Flip through to different books / pages of the Bible here'
+    }, {
+        element: '#vmenulink',
+        tooltip: 'Free videos access',
+        position: 'B',
+        text: 'Watch animated bible study videos, covering a large range of topics!'
+    }, {
+        element: '#qmenulink',
+        tooltip: 'Bible Study Quizzes',
+        position: 'B',
+        text: 'Test your knowledge of the Bible by taking a 20 question, multiple choice quiz'
+    }, {
+        element: '#1',
+        tooltip: 'Click on verses to highlight them',
+        position: 'L', 
+        text: 'When reading the Bible, simply click on verses to highlight them; to erase your highlight just click on the verse again'
+    }, {
+        element: '#useravatar',
+        tooltip: 'Join the community!',
+        position: 'B', 
+        text: 'By joining our community, you\'ll gain access to a message board where you will be able to talk about many different topics with fellow Christians. Share advice, send a prayer request, private messaging and so much more!'
+    }]
+
+    $.aSimpleTour({
+      data: myData,
+      autoStart:true,
+      useOverlay: false,
+      // overlayZindex: 10,
+      welcomeMessage: '<h4>Welcome!</h4> We detected that this is your first visit to our site, so we wanted to show you around. This will only take a few seconds!',
+      controlsPosition:'BR',
+      buttons: {
+        next  : { text : 'Next', class : 'btn btn-primary mt-2'},
+        prev  : { text : 'Previous', class: 'btn btn-info mt-2' },
+        start : { text : 'Start', class: 'btn btn-primary mt-2' },
+        end   : { text : 'End', class: 'btn btn-secondary mt-2' }
+      },
+      controlsCss: {
+        background: 'rgba(0,0,0, 0.80)',
+        color: '#fff', 
+        width: '400px',
+      },
+      tooltipCss: {
+        background: 'rgba(0, 0, 0, 0.70)',
+        color: '#fff'
+      }
+    });
+    {% endif %}
+    // --- End tour
+
+    // --- Start timers to get message and notification counts
+    setInterval(getUnreadNotif, 9000);      // Every 9 secs
+    setInterval(getUnreadPM, 10000);        // Every 10 secs
+    setTimeout(showPMToast, 300000);        // Show once after 5 minutes
+    setTimeout(showNotifToast, 240000);     // Show once after 4 minutes
+
+    // --- Convert dates to 'time ago...'
+    $("time.timeago").timeago();
+
+    // --- Dark mode
+    const checkbox = document.getElementById("checkbox")
+    checkbox.addEventListener("change", () => {
+    document.documentElement.classList.toggle("dark");
+      if ( $('html').hasClass('dark')) {
+      	$('#avatarTable').addClass('table-dark');
+        localStorage.setItem('mode', 'dark');
+      } else {
+      	$('#avatarTable').removeClass('table-dark');
+        localStorage.setItem('mode', 'light');
+      }
+    });
+
+    let mode;
+    mode = localStorage.getItem('mode');
+
+    if (mode === 'light'){
+      lightMode();
+      $('#avatarTable').removeClass('table-dark');
+    }else{
+      darkMode();
+      $('#avatarTable').addClass('table-dark');
+    }
+    
+    function darkMode() {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem('mode', 'dark');
+        mode = localStorage.getItem('mode');
+    }
+    
+    function lightMode() {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem('mode', 'light');
+        mode = localStorage.getItem('mode');
+    }
+    // --- end dark mode
+
+    // --- Get unread PM count
+    function getUnreadPM()
+    {
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}notifications/unread_pm_count/",
+            data: {
+                userid: '{{ user_id }}'
+            },
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            if(data >= 1)
+            {
+                $("#pmcount").show();
+                $("#pmcount").html( data );
+            } else {
+                $("#pmcount").hide();
+            }
+        });
+    }
+    // --- End Get unread PM count
+
+    // --- Get unread Notifications count
+    function getUnreadNotif()
+    {
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}notifications/unread_notif_count/",
+            data: {
+                userid: '{{ user_id }}'
+            },
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            if(data >= 1)
+            {
+                $("#notifcount").show();
+                $("#notifcount").html( data );
+                $("#useravatar").addClass( 'notifbubble' );
+                // document.title = "(" + data + ")"+ ' ' + document.title;
+            } else {
+                $("#notifcount").hide();
+                $("#useravatar").removeClass( 'notifbubble' );
+            }
+        });
+    }
+    // --- End Get unread Notifications count
+
+    // --- Toasts
+    function showPMToast()
+    {
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}notifications/unread_pm_count/",
+            data: {
+                userid: '{{ user_id }}'
+            },
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            if(data >= 1)
+            {
+               $('#toast-pm').toast('show');
+            }
+        });
+    }
+
+    function showNotifToast()
+    {
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}notifications/unread_notif_count/",
+            data: {
+                userid: '{{ user_id }}'
+            },
+            dataType: "json",
+            encode: true,
+        }).done(function (data) {
+            if(data >= 1)
+            {
+               $('#toast-notif').toast('show');
+            }
+        });
+    }
+
+    // --- Subscription form
+    $("#newsletterFormSubmitBtn").click( function(e){
+    	let emailAddress = $("#newsletterEmail").val();
+    	$.ajax({
+            type: "POST",
+            url: "{{ base_url }}site/subscribe/",
+            data: {
+                email: emailAddress
+            },
+            dataType: "json",
+            encode: true,
+	        }).done(function (data) {
+	            if(data == 'exists')
+	            {
+	                $("#newsletterError").removeClass('alert-warning');
+	                $("#newsletterError").removeClass('alert-danger');
+	                $("#newsletterError").addClass('alert-warning');
+	                $("#newsletterError").html('This email address is already subscribed. Thank you for your support!');
+	                $("#newsletterError").show();
+	                $("#newsletterSuccess").hide();
+	            } else if(data == 'success') {
+	                $("#newsletterError").hide();
+	                $("#newsletterSuccess").show();
+	        	} else {
+	        		$("#newsletterSuccess").hide();
+	        		$("#newsletterError").removeClass('alert-warning');
+	        		$("#newsletterError").removeClass('alert-danger');
+	                $("#newsletterError").addClass('alert-danger');
+	                $("#newsletterError").html(data);
+	        		$("#newsletterError").show();
+	        	}
+	    	});
+
+	    	e.preventDefault();
+    	});
+    
+    // --- Language and bible version 
+    $("#eng").click( function(){
+        document.cookie = "lang=english";
+    });
+    $("#spa").click( function(){
+        document.cookie = "lang=spanish";
+    });
+    $("#fre").click( function(){
+        document.cookie = "lang=french";
+    });
+    $("#ger").click( function(){
+        document.cookie = "lang=german";
+    });
+
+    $("#asvver").click( function(){
+        document.cookie = "bibleVersion=asv";
+    });
+    $("#kjvver").click( function(){
+        document.cookie = "bibleVersion=kjv";
+    });
+    $("#webver").click( function(){
+        document.cookie = "bibleVersion=web";
+    });
+    $("#reinaver").click( function(){
+        document.cookie = "bibleVersion=reina";
+    });
+    $("#segondver").click( function(){
+        document.cookie = "bibleVersion=segond";
+    });
+    $("#lutherver").click( function(){
+        document.cookie = "bibleVersion=luther";
+    });
+    // --- End Language and bible version 
+});
+</script>

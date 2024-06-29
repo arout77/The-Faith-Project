@@ -123,6 +123,11 @@ class Videos_Controller extends Init_Controller
 				$this->redirect( 'error' );
 			}
 
+			if ( $collection == 'Torah_Series' )
+			{
+				$collection = 'torah';
+			}
+
 			$this->template->render( "videos\\" . $collection . ".html.twig", [
 				'episodes'     => $episodes,
 				'num_episodes' => count( $episodes ),
