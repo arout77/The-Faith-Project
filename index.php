@@ -133,8 +133,10 @@ $app['session']->start();
  * Instantiate requested URL
  * -----------------------------------------*/
 # Display the requested page
+ob_start( "ob_gzhandler" );
 require_once $app['config']->setting( 'system_path' ) . 'Run.php';
 $app['base_controller']->__construct( $app );
 $app['base_controller']->parse();
+ob_end_flush();
 
 unset( $subdir );

@@ -146,10 +146,15 @@ class VideosModel extends System_Model
 	 * @param $category
 	 * @return mixed
 	 */
-	public function getRelatedVideos( $category, $subcat )
+	public function getRelatedVideos( $category, $subcat = null )
 	{
-		// var_dump( $category );exit;
-		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? AND subcategory != ? ORDER BY priority DESC", [$category['category'], $subcat['subcategory']] );
+		if ( !is_null( $subcat['subcategory'] ) )
+		{
+			return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? AND subcategory != ? ORDER BY priority DESC", [$category['category'], $subcat['subcategory']] );
+		}
+
+		return $this->getAll( "SELECT title, title_raw, intro, category, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? ORDER BY priority DESC", [$category['category']] );
+
 	}
 
 	/**
@@ -250,6 +255,16 @@ class VideosModel extends System_Model
 	{
 		// Get videos in this subcategory
 		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ?", [$subcat] );
+	}
+
+	/**
+	 * @param $stars
+	 * @param $submitted_by
+	 */
+	public function submitRating( $stars, $submitted_by )
+	{
+		$checkIfAlreadyRated = $this->getRow( "SELECT rating, submitted_by FROM video_ratings WHERE submitted_by = ?", [$submitted_by] );
+		var_dump( $checkIfAlreadyRated );exit;
 	}
 
 	/**

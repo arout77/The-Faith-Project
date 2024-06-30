@@ -73,7 +73,9 @@
 </footer>
 
 {% if session['user-first-visit-to-site'] == 1 %}}
-    {{ include('partials/mobile-user-warning.html.twig') }}
+    {# {{ include('partials/mobile-user-warning.html.twig') }} #}
+    <script src="{{ base_url }}public/template/docs/js/jquery.aSimpleTour.min.js"></script>
+	<script src="{{ base_url }}public/template/docs/js/scrollTo.js"></script>
 {% endif %}
 
 <script>
@@ -166,9 +168,6 @@ $( document ).ready(function() {
     setInterval(getUnreadPM, 10000);        // Every 10 secs
     setTimeout(showPMToast, 300000);        // Show once after 5 minutes
     setTimeout(showNotifToast, 240000);     // Show once after 4 minutes
-
-    // --- Convert dates to 'time ago...'
-    $("time.timeago").timeago();
 
     // --- Dark mode
     const checkbox = document.getElementById("checkbox")

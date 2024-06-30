@@ -70,7 +70,7 @@
                 <div class="align-content-center">
                     <img class="float-start" style="height: 120px; margin: 20px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title_raw }}">
                     <h5 class="mt-3">{{ vid.title_raw }}</h5>
-                    {{ vid.intro }}                
+                    <p>{{ vid.intro }} </p>               
                     <a class="btn btn-primary btn-with-arrow mb-2 float-end" href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}">
                     Watch Now <span><i class="fas fa-chevron-right"></i></span>
                     </a>

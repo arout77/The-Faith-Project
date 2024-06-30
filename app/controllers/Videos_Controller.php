@@ -151,6 +151,14 @@ class Videos_Controller extends Init_Controller
 		] );
 	}
 
+	public function submit_rating()
+	{
+		$videomodel   = $this->model( 'Videos' );
+		$stars        = $_POST['stars'];
+		$submitted_by = $_SESSION['wog-username'];
+		$rating       = $videomodel->submitRating( $stars, $submitted_by );
+	}
+
 	public function watch()
 	{
 		if ( empty( $this->route->parameter[1] ) )

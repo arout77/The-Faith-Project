@@ -125,7 +125,7 @@ class Init_Controller extends Base_Controller
 			$this->avatar          = $avatar;
 			$this->avatar_type     = $avatar_type;
 			$this->reg_date        = $format->date( $model->getRegistrationDate() ) ?? null;
-			$this->last_visit_date = $format->datetime( $model->getLastVisitDate() ) ?? null;
+			$this->last_visit_date = $format->date( $model->getLastVisitDate() ) ?? null;
 
 			$last_notif_time = $format->datetime( $notifmodel->unread_notif_time( $this->user_id ) );
 			$last_pm_time    = $format->datetime( $notifmodel->unread_pm_time( $this->user_id ) );
