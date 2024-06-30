@@ -56,3 +56,5 @@ composer.lock
 
 # Video files
 /public/media/videos/
+/community/cache/
+/community/cache/*
