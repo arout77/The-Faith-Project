@@ -1,26 +1,36 @@
 {% extends 'porto.html.twig' %}
-{% block title %}Viewing {{ category }} videos{% endblock %}
+{% block title %}Video Categories{% endblock %}
+
 {% block meta_description %}
-<meta name="description" content="View our animated web series on popular Biblical topics. Currently viewing: {{ category }}" />
+<meta name="description" content="Videos of The Bible Series. In this series, we dive into the two-part work of Luke and Acts and gain a unique perspective on the life of Jesus and the early Church." />
 {% endblock %}
+
 {% block keywords %}
-<meta name="keywords" content="Animated videos, videos about the Bible, Bible web series, {{ category }}" />
+<meta name="keywords" content="Animated videos, videos about the Bible, Bible web series" />
 {% endblock %}
+
 {% block content %}
+<div class="row py-5">
+    <div class="col-lg-10 text-center offset-lg-1">
+        <h2 class="font-weight-bold text-9 mb-0">
+            {% if collection == 'Luke Acts' %}
+                Luke-Acts Series
+            {% else %}
+                {{ collection }}
+            {% endif %}
+        </h2>
+        <p class="sub-title text-primary text-4 font-weight-semibold positive-ls-2 mt-2 mb-4">ANIMATED <span class="highlighted-word highlighted-word-animation-1 highlighted-word-animation-1-2 highlighted-word-animation-1 highlighted-word-animation-1-no-rotate alternative-font-4 font-weight-semibold line-height-2 pb-2">VIDEO SERIES</span></p>
+    </div>
+</div>
 <div class="container mb-5">
     <div class="row">
         <div class="col-lg-3 position-relative">
             <div class="pin-wrapper" style="height: 241.391px;">
                 <aside class="sidebar" id="sidebar" data-plugin-sticky="" data-plugin-options="{'minWidth': 991, 'containerSelector': '.container', 'padding': {'top': 110}}" style="width: 261px;">
-                    <h4 class="pt-2">{{ category }}</h4>
                     <p>
-                        {% for k,v in thumbs %}
-                        {% if category == k %}
-                        <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}{{ v }}">
-                        {% endif %}
-                        {%  endfor %}
+                        <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}{{ metadata.thumbnail }}">
                     </p>
-                    <span class="col-md-6 justify-content-start"><small>{{ num_videos }} videos</small></span> 
+                    <span class="col-md-6 justify-content-start"><small>{{ num_episodes }} episodes</small></span> 
                     <div class="col-md-6 btn-group dropdown float-end">
                         <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-upload"></i> &nbsp;Share
@@ -46,16 +56,18 @@
             </div>
         </div>
         <div class="col-lg-9 align-items-center">
-            {% for vid in videos %}
+            {% for vid in episodes %}
             <div class="row mb-3 card border-radius-0 border-0 box-shadow-1">
                 <div class="align-content-center">
                     <img class="float-start" style="height: 175px; margin: 20px;" src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" alt="{{ vid.title_raw }}">
                     <h5 class="mt-3">{{ vid.title_raw }}</h5>
-                    <p>{{ vid.intro }} <br><br>              
+                    <p>
+                        {{ vid.intro }} <br><br>
+                        <small class="justify-content-end">Episode {{ vid.episode }}</small> 
                         <a class="btn btn-primary btn-with-arrow mb-2 float-end" href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'}) }}">
-                        Watch Now <span><i class="fas fa-chevron-right"></i></span>
-                        </a>
-                    </p>
+                    Watch Now <span><i class="fas fa-chevron-right"></i></span>
+                    </a>
+                    </p>               
                 </div>
             </div>
             {% endfor %}

@@ -62,6 +62,7 @@ class System_Model extends R
 		$this->config = $app['config'];
 		$this->log    = $app['log'];
 		//$this->hash         = self::hash();
+		$this->useWriterCache( true );
 	}
 
 	/**

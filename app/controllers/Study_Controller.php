@@ -14,7 +14,7 @@ class Study_Controller extends Init_Controller
 	public function quiz()
 	{
 		// Quiz on Old / New Testament or both
-		if ( !isset( $this->route->parameter[1] ) )
+		if ( empty( $this->route->parameter[1] ) )
 		{
 			$type = "general";
 		}

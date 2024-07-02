@@ -181,6 +181,16 @@
                                             Give
                                             </a>
                                         </li>
+                                        {% if session['wog-username'] == '' %}
+                                        <li class="dropdown align-content-center">
+                                            <input type="checkbox" class="checkbox" id="checkbox">
+                                            <label for="checkbox" class="checkbox-label">
+                                            <i data-background-color="dark" class="fas fa-moon" title="Toggle light / dark mode"></i>
+                                            <i data-background-color="light" class="fas fa-sun" title="Toggle light / dark mode"></i>
+                                            <span class="ball" title="Toggle light / dark mode"></span>
+                                            </label>
+                                        </li>
+                                      {% endif %}
                                     </ul>
                                 </nav>
                             </div>
@@ -281,8 +291,8 @@
                             </div>
                             {% else %}
                             <!-- LOGIN BUTTON -->
-                            <a href="{{ base_url }}community/ucp.php?mode=login">
-                            <button class="btn btn-primary btn-rounded btn-with-arrow-solid mb-2" id="useravatar">LOGIN</button>
+                            <a href="{{ base_url }}community/ucp.php?mode=login" style="margin-left: 10px;">
+                            <button class="btn btn-outline-primary btn-rounded btn-with-arrow-solid mb-2 align-content-center" id="useravatar">LOGIN</button>
                             </a>
                             {% endif %}
                         </div>

@@ -41,17 +41,17 @@ class Template
 	{
 		// Make sure to make same changes to list
 		// in Videos model
-		$video_categories = [
-			'Biblical Themes',
-			'Book Collections',
-			'Character of God',
-			'Creation',
-			'Intro to The Bible',
-			'New Testament Overviews',
-			'Old Testament Overviews',
-			'Spiritual Beings',
-			'Visual Commentaries',
-		];
+		// $video_categories = [
+		// 	'Biblical Themes',
+		// 	'Book Collections',
+		// 	'Character of God',
+		// 	'Creation',
+		// 	'Intro to The Bible',
+		// 	'New Testament Overviews',
+		// 	'Old Testament Overviews',
+		// 	'Spiritual Beings',
+		// 	'Visual Commentaries',
+		// ];
 
 		$video_subcategories = [
 			'Acts/Luke Series',
@@ -84,7 +84,7 @@ class Template
 		$this->twigEnv->addGlobal( 'session', $_SESSION ?? '' );
 		$this->twigEnv->addGlobal( 'lang', $_COOKIE['lang'] ?? 'english' );
 		$this->twigEnv->addGlobal( 'session_bible_version', $_COOKIE['bibleVersion'] ?? 'kjv' );
-		$this->twigEnv->addGlobal( 'video_categories', $video_categories );
+		// $this->twigEnv->addGlobal( 'video_categories', $video_categories );
 		$this->twigEnv->addGlobal( 'video_subcategories', $video_subcategories );
 		$this->twigEnv->addGlobal( 'video_url', 'public/media/videos/' );
 		$this->twigEnv->addGlobal( 'video_thumbnail_url', 'public/media/img/thumbnails/' );

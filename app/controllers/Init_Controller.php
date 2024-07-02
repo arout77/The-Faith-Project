@@ -144,6 +144,14 @@ class Init_Controller extends Base_Controller
 			$this->email    = null;
 		}
 
+		$vidmodel      = $this->model( "Videos" );
+		$categories    = $vidmodel->getCategories();
+		$allcategories = [];
+		foreach ( $categories as $c )
+		{
+			$allcategories[] = $c['category'];
+		}
+
 		$this->version = $_COOKIE['bibleVersion'] ?? 'kjv';
 
 		$book       = $this->route->parameter[1] ?? "Genesis";
@@ -190,6 +198,7 @@ class Init_Controller extends Base_Controller
 		$this->template->twigEnv->addGlobal( 'chapter', $this->chapter );
 		$this->template->twigEnv->addGlobal( 'version', $this->version );
 		$this->template->twigEnv->addGlobal( 'books_of_bible', $this->books_of_bible );
+		$this->template->twigEnv->addGlobal( 'video_categories', $allcategories );
 	}
 
 	public function index()

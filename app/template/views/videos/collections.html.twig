@@ -24,110 +24,45 @@
             <div class="container mb-3">
                 <div>
                     <div class="row">
-                        <div class="col-md-3 col-lg-4">
-                            <a href="{{ base_url }}videos/collections/luke_acts">
-                            <div>
-                                <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}ridinginondonkey.webp">
-                            </div>
-                            </a>
-                            <div class="row mt-2 mb-4">
-                                <span class="col-md-6 justify-content-start"><small>9 episodes</small></span> 
-                                <div class="col-md-6 btn-group dropup justify-content-end">
-                                  <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-upload"></i> &nbsp;Share
-                                  </button>
-                                  <ul class="dropdown-menu" style="">
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-                                                <a class="a2a_button_facebook"></a>
-                                                <a class="a2a_button_x"></a>
-                                                <a class="a2a_button_whatsapp"></a>
-                                                <a class="a2a_button_snapchat"></a>
-                                                <a class="a2a_button_tumblr"></a>
-                                            </div>
-                                        </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                            </div>
-                            <h2>Luke-Acts Series</h2>
-                            <div>
-                                <p>
-                                    In this series, we dive into the two-part work of Luke and Acts and gain a unique perspective on the life of Jesus and the early Church.
-                                </p>
-                            </div>
-                        </div>
 
-                        <div class="col-md-3 col-lg-4">
-                        <a href="{{ base_url }}videos/collections/Torah_Series">
-                            <div>
-                                <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}adamandeve.webp">
-                            </div>
-                        </a>
-                            <div class="row mt-2 mb-4">
-                                <span class="col-md-6 justify-content-start"><small>7 episodes</small></span> 
-                                <div class="col-md-6 btn-group dropup justify-content-end">
-                                  <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-upload"></i> &nbsp;Share
-                                  </button>
-                                  <ul class="dropdown-menu" style="">
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-                                                <a class="a2a_button_facebook"></a>
-                                                <a class="a2a_button_x"></a>
-                                                <a class="a2a_button_whatsapp"></a>
-                                                <a class="a2a_button_snapchat"></a>
-                                                <a class="a2a_button_tumblr"></a>
-                                            </div>
-                                        </a>
-                                    </li>
-                                  </ul>
+                        {% for collection in collections %}
+                            <div class="col-md-3 col-lg-4">
+                                <a href="{{ base_url }}videos/collections/{{ collection.url }}">
+                                <div style="height: 40vh; background-image: url('{{ base_url }}{{ video_thumbnail_url }}{{ collection.catthumbnail }}'); background-repeat: no-repeat; background-size: cover; padding: 10px;">
+                                    {# <div>
+                                        <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}{{ collection.catthumbnail }}" style="height: 50vh">
+                                    </div> #}
+                                </div>
+                                </a>
+                                <div class="row mt-2 mb-4">
+                                    <span class="col-md-6 justify-content-start"><small>Videos of The Bible</small></span> 
+                                    <div class="col-md-6 btn-group dropup justify-content-end">
+                                      <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-upload"></i> &nbsp;Share
+                                      </button>
+                                      <ul class="dropdown-menu" style="">
+                                        <li>
+                                            <a class="dropdown-item" href="javascript:void(0);">
+                                                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                                                    <a class="a2a_button_facebook"></a>
+                                                    <a class="a2a_button_x"></a>
+                                                    <a class="a2a_button_whatsapp"></a>
+                                                    <a class="a2a_button_snapchat"></a>
+                                                    <a class="a2a_button_tumblr"></a>
+                                                </div>
+                                            </a>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                </div>
+                                <h2>{{ collection.subcategory }}</h2>
+                                <div>
+                                    <p>
+                                        {{ collection.description }}
+                                    </p>
                                 </div>
                             </div>
-                            <h2>Torah Series</h2>
-                            <div>
-                                <p>
-                                    The Torah, or the first five books of the Bible, is one epic storyline that starts with creation and ends with God’s covenant with Israel.
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-3 col-lg-4">
-                        <a href="{{ base_url }}videos/collections/mark">
-                            <div>
-                                <img class="card-img-top" src="{{ base_url }}{{ video_thumbnail_url }}mark-series.webp">
-                            </div>
-                        </a>
-                            <div class="row mt-2 mb-4">
-                                <span class="col-md-6 justify-content-start"><small>1 episode</small></span> 
-                                <div class="col-md-6 btn-group dropup justify-content-end">
-                                  <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-upload"></i> &nbsp;Share
-                                  </button>
-                                  <ul class="dropdown-menu" style="">
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0);">
-                                            <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-                                                <a class="a2a_button_facebook"></a>
-                                                <a class="a2a_button_x"></a>
-                                                <a class="a2a_button_whatsapp"></a>
-                                                <a class="a2a_button_snapchat"></a>
-                                                <a class="a2a_button_tumblr"></a>
-                                            </div>
-                                        </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                            </div>
-                            <h2>Mark</h2>
-                            <div>
-                                <p>
-                                    Mark is one of the earliest Gospel accounts and addresses the basic question of whether Jesus was the true Messiah for whom Israel had been waiting.
-                                </p>
-                            </div>
-                        </div>
+                        {% endfor %}
 
                     </div>
                 </div>

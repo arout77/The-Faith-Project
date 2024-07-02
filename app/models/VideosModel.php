@@ -7,17 +7,7 @@ class VideosModel extends System_Model
 	/**
 	 * @var array
 	 */
-	public $video_categories = [
-		'Biblical Themes',
-		'Book Collections',
-		'Character of God',
-		'Creation',
-		'Intro to The Bible',
-		'New Testament Overviews',
-		'Old Testament Overviews',
-		'Spiritual Beings',
-		'Visual Commentaries',
-	];
+	public $video_categories = [];
 
 	/**
 	 * @var array
@@ -61,7 +51,7 @@ class VideosModel extends System_Model
 	public function getBookCollection( $series )
 	{
 		// Get all videos from book collections series
-		if ( $series == 'luke_acts' )
+		if ( $series == 'Luke Acts' )
 		{
 			$series = 'Luke-Acts Series';
 		}
@@ -77,10 +67,6 @@ class VideosModel extends System_Model
 		{
 			$series = 'Mark';
 		}
-		else
-		{
-			return null;
-		}
 
 		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE subcategory = ? ORDER BY episode ASC", [$series] );
 	}
@@ -91,7 +77,27 @@ class VideosModel extends System_Model
 	public function getBookCollections()
 	{
 		// Get all videos from book collections series
-		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? ORDER BY subcategory ASC", ["Book Collections"] );
+		return $this->getAll( "SELECT DISTINCT videos.subcategory, video_cat_descriptions.thumbnail AS catthumbnail, video_cat_descriptions.description, video_cat_descriptions.url FROM videos JOIN video_cat_descriptions ON video_cat_descriptions.subcategory = videos.subcategory WHERE videos.category = ? ORDER BY videos.subcategory ASC", ["Book Collections"] );
+	}
+
+	/**
+	 * @param $cat
+	 * @param $subcat
+	 * @return mixed
+	 */
+	public function getCatDescription( $cat, $subcat = null )
+	{
+		if ( is_null( $subcat ) )
+		{
+			return $this->getRow( "SELECT description, thumbnail FROM video_cat_descriptions WHERE category = ?", [$cat] );
+		}
+
+		if ( $subcat == 'Luke Acts' )
+		{
+			$subcat = 'Luke-Acts Series';
+		}
+
+		return $this->getRow( "SELECT description, thumbnail FROM video_cat_descriptions WHERE subcategory = ?", [$subcat] );
 	}
 
 	/**
@@ -102,7 +108,7 @@ class VideosModel extends System_Model
 		// Get all available categories
 		$content = [];
 
-		$query = $this->getAll( "SELECT category FROM videos" );
+		$query = $this->getAll( "SELECT DISTINCT category FROM videos ORDER BY category ASC" );
 
 		foreach ( $query as $key => $category )
 		{
@@ -229,13 +235,14 @@ class VideosModel extends System_Model
 		if ( is_null( $cat ) )
 		{
 			// Get videos and sort by category
-			$container = [];
+			$container        = [];
+			$video_categories = self::getCategories();
 
-			foreach ( $this->video_categories as $cat )
+			foreach ( $video_categories as $cat )
 			{
-				$q = $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? ORDER BY priority ASC", [$cat] );
+				$q = $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos WHERE category = ? ORDER BY priority ASC", [$cat['category']] );
 
-				$container[$cat] = $q;
+				$container[$cat['category']] = $q;
 			}
 
 			return $container;

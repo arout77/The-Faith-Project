@@ -17,9 +17,9 @@
     .step-content {
     padding:40px 0;
     }
-    #quizBody {
-    background-color: rgb(209 209 209 / 32%) !important;
-}
+    /* #quizBody {
+        background-color: rgb(209 209 209 / 32%) !important;
+    } */
 </style>
 
 <script>
@@ -97,7 +97,7 @@ function save(answer, id) {
 <script src="{{ base_url }}public/template/porto/js/jquery.steps.min.js"></script>
 <script>
     $(document).ready(function () {
-        $.noConflict();
+        //$.noConflict();
         $("#wizard").aiiaWizard();
     
         $("#questID").on('DOMSubtreeModified',function(){

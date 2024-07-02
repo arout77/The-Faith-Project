@@ -64,6 +64,8 @@ class Videos_Controller extends Init_Controller
 			$this->redirect( 'videos/collections/' );
 		}
 
+		// Create thumbnails for each category since we don't
+		// have category thumbnails stored in database
 		$thumbs = [
 			'Biblical Themes'         => 'john-1_standard.webp',
 			'Character of God'        => 'jesusingardenatnight.webp',
@@ -78,6 +80,7 @@ class Videos_Controller extends Init_Controller
 		$cat        = str_replace( "-", " ", $category );
 		$videomodel = $this->model( 'Videos' );
 		$videos     = $videomodel->getVideosByCat( $cat );
+		$metadata   = $videomodel->getCatDescription( $cat );
 
 		if ( is_null( $videos ) )
 		{
@@ -87,6 +90,7 @@ class Videos_Controller extends Init_Controller
 		$this->template->render( "videos/category.html.twig", [
 			'category'   => str_replace( "-", " ", urldecode( $this->route->parameter[1] ) ),
 			'videos'     => $videos,
+			'metadata'   => $metadata,
 			'num_videos' => count( $videos ),
 			'thumbs'     => $thumbs,
 		] );
@@ -110,26 +114,26 @@ class Videos_Controller extends Init_Controller
 		if ( $collection == 'all' )
 		{
 			$collections = $model->getBookCollections();
-			$this->template->render( "videos\collections.html.twig", [
+			$this->template->render( "videos/collections.html.twig", [
 				'collections' => $collections,
 			] );
 		}
 		else
 		{
-			$episodes = $model->getBookCollection( $collection );
+			$collection = str_replace( "_", " ", $collection );
+			$collection = ucwords( $collection );
+			$episodes   = $model->getBookCollection( $collection );
+			$metadata   = $model->getCatDescription( "Book Collections", $collection );
 
 			if ( is_null( $episodes ) )
 			{
 				$this->redirect( 'error' );
 			}
 
-			if ( $collection == 'Torah_Series' )
-			{
-				$collection = 'torah';
-			}
-
-			$this->template->render( "videos\\" . $collection . ".html.twig", [
+			$this->template->render( "videos/collection.html.twig", [
+				'collection'   => $collection,
 				'episodes'     => $episodes,
+				'metadata'     => $metadata,
 				'num_episodes' => count( $episodes ),
 			] );
 		}
