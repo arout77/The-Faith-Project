@@ -103,7 +103,7 @@ class BibleModel extends System_Model
 	 */
 	public function getWEB( $book, $chapter )
 	{
-		return $this->getAll( 'SELECT book_name, chapter, verse, text, testament FROM bible_verses_web WHERE book_name = ? AND chapter = ?', [$book, $chapter] );
+		return $this->getAll( 'SELECT book_name, chapter, verse, text FROM bible_verses_web WHERE book_name = ? AND chapter = ?', [$book, $chapter] );
 	}
 
 	/**

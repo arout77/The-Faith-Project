@@ -39,8 +39,8 @@ Watch
 <section>
     <div class="container video mb-4">
         <div class="card-body">
-            <div class="card-subtitle text-muted mb-3">
-                <video width="100%" 
+            <div class="card-subtitle text-muted mb-3">      
+                <video id="nowPlaying" width="100%" 
                     controls 
                     controlslist="nodownload" 
                     poster="{{ base_url }}{{ video_thumbnail_url }}{{ thumbnail }}">
@@ -48,32 +48,52 @@ Watch
                     <source src="{{ base_url }}{{ video_url }}{{ video }}.ogg" type="video/ogg">
                     Your browser does not support HTML5 video.
                 </video>
+                <a class="position-absolute top-50pct left-50pct transform3dxy-n50 bg-light rounded-circle d-flex align-items-center justify-content-center text-decoration-none bg-color-hover-primary text-color-hover-light play-button-lg pulseAnim pulseAnimAnimated" data-trigger-play-video="#nowPlaying" data-trigger-play-video-remove="yes">
+                    <i class="fas fa-play text-5"></i>
+                </a>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <a onclick="playVid()" class="btn btn-sm btn-primary btn-rounded btn-with-arrow-solid mb-2" style="margin-right: 20px;">Play <span><i class="fas fa-play"></i></span></a> 
+                        <a onclick="pauseVid()" class="btn btn-sm btn-secondary btn-rounded btn-with-arrow-solid mb-2">Pause <span><i class="fas fa-pause"></i></span></a>
+                    </div>
+                    <div class="col-lg-2 align-content-center justify-content-end">
+                        <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: inline-end;">
+                        <i class="fa fa-upload"></i> &nbsp;Share
+                        </button>
+                        <ul class="dropdown-menu" style="">
+                            <li>
+                                <a class="dropdown-item" href="javascript:void(0);">
+                                    <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                                <a class="a2a_button_facebook"></a>
+                                <a class="a2a_button_x"></a>
+                                <a class="a2a_button_whatsapp"></a>
+                                <a class="a2a_button_snapchat"></a>
+                                <a class="a2a_button_tumblr"></a>
+                                </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <script>
+                    var x = document.getElementById("nowPlaying"); 
+                    function playVid() { 
+                      x.play(); 
+                    } 
+                    function pauseVid() { 
+                      x.pause(); 
+                    }
+                </script>
+
             </div>
             <div class="row">
-                <div class="col-sm-9">
+                <div class="col-sm-12">
                     <h4 class="card-title">
                         {{ videoRawTitle }}{% if episode != 0 %}, ep. {{ episode }}{% endif %}
                     </h4>
                     <p>{{ intro.0 }}</p>
                     <p class="text-muted">{{ video_category['category'] }}</p>
-                </div>
-                <div class="col-sm-3 justify-content-end">
-                    <button type="button" class="btn btn-sm rounded-pill btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: inline-end;">
-                    <i class="fa fa-upload"></i> &nbsp;Share
-                    </button>
-                    <ul class="dropdown-menu" style="">
-                        <li>
-                            <a class="dropdown-item" href="javascript:void(0);">
-                                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-                            <a class="a2a_button_facebook"></a>
-                            <a class="a2a_button_x"></a>
-                            <a class="a2a_button_whatsapp"></a>
-                            <a class="a2a_button_snapchat"></a>
-                            <a class="a2a_button_tumblr"></a>
-                            </div>
-                            </a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>

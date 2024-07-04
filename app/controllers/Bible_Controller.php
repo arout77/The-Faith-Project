@@ -167,4 +167,25 @@ class Bible_Controller extends Init_Controller
 			'numchapters' => $numchapters['total'],
 		] );
 	}
+
+	public function web()
+	{
+		$model                  = $this->model( 'Bible' );
+		$dataset                = $model->getWEB( $this->book, $this->chapter );
+		$numchapters            = $model->getChapterCount( $this->book );
+		$get_highlighted_verses = null;
+
+		if ( !is_null( $this->username ) )
+		{
+			$get_highlighted_verses = $model->getHighlightedVerses( $this->username, $this->book, $this->chapter );
+		}
+
+		$this->template->render( "bible\web.html.twig", [
+			'results'     => $dataset,
+			'numchapters' => $numchapters['total'], // Number of chapters for this book
+			'chapter_count' => $this->num_chapters, // Array containing each book and its chapter count
+			'highlighted_verses' => $get_highlighted_verses,
+			'intro'       => $this->intro,
+		] );
+	}
 }

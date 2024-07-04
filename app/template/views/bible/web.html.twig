@@ -1,4 +1,4 @@
-{% extends "docs.html.twig" %}
+{% extends "porto.html.twig" %}
 
 {% block title %}World English Bible{% endblock %}
 
@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block keywords %}
-<meta name="keywords" content="{{ results.0.testament }}, bible, {% for result in results %}{{ book }} Chapter {{ chapter }} {{ result.verse }} {% endfor %}" />
+<meta name="keywords" content="{{ results.0.testament }}, bible, {% for result in results %}{{ book }} {{ chapter }}:{{ result.verse }}, {% endfor %}" />
 {% endblock %}
 
 {% block content %}
@@ -71,12 +71,14 @@ function highlighter( book, chapter, verse )
 
 <div class="container mb-2">
     <div class="row">
-        <div class="col-sm-5 d-none d-lg-block"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
-        <div class="col-sm-12 col-lg-2 d-flex align-self-center justify-content-center"><button type="button" id="viewIntroBtn" class="btn btn-xl btn-warning" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStart">View Introduction</button></div>
-        <div class="col-sm-5 d-none d-lg-block"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div>
+        {# <div class="col-sm-5 d-none d-lg-block"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div> #}
+        <div class="col-sm-12 d-flex align-self-center justify-content-end">
+            <a id="viewIntroBtn" data-bs-toggle="modal" data-bs-target="#largeModal" href="#">View Introduction</a>
+        </div>
+        {# <div class="col-sm-5 d-none d-lg-block"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div> #}
     </div>
 </div>
-<section id="biblecontainer" class="container">
+<div id="biblecontainer" class="container">
     <div class="row">
         <div class="col-xs-12">
             <h2 style="color: #242424;" class="pull-left">{{ book }} <span style="color: #242424; float: right; font-size: 0.8em;">Chapter {{ chapter }}</span></h2>
@@ -128,7 +130,7 @@ function highlighter( book, chapter, verse )
         </p>
         {% set testament = results.0.testament %}
         <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-lg" role="dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title text-center" id="exampleModalLabel3">Introduction to {{ book }}</h3>
@@ -155,6 +157,7 @@ function highlighter( book, chapter, verse )
             </div>
         </div>
     </div>
+    <aside class="sidebar">
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasStart" aria-labelledby="offcanvasStartLabel" style="visibility: hidden;" aria-hidden="true">
         <div class="offcanvas-header">
             <h5 id="offcanvasStartLabel" class="offcanvas-title">Introduction to {{ book }}</h5>
@@ -170,5 +173,6 @@ function highlighter( book, chapter, verse )
             <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Continue</button>
         </div>
     </div>
-</section>
+    </aside>
+</div>
 {% endblock %}

@@ -69,11 +69,48 @@ function highlighter( book, chapter, verse )
 </script>
 {% endfor %}
 
+<style>
+#bulb{
+  color: yellow;
+  opacity: 0;
+  animation: glow 20s linear infinite;
+}
+@keyframes glow {
+  0%{
+    opacity: 1;
+  }
+  5%{
+    opacity: 1;
+  }
+  40%{
+    opacity: 0.6;
+  }
+  74%{
+    opacity: 0.3;
+  }
+  80%{
+    opacity: 1;
+  }
+  84%{
+    opacity: 0.2;
+  }
+  90%{
+    opacity: 0.8;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+</style>
+
 <div class="container mb-2">
     <div class="row">
         {# <div class="col-sm-5 d-none d-lg-block"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div> #}
-        <div class="col-sm-12 d-flex align-self-center justify-content-end">
-            <a id="viewIntroBtn" data-bs-toggle="modal" data-bs-target="#largeModal" href="#">View Introduction</a>
+        <div class="col-sm-8 d-flex justify-content-start">
+            <span class="align-text-center"><i id="bulb" class="fa-solid fa-lightbulb"></i> &nbsp; Click on a verse to highlight it</span>
+        </div>
+        <div class="col-sm-4 d-flex align-self-center justify-content-end">
+            <a data-bs-toggle="modal" data-bs-target="#largeModal" href="#">View Introduction</a>
         </div>
         {# <div class="col-sm-5 d-none d-lg-block"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div> #}
     </div>
