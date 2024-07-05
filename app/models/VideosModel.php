@@ -143,9 +143,9 @@ class VideosModel extends System_Model
 	/**
 	 * @return mixed
 	 */
-	public function getMostPopular()
+	public function getMostPopular( $limit = 8 )
 	{
-		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos ORDER BY views DESC LIMIT 8" );
+		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos ORDER BY views DESC LIMIT $limit" );
 	}
 
 	/**

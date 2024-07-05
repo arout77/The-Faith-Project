@@ -23,7 +23,13 @@ class Home_Controller extends Base_Controller
 
 	public function index()
 	{
-		$this->template->render( 'home/index.html.twig' );
+		$videomodel = $this->model( 'Videos' );
+		$mostpop    = $videomodel->getMostPopular( 8 );
+		$intros     = $videomodel->getVideosByCat( 'Intro to The Bible' );
+		$this->template->render( 'home/index.html.twig', [
+			'popular' => $mostpop,
+			'intros'  => $intros,
+		] );
 	}
 
 	public function test()

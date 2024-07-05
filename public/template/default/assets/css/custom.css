@@ -56,20 +56,14 @@
 }
 
 #hero h1 {
-  --bg-size: 400%;
-  --color-one: hsl(52 14% 98% / 1);
-  --color-two: hsl(40 95% 55%);
-  font-family: sans-serif;
-  font-size: clamp(3rem, 9vmin, 8rem);
-  background: linear-gradient(
-      90deg,
-      var(--color-one),
-      var(--color-two),
-      var(--color-one)
-    )
-    0 0 / var(--bg-size) 100%;
-  color: transparent;
-  background-clip: text;
+    --bg-size: 400%;
+    --color-one: hsl(303.97deg 74.48% 50.63%);
+    --color-two: hsl(221deg 66.07% 62.87%);
+    font-family: sans-serif;
+    font-size: clamp(3rem, 9vmin, 8rem);
+    background: linear-gradient(90deg, var(--color-one), var(--color-two), var(--color-one)) 0 0 / var(--bg-size) 100%;
+    color: transparent;
+    background-clip: text;
 }
 
 @media (prefers-reduced-motion: no-preference) {

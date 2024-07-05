@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Faith Project{% endblock %}
 
 {% block content %}
 <style>
@@ -43,39 +43,41 @@
 <!-- ======= Services Section ======= -->
 <section id="services" class="services">
   <div class="container" data-aos="fade-up">
+
     <div class="row">
       <div class="section-title">
         <h2>Intro to The Bible Series</h2>
       </div>
-      
-      <div class="section-title col-md-4">
-        <p>The Story of The Bible</p>
-        <video width="100%" controls controlslist="nodownload" poster="{{ base_url }}{{ video_thumbnail_url }}creation-gen-1_standard.webp">
-          <source src="{{ base_url }}{{ video_url }}The-Story-of-the-Bible.mp4" type="video/mp4">
-          <source src="{{ base_url }}{{ video_url }}The-Story-of-the-Bible.ogg" type="video/ogg">
+      {% for intro in intros %}
+      <div class="col-md-3 mb-4">
+        <h6>{{ intro.title_raw }}</h6>
+        <video height="180px" width="100%" controls controlslist="nodownload" poster="{{ base_url }}{{ video_thumbnail_url }}{{ intro.thumbnail }}">
+          <source src="{{ base_url }}{{ video_url }}{{ intro.video_url }}" type="video/mp4">
+          <source src="{{ base_url }}{{ video_url }}{{ intro.video_url }}" type="video/ogg">
           Your browser does not support HTML5 video.
         </video>
       </div>
-
-      <div class="section-title col-md-4">
-        <p>What is The Bible</p>
-        <video width="100%" controls controlslist="nodownload" poster="{{ base_url }}{{ video_thumbnail_url }}intro-what-is_standard.webp">
-          <source src="{{ base_url }}{{ video_url }}What-Is-the-Bible_.mp4" type="video/mp4">
-          <source src="{{ base_url }}{{ video_url }}What-Is-the-Bible_.ogg" type="video/ogg">
-          Your browser does not support HTML5 video.
-        </video>
-      </div>
-
-      <div class="section-title col-md-4">
-        <p>Literary Styles</p>
-        <video width="100%" controls controlslist="nodownload" poster="{{ base_url }}{{ video_thumbnail_url }}intro-lit-styles_standard.webp">
-          <source src="{{ base_url }}{{ video_url }}Literary-Styles.mp4" type="video/mp4">
-          <source src="{{ base_url }}{{ video_url }}Literary-Styles.ogg" type="video/ogg">
-          Your browser does not support HTML5 video.
-        </video>
-      </div>
-    
+    {% endfor %}
     </div>
+
+    <div style="margin-bottom: 20px;">&nbsp;</div>
+
+    <div class="row">
+      <div class="section-title">
+        <h2>Most Popular</h2>
+      </div>
+      {% for pop in popular %}
+      <div class="col-md-3 mb-4">
+        <h6>{{ pop.title_raw }}</h6>
+        <video height="180px" width="100%" controls controlslist="nodownload" poster="{{ base_url }}{{ video_thumbnail_url }}{{ pop.thumbnail }}">
+          <source src="{{ base_url }}{{ video_url }}{{ pop.video_url }}" type="video/mp4">
+          <source src="{{ base_url }}{{ video_url }}{{ pop.video_url }}" type="video/ogg">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    {% endfor %}
+    </div>
+
   </div>
 </section><!-- End Services Section -->
 

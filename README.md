@@ -1,6 +1,6 @@
-![screenshot](public/media/img/logo.png)
+![screenshot](public/media/img/faith.png)
 
-Word of God Ministries
+The Faith Project
 ==========
 This project aims to provide free access to various Christian based services, such as an online Bible (currently available versions are several English translations, the Spanish Reina Valeria 1909 version, a French Louis Segond 1910 version and the German 1912 Luther version), fellowship via a community message board, bible study tools and entertaining and informative animated videos.
 
