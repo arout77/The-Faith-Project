@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>{% block title %}{% endblock %} | Word of God Online Bible</title>	
+		<title>{% block title %}{% endblock %} | Faith Project Online Bible</title>	
 
 		{% block meta_description %}
         <meta name="description" content="The Faith Project provides free access to an online bible (English, Spanish, French and German versions currently available), fellowship, animated videos, bible study and more!" />
@@ -37,17 +37,17 @@
 		<!-- Vendor CSS -->
 		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/bootstrap/css/bootstrap.min.css"> #}
 		{{ include('partials/bootstrap.min.css.html.twig') }}
-		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/fontawesome-free/css/all.min.css">
+		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/fontawesome-free/css/all.min.css">
 		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/animate/animate.compat.css">
 		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/simple-line-icons/css/simple-line-icons.min.css">
-		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.carousel.min.css"> #}
-		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.theme.default.min.css"> #}
+		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.carousel.min.css">
+		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.theme.default.min.css">
 		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/magnific-popup/magnific-popup.min.css">
 
 		<!-- Theme CSS -->
 		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme.css"> #}
 		{{ include('partials/theme-css.html.twig') }}
-		<link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-elements.css">
+		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-elements.css">
 		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-blog.css"> #}
 		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-shop.css"> #}
 
@@ -62,7 +62,8 @@
 	    {{ include('partials/jquery.min.js.html.twig') }}
 		{% endblock %}
 	</head>
-	<body class="loading-overlay-showing" 
+	<body 
+		{# class="loading-overlay-showing"  #}
 		{# data-loading-overlay data-plugin-options="{'hideDelay': 500, 'effect': 'default'}" #}
 	>						
 
@@ -113,6 +114,85 @@
 
 		</div>
 
+<!-- 95.9 the fish -->
+<audio id="thefish">
+  <source src="https://19263.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://22963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26113.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://17793.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24503.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26303.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://18393.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://14013.live.streamtheworld.com/KFSHFM_SC?dist=oneplace" type="audio/ogg">
+  <source src="https://19263.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://22963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26113.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://17793.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24503.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26303.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://18393.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://14013.live.streamtheworld.com/KFSHFM_SC?dist=oneplace" type="audio/mpeg">
+  Your browser does not support the audio tag.
+</audio>
+
+<!-- 98.3 The Word -->
+<audio id="theword">
+  <source src="https://13743.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://18243.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://14613.live.streamtheworld.com/KDARFM_SC?dist=oneplace" type="audio/ogg">
+  <source src="https://13743.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://18243.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://14613.live.streamtheworld.com/KDARFM_SC?dist=oneplace" type="audio/mpeg">
+  Your browser does not support the audio tag.
+</audio>
+
+<!-- 99.5 FaithTalk -->
+<audio id="faithtalk">
+  <source src="https://22973.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18253.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18323.live.streamtheworld.com/KDISFM_SC?dist=oneplace" type="audio/ogg">
+  <source src="https://22973.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18253.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18323.live.streamtheworld.com/KDISFM_SC?dist=oneplace" type="audio/mpeg">
+  Your browser does not support the audio tag.
+</audio> 
+
+<!-- 99.5 FaithTalk -->
+<audio id="philly">
+  <source src="https://22973.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://13693.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18253.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18423.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://24873.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18323.live.streamtheworld.com/WFILAM_SC?dist=oneplace" type="audio/ogg">
+  <source src="https://22973.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://13693.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18253.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18423.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://24873.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18323.live.streamtheworld.com/WFILAM_SC?dist=oneplace" type="audio/mpeg">
+  Your browser does not support the audio tag.
+</audio> 
+
+<script>
+var p = document.getElementById("philly"); 
+var x = document.getElementById("thefish"); 
+var y = document.getElementById("theword"); 
+var z = document.getElementById("faithtalk"); 
+
+function playPhillyAudio() { 
+  p.play(); 
+  pauseFishAudio();
+  pauseWordAudio();
+  pauseFaithAudio();
+} 
+
+function pausePhillyAudio() { 
+  p.pause(); 
+} 
+
+function playFishAudio() { 
+  x.play(); 
+  pauseWordAudio();
+  pauseFaithAudio();
+  pausePhillyAudio();
+} 
+
+function pauseFishAudio() { 
+  x.pause(); 
+} 
+
+function playWordAudio() { 
+  y.play();
+  pauseFishAudio();
+  pauseFaithAudio();
+  pausePhillyAudio();
+} 
+
+function pauseWordAudio() { 
+  y.pause(); 
+} 
+
+function playFaithAudio() { 
+  z.play();
+  pauseFishAudio();
+  pauseWordAudio();
+  pausePhillyAudio();
+} 
+
+function pauseFaithAudio() { 
+  z.pause(); 
+} 
+</script>
+
 		<!-- Vendor -->
 		{# <script src="{{ base_url }}public/template/porto/vendor/bootstrap/js/bootstrap.min.js"></script> #}
 		{{ include('partials/bootstrap.min.js.html.twig') }}
@@ -120,7 +200,7 @@
 		<script src="{{ base_url }}public/template/porto/vendor/plugins/js/plugins.min.js"></script>
 		<!-- Helpers -->
 	    
-		<script async src="{{ base_url }}public/template/docs/js/social.js"></script>
+		<script async src="{{ base_url }}public/template/porto/js/social.js"></script>
 		<!-- Theme Base, Components and Settings -->
 		<script src="{{ base_url }}public/template/porto/js/theme.js"></script>
 

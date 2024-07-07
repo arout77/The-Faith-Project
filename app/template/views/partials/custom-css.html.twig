@@ -91,6 +91,13 @@ html.dark .logoText {
 .verse {
     font-size: 0.9em;
 }
+.savedVerses {
+    color: blue !important; 
+    text-align: center;
+}
+html.dark .dropdown-menu>li a.savedVerses:hover {
+    background-color: transparent;
+}
 .nextChapter,
 .prevChapter {
     font-family: Cinzel;
@@ -803,7 +810,7 @@ video {
     word-wrap: break-word;
     background-clip: border-box;
     border: 0 solid #d9dee3;
-    border-radius: 0.5rem;
+/*     border-radius: 0.5rem; */
     box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
 }
 .badge-success {
@@ -842,5 +849,75 @@ html.dark #header .header-nav-main:not(.header-nav-main-light) nav > ul > li.dro
     color: #ccc !important;
 }
 
+mark {
+    background-color: yellow;
+}
+
+#hero h1 {
+    --bg-size: 400%;
+    --color-one: hsl(304 86% 60% / 1);
+    --color-two: hsl(221 72% 70% / 1);
+    /* font-family: sans-serif;
+    font-size: clamp(3rem, 9vmin, 8rem); */
+    background: linear-gradient(90deg, var(--color-one), var(--color-two), var(--color-one)) 0 0 / var(--bg-size) 100%;
+    color: transparent;
+    background-clip: text;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #hero h1 {
+    animation: move-bg 20s linear infinite;
+  }
+  @keyframes move-bg {
+    to {
+      background-position: var(--bg-size) 0;
+    }
+  }
+}
+
+{% if current_page == 'home' %}
+#header .header-nav-main.header-nav-main-dark nav>ul>li:hover>a, #header .header-nav.header-nav-line:not(.header-nav-light-text) nav>ul>li>a, #header .header-nav.header-nav-links:not(.header-nav-light-text) nav>ul>li>a {
+    color: #f1efef;
+}
+#header .header-nav.header-nav-line.header-nav-bottom-line.header-nav-bottom-line-active-text-dark nav>ul:not(:hover) li>a.active, #header .header-nav.header-nav-line.header-nav-bottom-line.header-nav-bottom-line-active-text-dark nav>ul>li:hover>a {
+    color: #f1efef !important;
+}
+
+.cta {
+  background: linear-gradient(rgba(2, 2, 2, 0.5), rgba(0, 0, 0, 0.5)), url("{{ base_url }}public/media/img/backgrounds/429099.jpg") fixed center center;
+  background-size: cover;
+  padding: 60px 0;
+}
+
+.cta h3 {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.cta p {
+  color: #fff;
+}
+
+.cta .cta-btn {
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 4px;
+  transition: 0.5s;
+  margin-top: 10px;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.cta .cta-btn:hover {
+  background: #ffc451;
+  border-color: #ffc451;
+  color: #151515;
+}
+{% endif %}
 /* End custom.css */
 </style>

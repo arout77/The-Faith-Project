@@ -1,0 +1,78 @@
+{% extends 'porto.html.twig' %}
+{% block title %}Site Map{% endblock %}
+{% block meta_description %}
+<meta name="description" content="Faith Project site map" />
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h2 class="font-weight-bold text-center text-10 mt-3 mb-4">Faith Project Site Map</h2>
+        <h3>Bible</h3>
+        <div class="col-md-3">
+            {% for blink in books_of_bible %}
+            {% if loop.index <= 20 %}
+            <ul class="list-unstyled">
+                <li>
+                    <h4>{{ blink }}</h4>
+                    Chapters: 
+                    {% for m in map[blink] %}
+                            <a href="{{ base_url }}bible/web/{{ blink|replace({' ': '-'}) }}/{{ m }}">{{ m }}</a>
+                    {% endfor %}
+                </li>
+            </ul>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            {% for blink in books_of_bible %}
+            {% if loop.index > 20 and loop.index < 41 %}
+            <ul class="list-unstyled">
+                <li>
+                    <h4>{{ blink }}</h4>
+                    Chapters: 
+                    {% for m in map[blink] %}
+                            <a href="{{ base_url }}bible/web/{{ blink|replace({' ': '-'}) }}/{{ m }}">{{ m }}</a>
+                    {% endfor %}
+                </li>
+            </ul>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            {% for blink in books_of_bible %}
+            {% if loop.index > 41 and loop.index < 61 %}
+            <ul class="list-unstyled">
+                <li>
+                    <h4>{{ blink }}</h4>
+                    Chapters: 
+                    {% for m in map[blink] %}
+                            <a href="{{ base_url }}bible/web/{{ blink|replace({' ': '-'}) }}/{{ m }}">{{ m }}</a>
+                    {% endfor %}
+                </li>
+            </ul>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            {% for blink in books_of_bible %}
+            {% if loop.index > 60 %}
+            <ul class="list-unstyled">
+                <li>
+                    <h4>{{ blink }}</h4>
+                    Chapters: 
+                    {% for m in map[blink] %}
+                            <a href="{{ base_url }}bible/web/{{ blink|replace({' ': '-'}) }}/{{ m }}">{{ m }}</a>
+                    {% endfor %}
+                </li>
+            </ul>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row">
+        <h3>Videos</h3>
+    </div>
+
+</div>
+{% endblock %}

@@ -48,7 +48,7 @@ Watch
                     <source src="{{ base_url }}{{ video_url }}{{ video }}.ogg" type="video/ogg">
                     Your browser does not support HTML5 video.
                 </video>
-                <a class="position-absolute top-50pct left-50pct transform3dxy-n50 bg-light rounded-circle d-flex align-items-center justify-content-center text-decoration-none bg-color-hover-primary text-color-hover-light play-button-lg pulseAnim pulseAnimAnimated" data-trigger-play-video="#nowPlaying" data-trigger-play-video-remove="yes">
+                <a id="pbut" class="position-absolute top-50pct left-50pct transform3dxy-n50 bg-light rounded-circle d-flex align-items-center justify-content-center text-decoration-none bg-color-hover-primary text-color-hover-light play-button-lg pulseAnim pulseAnimAnimated" data-trigger-play-video="#nowPlaying" data-trigger-play-video-remove="yes">
                     <i class="fas fa-play text-5"></i>
                 </a>
                 <div class="row">
@@ -80,6 +80,7 @@ Watch
                     var x = document.getElementById("nowPlaying"); 
                     function playVid() { 
                       x.play(); 
+                      $("#pbut").hide();
                     } 
                     function pauseVid() { 
                       x.pause(); 

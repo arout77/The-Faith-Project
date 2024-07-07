@@ -1,0 +1,55 @@
+{% extends "porto.html.twig" %}
+
+{% block title %}Biblical Map{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Map during Biblical times" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+
+		<div class="col-lg-3">
+			<h5 class="text-uppercase mt-4">Physical Map of the Holy Land</h5>
+			<a class="img-thumbnail img-thumbnail-no-borders d-block lightbox" href="{{ base_url }}public/media/img/maps/Physical-Map-of-Holy-Land.webp" data-plugin-options="{'type':'image'}">
+				<img class="img-fluid" src="{{ base_url }}public/media/img/maps/Physical-Map-of-Holy-Land.webp" alt="Project Image">
+				<span class="zoom">
+					<i class="fas fa-search"></i>
+				</span>
+			</a>
+		</div>
+
+		<div class="col-lg-3">
+			<h5 class="text-uppercase mt-4">All</h5>
+			<a class="img-thumbnail img-thumbnail-no-borders d-block lightbox" href="{{ base_url }}public/media/img/maps/all.jpg" data-plugin-options="{'type':'image'}">
+				<img class="img-fluid" src="{{ base_url }}public/media/img/maps/all.jpg" alt="Project Image">
+				<span class="zoom">
+					<i class="fas fa-search"></i>
+				</span>
+			</a>
+		</div>
+
+		<div class="col-lg-3">
+			<h5 class="text-uppercase mt-4">The Mediterranean World During the Time of Acts</h5>
+			<a class="img-thumbnail img-thumbnail-no-borders d-block lightbox" href="{{ base_url }}public/media/img/maps/The-Mediterranean-World-During-the-Time-of-Acts.png" data-plugin-options="{'type':'image'}">
+				<img class="img-fluid" src="{{ base_url }}public/media/img/maps/The-Mediterranean-World-During-the-Time-of-Acts.png" alt="Project Image">
+				<span class="zoom">
+					<i class="fas fa-search"></i>
+				</span>
+			</a>
+		</div>
+
+		<div class="col-lg-3">
+			<h5 class="text-uppercase mt-4">All</h5>
+			<a class="img-thumbnail img-thumbnail-no-borders d-block lightbox" href="{{ base_url }}public/media/img/maps/all.jpg" data-plugin-options="{'type':'image'}">
+				<img class="img-fluid" src="{{ base_url }}public/media/img/maps/all.jpg" alt="Project Image">
+				<span class="zoom">
+					<i class="fas fa-search"></i>
+				</span>
+			</a>
+		</div>
+
+	</div>
+</div>
+{% endblock %}

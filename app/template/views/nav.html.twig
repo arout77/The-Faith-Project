@@ -1,11 +1,11 @@
-<header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': false, 'stickyEnableOnMobile': false, 'stickyStartAt': 70, 'stickyChangeLogo': false, 'stickyHeaderContainerHeight': 70}">
-    <div class="header-body border-top-0 box-shadow-none">
+<header id="header" class="{% if current_page == 'home' %}header-transparent header-no-border-bottom{% endif %} header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': false, 'stickyEnableOnMobile': false, 'stickyStartAt': 70, 'stickyChangeLogo': false, 'stickyHeaderContainerHeight': 70}">
+    <div class="header-body border-top-0 box-shadow-none {% if current_page == 'home' %}bg-dark{% endif %}">
         <div class="header-container header-container-md container">
             <div class="header-row">
                 <div class="header-column">
                     <div class="header-row">
                         <div class="">
-                            <img alt="{{ site_name }}" width="" height="42" data-sticky-width="82" data-sticky-height="40" data-sticky-top="0" src="{{ base_url }}public/media/img/faith.png">
+                            <a href="{{ base_url }}"><img alt="{{ site_name }}" width="" height="42" data-sticky-width="82" data-sticky-height="40" data-sticky-top="0" src="{{ base_url }}public/media/img/faith.png"></a>
                             {# <span class="logoText">Word of God</span> #}
                         </div>
                     </div>
@@ -58,6 +58,7 @@
                                                         </div>
                                                     </a>
                                                     </div>
+                                                        <a href="{{ base_url }}bible/saved_verses/" class="savedVerses">View your saved verses</a>
                                                 </div>
                                                 </li>
                                             </ul>
@@ -105,11 +106,108 @@
                                             </ul>
                                         </li>
                                         <li class="dropdown">
-                                            <a class="dropdown-item dropdown-toggle" href="#" id="qmenulink">
-                                            Bible Study
+                                            <a class="dropdown-item dropdown-toggle" href="#" id="vmenulink">
+                                            Radio
                                             </a>
                                             <ul class="dropdown-menu">
                                                 <li class="dropdown-submenu">
+                                                    <a class="dropdown-item" href="#">Listen Live Audio Stream</a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <img class="img-fluid" style="height: 60px" src="{{ base_url }}public/media/img/icons/thefish.png">
+																						                <p class="mt-3 mb-5">
+																						                <button class="btn btn-primary" onclick="playFishAudio()" type="button">Play</button>
+																						                <button class="btn btn-secondary" onclick="pauseFishAudio()" type="button">Pause</button>
+																						                </p>
+                                                        </li>
+                                                        <li>
+                                                            <img class="img-fluid" style="height: 60px" src="{{ base_url }}public/media/img/icons/theword.png">
+																						                <p class="mt-3 mb-5">
+																						                <button class="btn btn-primary" onclick="playWordAudio()" type="button">Play</button>
+																						                <button class="btn btn-secondary" onclick="pauseWordAudio()" type="button">Pause</button>
+																						                </p>
+                                                        </li>
+                                                        <li>
+                                                            <img class="img-fluid" style="height: 60px" src="{{ base_url }}public/media/img/icons/faithtalk.png">
+																						                <p class="mt-3 mb-5">
+																						                <button class="btn btn-primary" onclick="playFaithAudio()" type="button">Play</button>
+																						                <button class="btn btn-secondary" onclick="pauseFaithAudio()" type="button">Pause</button>
+																						                </p>
+                                                        </li>
+                                                        <li>
+                                                            <img class="img-fluid" style="height: 60px" src="{{ base_url }}public/media/img/icons/phil.png">
+																						                <p class="mt-3 mb-5">
+																						                <button class="btn btn-primary" onclick="playPhillyAudio()" type="button">Play</button>
+																						                <button class="btn btn-secondary" onclick="pausePhillyAudio()" type="button">Pause</button>
+																						                </p>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a class="dropdown-item dropdown-toggle" href="#" id="vmenulink">
+                                            Bible Study
+                                            </a>
+                                              <ul class="dropdown-menu">
+                                                <li class="dropdown-submenu">
+				                                            <a class="dropdown-item" href="#">
+				                                            Intro to The Bible
+				                                            </a>
+				                                            <ul class="dropdown-menu">
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/the-pentateuch/" class="dropdown-item">
+				                                                        <div data-i18n="THE PENTATEUCH">The Pentateuch (Torah)</div>
+				                                                    </a>
+				                                                </li>
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/the-historical-books/" class="dropdown-item">
+				                                                        <div data-i18n="THE HISTORICAL BOOKS">The Historical Books</div>
+				                                                    </a>
+				                                                </li>
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/the-wisdom-and-poetry-books/" class="dropdown-item">
+				                                                        <div data-i18n="THE WISDOM AND POETRY BOOKS">The Wisdom and Poetry Books</div>
+				                                                    </a>
+				                                                </li>
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/the-major-prophets/" class="dropdown-item">
+				                                                        <div data-i18n="THE MAJOR PROPHETS">The Major Prophets</div>
+				                                                    </a>
+				                                                </li>
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/the-minor-prophets/" class="dropdown-item">
+				                                                        <div data-i18n="THE MINOR PROPHETS">The Minor Prophets</div>
+				                                                    </a>
+				                                                </li>
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/the-gospels/" class="dropdown-item">
+				                                                        <div data-i18n="THE GOSPELS">The Gospels</div>
+				                                                    </a>
+				                                                </li>
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/the-book-of-acts/" class="dropdown-item">
+				                                                        <div data-i18n="THE BOOK OF ACTS">The Book of Acts</div>
+				                                                    </a>
+				                                                </li>
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/the-pauline-epistles/" class="dropdown-item">
+				                                                        <div data-i18n="THE PAULINE EPISTLES">The Pauline Epistles</div>
+				                                                    </a>
+				                                                </li>
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/the-general-epistles/" class="dropdown-item">
+				                                                        <div data-i18n="THE GENERAL EPISTLES">The General Epistles</div>
+				                                                    </a>
+				                                                </li>
+				                                                <li>
+				                                                    <a href="{{ base_url }}bible/intro/apocalyptic/" class="dropdown-item">
+				                                                        <div data-i18n="APOCALYPTIC">Apocalyptic</div>
+				                                                    </a>
+				                                                </li>
+				                                            </ul>
+				                                        </li>
+				                                        <li class="dropdown-submenu">
                                                     <a class="dropdown-item" href="#">Quiz</a>
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item" href="{{ base_url }}study/quiz/ot/">Old Testament</a></li>
@@ -117,65 +215,12 @@
                                                         <li><a class="dropdown-item" href="{{ base_url }}study/quiz/general/">Old and New Testaments</a></li>
                                                     </ul>
                                                 </li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a class="dropdown-item dropdown-toggle" href="#">
-                                            Intro to The Bible
-                                            </a>
-                                            <ul class="dropdown-menu">
                                                 <li>
-                                                    <a href="{{ base_url }}bible/intro/the-pentateuch/" class="dropdown-item">
-                                                        <div data-i18n="THE PENTATEUCH">The Pentateuch (Torah)</div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ base_url }}bible/intro/the-historical-books/" class="dropdown-item">
-                                                        <div data-i18n="THE HISTORICAL BOOKS">The Historical Books</div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ base_url }}bible/intro/the-wisdom-and-poetry-books/" class="dropdown-item">
-                                                        <div data-i18n="THE WISDOM AND POETRY BOOKS">The Wisdom and Poetry Books</div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ base_url }}bible/intro/the-major-prophets/" class="dropdown-item">
-                                                        <div data-i18n="THE MAJOR PROPHETS">The Major Prophets</div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ base_url }}bible/intro/the-minor-prophets/" class="dropdown-item">
-                                                        <div data-i18n="THE MINOR PROPHETS">The Minor Prophets</div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ base_url }}bible/intro/the-gospels/" class="dropdown-item">
-                                                        <div data-i18n="THE GOSPELS">The Gospels</div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ base_url }}bible/intro/the-book-of-acts/" class="dropdown-item">
-                                                        <div data-i18n="THE BOOK OF ACTS">The Book of Acts</div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ base_url }}bible/intro/the-pauline-epistles/" class="dropdown-item">
-                                                        <div data-i18n="THE PAULINE EPISTLES">The Pauline Epistles</div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ base_url }}bible/intro/the-general-epistles/" class="dropdown-item">
-                                                        <div data-i18n="THE GENERAL EPISTLES">The General Epistles</div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{ base_url }}bible/intro/apocalyptic/" class="dropdown-item">
-                                                        <div data-i18n="APOCALYPTIC">Apocalyptic</div>
-                                                    </a>
+                                                    <a class="dropdown-item" href="{{ base_url }}study/map/">Map of Biblical Times</a>
                                                 </li>
                                             </ul>
                                         </li>
+                                        
                                         <li class="dropdown">
                                             <a class="dropdown-item" href="{{ base_url }}community">
                                             Community

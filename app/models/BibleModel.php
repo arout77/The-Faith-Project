@@ -11,10 +11,11 @@ class BibleModel extends System_Model
 	 * @param $verse
 	 * @return mixed
 	 */
-	public function addHighlight( $user, $book, $chapter, $verse )
+	public function addHighlight( $user, $book, $chapter, $verse, $text, $version )
 	{
-		return $this->exec( 'INSERT INTO `highlighted_verses` (`username`, `book`, `chapter`, `verse`)
-			VALUES (?,?,?,?)', ["$user", "$book", $chapter, $verse] );
+		$text = trim( $text );
+		return $this->exec( 'INSERT INTO `highlighted_verses` (`username`, `book`, `chapter`, `verse`, `string`, `version`)
+			VALUES (?,?,?,?,?,?)', ["$user", "$book", $chapter, $verse, "$text", "$version"] );
 	}
 
 	/**
@@ -53,6 +54,9 @@ class BibleModel extends System_Model
 	 */
 	public function getHighlightedVerses( $user, $book, $chapter )
 	{
+		// This is different from getSavedVerses(). This method retrieves the highlighted verses
+		// for a given page so that the verses can be highlighted. getSavedVerses() is used to display
+		// links to the user's highlighted verses
 		return $this->getAll( 'SELECT book, chapter, verse FROM highlighted_verses WHERE username = ? AND book = ? AND chapter = ?', [$user, $book, $chapter] );
 	}
 
@@ -85,6 +89,20 @@ class BibleModel extends System_Model
 	public function getReina( $book, $chapter )
 	{
 		return $this->getAll( 'SELECT book_name, chapter, verse, text, testament FROM bible_verses_rv_1909 WHERE book_name = ? AND chapter = ?', [$book, $chapter] );
+	}
+
+	/**
+	 * @param $username
+	 * @return mixed
+	 */
+	public function getSavedVerses( $username, $version = 'web' )
+	{
+		// See notes in getHighlightedVerses() about the differences between it and this method
+		return $this->getAll( 'SELECT
+			book, chapter, verse, string, version
+			FROM highlighted_verses
+			WHERE username = ?
+			ORDER BY book ASC, chapter ASC, verse ASC', [$username] );
 	}
 
 	/**

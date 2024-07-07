@@ -8,7 +8,7 @@ class Bible_Controller extends Init_Controller
 		if ( !is_null( $this->username ) )
 		{
 			$model = $this->model( 'Bible' );
-			$model->addHighlight( $this->username, $_POST['book'], $_POST['chapter'], $_POST['verse'] );
+			$model->addHighlight( $this->username, $_POST['book'], $_POST['chapter'], $_POST['verse'], $_POST['txt'], $_POST['version'] );
 		}
 	}
 
@@ -25,6 +25,7 @@ class Bible_Controller extends Init_Controller
 		}
 
 		$this->template->render( "bible\kjv.html.twig", [
+			'translation' => 'American Standard Version',
 			'results'     => $dataset,
 			'numchapters' => $numchapters['total'], // Number of chapters for this book
 			'chapter_count' => $this->num_chapters, // Array containing each book and its chapter count
@@ -115,6 +116,7 @@ class Bible_Controller extends Init_Controller
 		}
 
 		$this->template->render( "bible\kjv.html.twig", [
+			'translation' => 'King James Version',
 			'results'     => $dataset,
 			'numchapters' => $numchapters['total'], // Number of chapters for this book
 			'chapter_count' => $this->num_chapters, // Array containing each book and its chapter count
@@ -152,6 +154,28 @@ class Bible_Controller extends Init_Controller
 		}
 	}
 
+	public function saved_verses()
+	{
+		if ( !is_null( $this->username ) )
+		{
+			$model   = $this->model( 'Bible' );
+			$results = $model->getSavedVerses( $this->username );
+
+			// $url      = 'bible/saved_verses/';
+			// $per_page = 20;
+			// $pag      = $this->load->middleware( 'pagination' );
+			// $pag->config( $results, $url, $per_page );
+			// $results = $pag->runQuery();
+			// $links   = $pag->links();
+		}
+
+		$this->template->render( "bible\saved.html.twig", [
+			'results' => $results,
+			// 'links'         => $links,
+			// 'total_records' => $pag->num_records,
+		] );
+	}
+
 	public function summary()
 	{
 		$book        = $this->route->parameter[1] ?? "Genesis";
@@ -180,7 +204,8 @@ class Bible_Controller extends Init_Controller
 			$get_highlighted_verses = $model->getHighlightedVerses( $this->username, $this->book, $this->chapter );
 		}
 
-		$this->template->render( "bible\web.html.twig", [
+		$this->template->render( "bible\kjv.html.twig", [
+			'translation' => 'World English Bible',
 			'results'     => $dataset,
 			'numchapters' => $numchapters['total'], // Number of chapters for this book
 			'chapter_count' => $this->num_chapters, // Array containing each book and its chapter count

@@ -7,7 +7,20 @@ class Site_Controller extends Init_Controller
 	{
 		// Model was created and stored at: /app/models/siteModel.php
 		// View was created and stored at: /app/template/views/site/index.html.twig
-		$this->template->render( "site\index.html.twig" );
+		$intromodel = $this->model( 'Bible' );
+		$bookMap    = $intromodel->getChapterCountMap();
+		$map        = [];
+
+		foreach ( $bookMap as $k => $v )
+		{
+			for ( $i = 1; $i <= $v; $i++ )
+			{
+				$map[$k][] = $i;
+			}
+		}
+		$this->template->render( "site\index.html.twig", [
+			'map' => $map,
+		] );
 	}
 
 	public function subscribe()

@@ -361,5 +361,103 @@ $( document ).ready(function() {
         document.cookie = "bibleVersion=luther";
     });
     // --- End Language and bible version 
+
+const STORAGE_KEY = 'savedVerses';
+
+$('.bogus').on('dblclick', function() {
+  const { book, chapter, verse } = $(this).data();
+  let txt = $("#" + verse).html();
+  let version = "{{ version }}";
+  highlighter(book, chapter, verse, txt, version);
+  
+});
+
+// $('.bogus').on("mouseup", function (e){
+// 	const { book, chapter, verse } = $(this).data();
+
+// 	// Wrap the text that user has selected
+// 	// with '<span>' element
+// 	function markSelection(verse) 
+// 	{
+// 		if($("#" + verse).hasClass("highlight"))
+// 		{
+// 			// Do nothing
+// 		} else {
+// 			let selection= window.getSelection().getRangeAt(0);
+// 		    let selectedContent = selection.extractContents();
+// 		    var mark= document.createElement("span");
+// 		    mark.style.backgroundColor = "yellow";
+// 		    mark.appendChild(selectedContent);
+// 		    selection.insertNode(mark);
+// 		}
+// 	}
+
+// Get the text that was highlighted
+// so we can save it to DB
+// function getSelectionText()
+// {
+// 	var text = "";
+	
+//     if (window.getSelection) {
+//         text = window.getSelection().toString();
+//     } else if (document.selection && document.selection.type != "Control") {
+//         text = document.selection.createRange().text;
+//     }
+	
+//     return text;
+// }
+	
+// 	if($("#" + verse).hasClass("highlight"))
+// 	{
+// 		// do nothing
+// 		alert("Already highlighted")
+// 	} else {
+// 		if(getSelectionText() != '' && getSelectionText() != ' ')
+// 		{
+// 			markSelection();
+// 		}
+// 	}
+// })
+
+function highlighter( book, chapter, verse, txt, version )
+{
+    // Hightlight / remove highlight from verse
+    if($("#" + verse).hasClass('highlight'))
+    {
+        $("#" + verse).removeClass('highlight');
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}bible/removeHighlight/",
+            data: {
+                book: book,
+                chapter: chapter,
+                verse: verse
+            },
+            dataType: "json",
+            encode: true,
+        });
+    } else {
+        $("#" + verse).addClass('highlight');
+        $.ajax({
+            type: "POST",
+            url: "{{ base_url }}bible/addHighlight/",
+            data: {
+                book: book,
+                chapter: chapter,
+                verse: verse,
+                txt: txt, 
+                version: version
+            },
+            dataType: "json",
+            encode: true,
+        });
+    } 
+}
+
+{% for mark in highlighted_verses %}
+
+$("#" + {{ mark.verse }}).addClass('highlight');
+
+{% endfor %}
 });
 </script>

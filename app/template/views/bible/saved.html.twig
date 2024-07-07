@@ -1,0 +1,62 @@
+{% extends 'porto.html.twig' %}
+{% block title %}Saved Verses{% endblock %}
+{% block meta_description %}
+<meta name="description" content="View your test results from the Bible study quiz" />
+{% endblock %}
+
+{% block keywords %}
+<meta name="keywords" content="Bible study, Bible quiz results" />
+{% endblock %}
+
+{% block content %}
+
+{{ include('partials/datatables.css.html.twig') }}
+{{ include('partials/datatables.js.html.twig') }}
+
+<div class="row py-5">
+    <div class="col-lg-10 text-center offset-lg-1">
+        <h2 class="font-weight-bold text-9 mb-0">Your saved verses</h2>
+        <p class="sub-title text-primary text-4 font-weight-semibold positive-ls-2 mt-2 mb-4">ONLINE <span class="highlighted-word highlighted-word-animation-1 highlighted-word-animation-1-2 highlighted-word-animation-1 highlighted-word-animation-1-no-rotate alternative-font-4 font-weight-semibold line-height-2 pb-2">BIBLE</span></p>
+        <p class="text-1rem text-color-default negative-ls-05 pt-3 container">
+            Click on the book or verse to navigate to it in the Bible
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card border-radius-0 bg-color-light border-0 box-shadow-1 mb-4">
+        <div class="card-body">
+            <div class="table-responsive text-nowrap mt-2 mb-4"> 
+                <table id="myTable" class="display table">
+                    <thead>
+                        <tr>
+                            <th>Book</th>
+                            <th>Verse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for verse in results %}
+                        <tr>
+                            <td>
+                                <dt>
+                                    <a style="color: #242424; font-weight: bold;" href="{{ base_url }}bible/{{ verse.version }}/{{ verse.book|replace({' ': '-'}) }}/{{ verse.chapter }}#{{ verse.verse }}">{{ verse.book }} {{ verse.chapter }}:{{ verse.verse }}</a>
+                                </dt>
+                            </td>
+                            <td>
+                                <dd>
+                                    <a style="color: #a7a0a0;" href="{{ base_url }}bible/{{ verse.version }}/{{ verse.book|replace({' ': '-'}) }}/{{ verse.chapter }}#{{ verse.verse }}">{{ verse.string|raw }}</a>
+                                </dd>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let table = new DataTable('#myTable');
+</script>
+{% endblock %}

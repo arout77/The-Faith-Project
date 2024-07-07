@@ -2,15 +2,7 @@
 
 namespace App\Controller;
 
-use RedBeanPHP\R as R;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\Mailer;
-use Symfony\Component\Mailer\Transport;
-use Symfony\Component\Mime\Email;
-use \Src\Controller\Base_Controller;
-use \Src\Middleware\EmailMiddleware;
-
-class Home_Controller extends Base_Controller
+class Home_Controller extends Init_Controller
 {
 	/**
 	 * @param $name

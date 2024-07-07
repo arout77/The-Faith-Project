@@ -152,7 +152,14 @@ class Init_Controller extends Base_Controller
 			$allcategories[] = $c['category'];
 		}
 
-		$this->version = $_COOKIE['bibleVersion'] ?? 'kjv';
+		if ( $this->route->controller == 'bible' )
+		{
+			$this->version = $this->route->action ?? 'web';
+		}
+		else
+		{
+			$this->version = $_COOKIE['bibleVersion'] ?? 'web';
+		}
 
 		$book       = $this->route->parameter[1] ?? "Genesis";
 		$book       = urldecode( ucwords( $book ) );

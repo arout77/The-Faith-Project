@@ -11,6 +11,11 @@ class Study_Controller extends Init_Controller
 		// $this->template->render( "study\index.html.twig" );
 	}
 
+	public function map()
+	{
+		$this->template->render( "study\map.html.twig" );
+	}
+
 	public function quiz()
 	{
 		// Quiz on Old / New Testament or both

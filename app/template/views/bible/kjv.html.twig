@@ -1,6 +1,6 @@
 {% extends "porto.html.twig" %}
 
-{% block title %}King James Version{% endblock %}
+{% block title %}{{ translation }}{% endblock %}
 
 {% block meta_description %}
 <meta name="description" content="{% for description in intro %}{{ description.text }}{% endfor %}" />
@@ -11,63 +11,6 @@
 {% endblock %}
 
 {% block content %}
-<script>
-$(document).ready(function () {
-
-const STORAGE_KEY = 'savedVerses';
-
-$('.bogus').on('click', function() {
-  const { book, chapter, verse } = $(this).data();
-
-  highlighter(book, chapter, verse);
-  
-});
-
-function highlighter( book, chapter, verse )
-{
-    // Hightlight / remove highlight from verse
-    if($("#" + verse).hasClass('highlight'))
-    {
-        $("#" + verse).removeClass('highlight');
-        $.ajax({
-            type: "POST",
-            url: "{{ base_url }}bible/removeHighlight/",
-            data: {
-                book: book,
-                chapter: chapter,
-                verse: verse
-            },
-            dataType: "json",
-            encode: true,
-        });
-
-    } else {
-        $("#" + verse).addClass('highlight');
-        $.ajax({
-            type: "POST",
-            url: "{{ base_url }}bible/addHighlight/",
-            data: {
-                book: book,
-                chapter: chapter,
-                verse: verse
-            },
-            dataType: "json",
-            encode: true,
-        });
-    } 
-    
-}
-
-});
-</script>
-
-{% for mark in highlighted_verses %}
-<script>
-    $(document).ready(function () {
-        $("#" + {{ mark.verse }}).addClass('highlight');
-    });
-</script>
-{% endfor %}
 
 <style>
 #bulb{
@@ -107,7 +50,7 @@ function highlighter( book, chapter, verse )
     <div class="row">
         {# <div class="col-sm-5 d-none d-lg-block"><img style="width: 100%" src="{{ base_url }}public/media/img/9064103.png"></div> #}
         <div class="col-sm-8 d-flex justify-content-start">
-            <span class="align-text-center"><i id="bulb" class="fa-solid fa-lightbulb"></i> &nbsp; Click on a verse to highlight it</span>
+            <span class="align-text-center"><i id="bulb" class="fa-solid fa-lightbulb"></i> &nbsp; Double click on a verse to highlight & save it</span>
         </div>
         <div class="col-sm-4 d-flex align-self-center justify-content-end">
             <a data-bs-toggle="modal" data-bs-target="#largeModal" href="#">View Introduction</a>
@@ -117,8 +60,20 @@ function highlighter( book, chapter, verse )
 </div>
 <div id="biblecontainer" class="container">
     <div class="row">
-        <div class="col-xs-12">
-            <h2 style="color: #242424;" class="pull-left">{{ book }} <span style="color: #242424; float: right; font-size: 0.8em;">Chapter {{ chapter }}</span></h2>
+        <div class="col-lg-12">
+            <h2 style="text-align: center;    color: #242424;
+    text-align: center;
+    font: bold 36px CinzelBold;
+    background-color: #1c1c1c;
+    color: transparent;
+    text-shadow: 2px 2px 3px rgb(126 125 125 / 50%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    margin-bottom: 6px;">{{ book }}</h2>
+        </div>
+        <div class="col-lg-12" style="text-align: center; margin-top: -10px; margin-bottom: 10px;">
+            <span class="" style="color: #242424; font-size: 1.1em">Chapter {{ chapter }}</span>
         </div>
     </div>
     <div class="mb-3 mt-2">
@@ -127,7 +82,7 @@ function highlighter( book, chapter, verse )
                 {% for result in results %}
                     {% if result.verse == 1 %}
                         <span id="{{ result.verse }}" class="bogus" data-book="{{ book }}" data-chapter="{{ chapter }}" data-verse="{{ result.verse }}">
-                            <sup class="verse">{{ result.verse }}</sup> &nbsp;&nbsp; 
+                            <sup class="verse">{{ result.verse }}</sup>  
                             <span id="verseText-{{ result.verse }}">{{ result.text|replace({'¶' : '  '}) }}</span>
                         </span>
                     {% else %}
