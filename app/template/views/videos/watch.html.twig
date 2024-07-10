@@ -48,9 +48,9 @@ Watch
                     <source src="{{ base_url }}{{ video_url }}{{ video }}.ogg" type="video/ogg">
                     Your browser does not support HTML5 video.
                 </video>
-                <a id="pbut" class="position-absolute top-50pct left-50pct transform3dxy-n50 bg-light rounded-circle d-flex align-items-center justify-content-center text-decoration-none bg-color-hover-primary text-color-hover-light play-button-lg pulseAnim pulseAnimAnimated" data-trigger-play-video="#nowPlaying" data-trigger-play-video-remove="yes">
+                {# <a id="pbut" class="position-absolute top-50pct left-50pct transform3dxy-n50 bg-light rounded-circle d-flex align-items-center justify-content-center text-decoration-none bg-color-hover-primary text-color-hover-light play-button-lg pulseAnim pulseAnimAnimated" data-trigger-play-video="#nowPlaying" data-trigger-play-video-remove="yes">
                     <i class="fas fa-play text-5"></i>
-                </a>
+                </a> #}
                 <div class="row">
                     <div class="col-lg-10">
                         <a onclick="playVid()" class="btn btn-sm btn-primary btn-rounded btn-with-arrow-solid mb-2" style="margin-right: 20px;">Play <span><i class="fas fa-play"></i></span></a> 
@@ -77,13 +77,13 @@ Watch
                 </div>
 
                 <script>
-                    var x = document.getElementById("nowPlaying"); 
+                    var videoPlayerObj = document.getElementById("nowPlaying"); 
                     function playVid() { 
-                      x.play(); 
+                      videoPlayerObj.play(); 
                       $("#pbut").hide();
                     } 
                     function pauseVid() { 
-                      x.pause(); 
+                      videoPlayerObj.pause(); 
                     }
                 </script>
 

@@ -1,223 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		{% block head %}
-		<!-- Basic -->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<title>{% block title %}{% endblock %} | Faith Project Online Bible</title>	
-
-		{% block meta_description %}
+    <head>
+        {% block head %}
+        <!-- Basic -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock %} | Faith Project Online Bible</title>
+        {% block meta_description %}
         <meta name="description" content="The Faith Project provides free access to an online bible (English, Spanish, French and German versions currently available), fellowship, animated videos, bible study and more!" />
-	    {% endblock %}
+        {% endblock %}
+        {% block keywords %}
+        <meta name="keywords" content="Online Bible, Christian Fellowship, Bible Study, Animated Videos discussing the Bible" />
+        {% endblock %}
+        <meta name="author" content="Andrew Rout">
+        <meta name="Cache-Control" content="Public">
+        <meta name="Content-Type" content="text/html">
+        <meta name="Content-Encoding" content="gzip">
+        <link rel="canonical" href="{{ base_url }}">
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        {# 
+        <link rel="manifest" href="/site.webmanifest">
+        #}
+        <link rel="icon" type="image/x-icon" href="{{ base_url }}favicon.ico" />
+        <!-- Mobile Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+        <!-- Web Fonts  -->
+        <link async id="googleFonts" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light&display=swap" rel="stylesheet" type="text/css">
+        <!-- Vendor CSS -->
+        {{ include('partials/bootstrap.min.css.html.twig') }}
+        <link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/animate/animate.compat.css">
+        <link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/simple-line-icons/css/simple-line-icons.min.css">
+        <link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.carousel.min.css">
+        <link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.theme.default.min.css">
+        <link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/magnific-popup/magnific-popup.min.css">
+        <!-- Theme CSS -->
+        {{ include('partials/theme-css.html.twig') }}
+        <link async rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-elements.css">
+        <!-- Skin CSS -->
+        <link id="skinCSS" rel="stylesheet" href="{{ base_url }}public/template/porto/css/skins/default.css">
+        <!-- Theme Custom CSS -->
+        {{ include('partials/custom-css.html.twig') }}
+        {{ include('partials/jquery.min.js.html.twig') }}
+        {% endblock %}
+    </head>
+    <body 
+    {# class="loading-overlay-showing"  #}
+    {# data-loading-overlay data-plugin-options="{'hideDelay': 500, 'effect': 'default'}" #}
+    >						
+    <div class="body">
+        {{ include('nav.html.twig') }}
+        {% block hero %}{% endblock %}
+        <div role="main" class="main">
+            {# 
+            <section class="page-header page-header-classic page-header-sm" id="catShuffle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
+                            <span class="page-header-title-border visible"></span>
+                            <h1 data-title-border="">
+                                {% block page_intro %}
+                                {{ current_page|title }}
+                                {% endblock %}
+                            </h1>
+                        </div>
+                        <div class="col-md-4 order-1 order-md-2 align-self-center">
+                            <ul class="breadcrumb d-block text-md-end">
+                                <li>
+                                    {% block page_action %}
+                                    <a href="#">{{ current_page|title }}</a>
+                                    {% endblock %}
+                                </li>
+                                <li class="active">
+                                    {% block page_param %}
+                                    {{ current_action|title }}
+                                    {% endblock %}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            #}
+            {% block content %}{% endblock %}
+        </div>
+        {% block footer %}
+        {{ include('foot.html.twig') }}
+        {% endblock %}
+    </div>
 
-	    {% block keywords %}
-	        <meta name="keywords" content="Online Bible, Christian Fellowship, Bible Study, Animated Videos discussing the Bible" />
-	    {% endblock %}
-		<meta name="author" content="Andrew Rout">
-		<meta name="Cache-Control" content="Public">
-		<meta name="Content-Type" content="text/html">
-		<meta name="Content-Encoding" content="gzip">
-		<link rel="canonical" href="{{ base_url }}">
-
-		<!-- Favicon -->
-	    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	    {# <link rel="manifest" href="/site.webmanifest"> #}
-	    <link rel="icon" type="image/x-icon" href="{{ base_url }}favicon.ico" />
-
-		<!-- Mobile Metas -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-
-		<!-- Web Fonts  -->
-		<link async id="googleFonts" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light&display=swap" rel="stylesheet" type="text/css">
-
-		<!-- Vendor CSS -->
-		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/bootstrap/css/bootstrap.min.css"> #}
-		{{ include('partials/bootstrap.min.css.html.twig') }}
-		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/fontawesome-free/css/all.min.css">
-		<link rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/animate/animate.compat.css">
-		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/simple-line-icons/css/simple-line-icons.min.css">
-		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.carousel.min.css">
-		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/owl.carousel/assets/owl.theme.default.min.css">
-		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/vendor/magnific-popup/magnific-popup.min.css">
-
-		<!-- Theme CSS -->
-		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme.css"> #}
-		{{ include('partials/theme-css.html.twig') }}
-		<link async rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-elements.css">
-		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-blog.css"> #}
-		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/css/theme-shop.css"> #}
-
-		<!-- Skin CSS -->
-		<link id="skinCSS" rel="stylesheet" href="{{ base_url }}public/template/porto/css/skins/default.css">
-
-		<!-- Theme Custom CSS -->
-		{# <link rel="stylesheet" href="{{ base_url }}public/template/porto/css/custom.css"> #}
-		{{ include('partials/custom-css.html.twig') }}
-	    
-	    {# <script src="{{ base_url }}public/template/porto/vendor/jquery/jquery.min.js"></script> #}
-	    {{ include('partials/jquery.min.js.html.twig') }}
-		{% endblock %}
-	</head>
-	<body 
-		{# class="loading-overlay-showing"  #}
-		{# data-loading-overlay data-plugin-options="{'hideDelay': 500, 'effect': 'default'}" #}
-	>						
-
-		<div class="body">
-
-			{{ include('nav.html.twig') }}
-
-			{% block hero %}{% endblock %}
-
-			<div role="main" class="main">
-				
-				{# <section class="page-header page-header-classic page-header-sm" id="catShuffle">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-								<span class="page-header-title-border visible"></span>
-								<h1 data-title-border="">
-								{% block page_intro %}
-									{{ current_page|title }}
-								{% endblock %}
-								</h1>
-							</div>
-							<div class="col-md-4 order-1 order-md-2 align-self-center">
-								<ul class="breadcrumb d-block text-md-end">
-									<li>
-										{% block page_action %}
-											<a href="#">{{ current_page|title }}</a>
-										{% endblock %}
-									</li>
-									<li class="active">
-										{% block page_param %}
-											{{ current_action|title }}
-										{% endblock %}
-									</li>
-								</ul>
-							</div>
-						</div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="radioPanel" aria-labelledby="radioPanelLabel" style="visibility: visible;" aria-modal="true" role="dialog">
+        <div class="offcanvas-header">
+            <h5 id="radioPanelLabel" class="offcanvas-title">Live Streams</h5>
+            
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+            <p>
+            	<div class="row">
+            		<div class="col-md-6 align-content-center">
+		                <img class="img-fluid" style="height: 60px" src="{{ base_url }}public/media/img/icons/thefish.png"> 
+		            </div>
+		            <div class="col-md-6 align-content-center">
+		                <span id="fishwaves" class="playing" style="display: none;">
+						  <span class="playing__bar playing__bar1"></span>
+						  <span class="playing__bar playing__bar2"></span>
+						  <span class="playing__bar playing__bar3"></span>
+						  <span class="playing__bar playing__bar4"></span>
+						</span>
 					</div>
-				</section> #}
+				</div>
+            <p class="mt-3 mb-5">
+                <button class="btn btn-sm btn-primary btn-rounded btn-with-arrow-solid mb-2" onclick="playFishAudio()" type="button">Play <span><i class="fas fa-play"></i></span></button>
+                <button class="btn btn-sm btn-secondary btn-rounded btn-with-arrow-solid mb-2" onclick="pauseFishAudio()" type="button">Pause <span><i class="fas fa-pause"></i></span></button>
+            </p>
+            <div class="row">
+            		<div class="col-md-6 align-content-center">
+		                <img class="img-fluid" style="height: 60px" src="{{ base_url }}public/media/img/icons/rejoice.png"> 
+		            </div>
+		            <div class="col-md-6 align-content-center">
+		                <span id="rejoicewaves" class="playing" style="display: none;">
+						  <span class="playing__bar playing__bar1"></span>
+						  <span class="playing__bar playing__bar2"></span>
+						  <span class="playing__bar playing__bar3"></span>
+						  <span class="playing__bar playing__bar4"></span>
+						</span>
+					</div>
+				</div>
+            <p class="mt-3 mb-5">
+                <button class="btn btn-sm btn-primary btn-rounded btn-with-arrow-solid mb-2" onclick="playRejoiceAudio()" type="button">Play <span><i class="fas fa-play"></i></span></button>
+                <button class="btn btn-sm btn-secondary btn-rounded btn-with-arrow-solid mb-2" onclick="pauseRejoiceAudio()" type="button">Pause <span><i class="fas fa-pause"></i></span></button>
+            </p>
+            	<div class="row">
+            		<div class="col-md-6 align-content-center">
+		                <img class="img-fluid" style="height: 60px" src="{{ base_url }}public/media/img/icons/theword.png"> 
+		            </div>
+		            <div class="col-md-6 align-content-center">
+		                <span id="wordwaves" class="playing" style="display: none;">
+						  <span class="playing__bar playing__bar1"></span>
+						  <span class="playing__bar playing__bar2"></span>
+						  <span class="playing__bar playing__bar3"></span>
+						  <span class="playing__bar playing__bar4"></span>
+						</span>
+					</div>
+				</div>
+            <p class="mt-3 mb-5">
+                <button class="btn btn-sm btn-primary btn-rounded btn-with-arrow-solid mb-2" onclick="playWordAudio()" type="button">Play <span><i class="fas fa-play"></i></span></button>
+                <button class="btn btn-sm btn-secondary btn-rounded btn-with-arrow-solid mb-2" onclick="pauseWordAudio()" type="button">Pause <span><i class="fas fa-pause"></i></span></button>
+            </p>
+            <div class="row">
+            		<div class="col-md-6 align-content-center">
+		                <img class="img-fluid" style="height: 60px" src="{{ base_url }}public/media/img/icons/faithtalk.png"> 
+		            </div>
+		            <div class="col-md-6 align-content-center">
+		                <span id="faithwaves" class="playing" style="display: none;">
+						  <span class="playing__bar playing__bar1"></span>
+						  <span class="playing__bar playing__bar2"></span>
+						  <span class="playing__bar playing__bar3"></span>
+						  <span class="playing__bar playing__bar4"></span>
+						</span>
+					</div>
+				</div>
+            <p class="mt-3 mb-5">
+                <button class="btn btn-sm btn-primary btn-rounded btn-with-arrow-solid mb-2" onclick="playFaithAudio()" type="button">Play <span><i class="fas fa-play"></i></span></button>
+                <button class="btn btn-sm btn-secondary btn-rounded btn-with-arrow-solid mb-2" onclick="pauseFaithAudio()" type="button">Pause <span><i class="fas fa-pause"></i></span></button>
+            </p>
+            <div class="row">
+            		<div class="col-md-6 align-content-center">
+		                <img class="img-fluid" style="height: 60px" src="{{ base_url }}public/media/img/icons/phil.png"> 
+		            </div>
+		            <div class="col-md-6 align-content-center">
+		                <span id="phillywaves" class="playing" style="display: none;">
+						  <span class="playing__bar playing__bar1"></span>
+						  <span class="playing__bar playing__bar2"></span>
+						  <span class="playing__bar playing__bar3"></span>
+						  <span class="playing__bar playing__bar4"></span>
+						</span>
+					</div>
+				</div>
+            <p class="mt-3 mb-5">
+                <button class="btn btn-sm btn-primary btn-rounded btn-with-arrow-solid mb-2" onclick="playPhillyAudio()" type="button">Play <span><i class="fas fa-play"></i></span></button>
+                <button class="btn btn-sm btn-secondary btn-rounded btn-with-arrow-solid mb-2" onclick="pausePhillyAudio()" type="button">Pause <span><i class="fas fa-pause"></i></span></button>
+            </p>
+            </p>
+            {# <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a> #}
+            <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+        </div>
+    </div>
+    <!-- 95.9 the fish -->
+    <audio id="thefish">
+        <source src="https://19263.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://22963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26113.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://17793.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24503.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26303.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://18393.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://14013.live.streamtheworld.com/KFSHFM_SC?dist=oneplace" type="audio/ogg">
+        <source src="https://19263.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://22963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26113.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://17793.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24503.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26303.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://18393.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://14013.live.streamtheworld.com/KFSHFM_SC?dist=oneplace" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+    <!-- 98.3 The Word -->
+    <audio id="theword">
+        <source src="https://13743.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://18243.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://14613.live.streamtheworld.com/KDARFM_SC?dist=oneplace" type="audio/ogg">
+        <source src="https://13743.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://18243.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://14613.live.streamtheworld.com/KDARFM_SC?dist=oneplace" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+    <!-- 99.5 FaithTalk -->
+    <audio id="faithtalk">
+        <source src="https://22973.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18253.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18323.live.streamtheworld.com/KDISFM_SC?dist=oneplace" type="audio/ogg">
+        <source src="https://22973.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18253.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18323.live.streamtheworld.com/KDISFM_SC?dist=oneplace" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+    <!-- 560AM Philly -->
+    <audio id="philly">
+        <source src="https://22973.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://13693.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18253.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18423.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://24873.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18323.live.streamtheworld.com/WFILAM_SC?dist=oneplace" type="audio/ogg">
+        <source src="https://22973.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://13693.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18253.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18423.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://24873.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18323.live.streamtheworld.com/WFILAM_SC?dist=oneplace" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+    <!-- Rejoice -->
+    <audio id="rejoice">
+        <source src="https://18683.live.streamtheworld.com/KZTSAM_SC?dist=oneplace,https://17853.live.streamtheworld.com/KZTSAM_SC?dist=oneplace,https://14083.live.streamtheworld.com/KZTSAM_SC?dist=oneplace" type="audio/ogg">
+        <source src="https://18683.live.streamtheworld.com/KZTSAM_SC?dist=oneplace,https://17853.live.streamtheworld.com/KZTSAM_SC?dist=oneplace,https://14083.live.streamtheworld.com/KZTSAM_SC?dist=oneplace" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+    <script>
+        var p = document.getElementById("philly"); 
+        var r = document.getElementById("rejoice"); 
+        var x = document.getElementById("thefish"); 
+        var y = document.getElementById("theword"); 
+        var z = document.getElementById("faithtalk"); 
+        
+        function playPhillyAudio() { 
+          p.play(); 
+          pauseFishAudio();
+          pauseRejoiceAudio();
+          pauseWordAudio();
+          pauseFaithAudio();
+          $("#radioPanelLabel").html("Now playing <span style='color: blue;'>560AM Philadelphia's Christian Radio</span>");
+          $("#fishwaves").hide();
+          $("#wordwaves").hide();
+          $("#faithwaves").hide();
+          $("#phillywaves").show();
+          $("#rejoicewaves").hide();
+        } 
+        
+        function pausePhillyAudio() { 
+          p.pause(); 
+        }
 
-				{% block content %}{% endblock %}
+        function playRejoiceAudio() { 
+          r.play(); 
+          pauseFishAudio();
+          pauseWordAudio();
+          pauseFaithAudio();
+          pausePhillyAudio();
+          $("#radioPanelLabel").html("Now playing <span style='color: blue;'>105.5 FM Rejoice!</span>");
+          $("#fishwaves").hide();
+          $("#wordwaves").hide();
+          $("#faithwaves").hide();
+          $("#phillywaves").hide();
+          $("#rejoicewaves").show();
+        } 
+        
+        function pauseRejoiceAudio() { 
+          r.pause(); 
+        } 
+        
+        function playFishAudio() { 
+          x.play(); 
+          pauseWordAudio();
+          pauseFaithAudio();
+          pausePhillyAudio();
+          pauseRejoiceAudio();
+          $("#radioPanelLabel").html("Now playing <span style='color: blue;'>95.9 The Fish</span>");
+          $("#fishwaves").show();
+          $("#wordwaves").hide();
+          $("#faithwaves").hide();
+          $("#phillywaves").hide();
+          $("#rejoicewaves").hide();
+        } 
+        
+        function pauseFishAudio() { 
+          x.pause(); 
+        } 
+        
+        function playWordAudio() { 
+          y.play();
+          pauseFishAudio();
+          pauseFaithAudio();
+          pausePhillyAudio();
+          pauseRejoiceAudio();
+          $("#radioPanelLabel").html("Now playing <span style='color: blue;'>98.3 The Word</span>");
+          $("#fishwaves").hide();
+          $("#wordwaves").show();
+          $("#faithwaves").hide();
+          $("#phillywaves").hide();
+          $("#rejoicewaves").hide();
+        } 
+        
+        function pauseWordAudio() { 
+          y.pause(); 
+        } 
+        
+        function playFaithAudio() { 
+          z.play();
+          pauseFishAudio();
+          pauseWordAudio();
+          pausePhillyAudio();
+          pauseRejoiceAudio();
+          $("#radioPanelLabel").html("Now playing <span style='color: blue;'>99.5 Faith Talk</span>");
+          $("#fishwaves").hide();
+          $("#wordwaves").hide();
+          $("#faithwaves").show();
+          $("#phillywaves").hide();
+          $("#rejoicewaves").hide();
+        } 
+        
+        function pauseFaithAudio() { 
+          z.pause(); 
+        } 
+    </script>
 
-			</div>
-
-			{% block footer %}
-                {{ include('foot.html.twig') }}
-            {% endblock %}
-
-		</div>
-
-<!-- 95.9 the fish -->
-<audio id="thefish">
-  <source src="https://19263.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://22963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26113.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://17793.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24503.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26303.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://18393.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://14013.live.streamtheworld.com/KFSHFM_SC?dist=oneplace" type="audio/ogg">
-  <source src="https://19263.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://22963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26113.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://17793.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24503.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://26303.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://18393.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://24963.live.streamtheworld.com/KFSHFM_SC?dist=oneplace,https://14013.live.streamtheworld.com/KFSHFM_SC?dist=oneplace" type="audio/mpeg">
-  Your browser does not support the audio tag.
-</audio>
-
-<!-- 98.3 The Word -->
-<audio id="theword">
-  <source src="https://13743.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://18243.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://14613.live.streamtheworld.com/KDARFM_SC?dist=oneplace" type="audio/ogg">
-  <source src="https://13743.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://18243.live.streamtheworld.com/KDARFM_SC?dist=oneplace,https://14613.live.streamtheworld.com/KDARFM_SC?dist=oneplace" type="audio/mpeg">
-  Your browser does not support the audio tag.
-</audio>
-
-<!-- 99.5 FaithTalk -->
-<audio id="faithtalk">
-  <source src="https://22973.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18253.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18323.live.streamtheworld.com/KDISFM_SC?dist=oneplace" type="audio/ogg">
-  <source src="https://22973.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18253.live.streamtheworld.com/KDISFM_SC?dist=oneplace,https://18323.live.streamtheworld.com/KDISFM_SC?dist=oneplace" type="audio/mpeg">
-  Your browser does not support the audio tag.
-</audio> 
-
-<!-- 99.5 FaithTalk -->
-<audio id="philly">
-  <source src="https://22973.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://13693.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18253.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18423.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://24873.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18323.live.streamtheworld.com/WFILAM_SC?dist=oneplace" type="audio/ogg">
-  <source src="https://22973.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://13693.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18253.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18423.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://24873.live.streamtheworld.com/WFILAM_SC?dist=oneplace,https://18323.live.streamtheworld.com/WFILAM_SC?dist=oneplace" type="audio/mpeg">
-  Your browser does not support the audio tag.
-</audio> 
-
-<script>
-var p = document.getElementById("philly"); 
-var x = document.getElementById("thefish"); 
-var y = document.getElementById("theword"); 
-var z = document.getElementById("faithtalk"); 
-
-function playPhillyAudio() { 
-  p.play(); 
-  pauseFishAudio();
-  pauseWordAudio();
-  pauseFaithAudio();
-} 
-
-function pausePhillyAudio() { 
-  p.pause(); 
-} 
-
-function playFishAudio() { 
-  x.play(); 
-  pauseWordAudio();
-  pauseFaithAudio();
-  pausePhillyAudio();
-} 
-
-function pauseFishAudio() { 
-  x.pause(); 
-} 
-
-function playWordAudio() { 
-  y.play();
-  pauseFishAudio();
-  pauseFaithAudio();
-  pausePhillyAudio();
-} 
-
-function pauseWordAudio() { 
-  y.pause(); 
-} 
-
-function playFaithAudio() { 
-  z.play();
-  pauseFishAudio();
-  pauseWordAudio();
-  pausePhillyAudio();
-} 
-
-function pauseFaithAudio() { 
-  z.pause(); 
-} 
-</script>
-
-		<!-- Vendor -->
-		{# <script src="{{ base_url }}public/template/porto/vendor/bootstrap/js/bootstrap.min.js"></script> #}
-		{{ include('partials/bootstrap.min.js.html.twig') }}
-
-		<script src="{{ base_url }}public/template/porto/vendor/plugins/js/plugins.min.js"></script>
-		<!-- Helpers -->
-	    
-		<script async src="{{ base_url }}public/template/porto/js/social.js"></script>
-		<!-- Theme Base, Components and Settings -->
-		<script src="{{ base_url }}public/template/porto/js/theme.js"></script>
-
-		<!-- Theme Custom -->
-		<script src="{{ base_url }}public/template/porto/js/custom.js"></script>
-
-		<!-- Theme Initialization Files -->
-		{# <script src="{{ base_url }}public/template/porto/js/theme.init.js"></script> #}
-		{{ include('partials/theme.init.js.html.twig') }}
-
-		{# <div class="loading-overlay">
-			<div class="bounce-loader">
-				<div class="bounce1"></div>
-				<div class="bounce2"></div>
-				<div class="bounce3"></div>
-			</div>
-		</div> #}
-
-	</body>
+    {{ include('partials/bootstrap.min.js.html.twig') }}
+    <script src="{{ base_url }}public/template/porto/vendor/plugins/js/plugins.min.js"></script>
+    <!-- Helpers -->
+    <script async src="{{ base_url }}public/template/porto/js/social.js"></script>
+    <!-- Theme Base, Components and Settings -->
+    <script src="{{ base_url }}public/template/porto/js/theme.js"></script>
+    <!-- Theme Custom -->
+    <script src="{{ base_url }}public/template/porto/js/custom.js"></script>
+    <!-- Theme Initialization Files -->
+    {{ include('partials/theme.init.js.html.twig') }}
+    {# 
+    <div class="loading-overlay">
+        <div class="bounce-loader">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    #}
+    </body>
 </html>

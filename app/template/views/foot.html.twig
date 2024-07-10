@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row py-4 my-5">
 			<div class="col-md-6 col-lg-3 mb-5 mb-md-0">
-				<img src="{{ base_url }}public/media/img/cross.png" class="img-fluid">
+				<img src="{{ base_url }}public/media/img/wreath.png" class="img-fluid">
 			</div>
 			<div class="col-md-6 col-lg-3 mb-5 mb-lg-0">
 				<h5 class="text-4 text-color-light mb-3">MORE INFO</h5>
@@ -63,7 +63,7 @@
 						©
 			            <script>
 			                document.write(new Date().getFullYear());
-			            </script> Word of God Ministry, made with ❤️ by
+			            </script> Faith Project, made with ❤️ by
 			            <a href="https://github.com/arout77/Rhapsody-Framework" target="_blank" class="footer-link fw-bolder">Andrew Rout</a>
 					</p>
 				</div>
@@ -72,96 +72,13 @@
 	</div>
 </footer>
 
-{% if session['user-first-visit-to-site'] == 1 %}}
-    {# {{ include('partials/mobile-user-warning.html.twig') }} #}
-    <script src="{{ base_url }}public/template/docs/js/jquery.aSimpleTour.min.js"></script>
-	<script src="{{ base_url }}public/template/docs/js/scrollTo.js"></script>
-{% endif %}
-
 <script>
 $( document ).ready(function() {
-    // --- Notify mobile users to view in landscape mode
-    browserWidth = $(window).width();
 
-    if(browserWidth < 480) {
-        // browser width is under 900px
-        var showMessage = localStorage.getItem('wog_mobileUsersWarning');
-        if(showMessage != 'dismissed')
-        {
-            $('#newVisitor').show();
-
-            $("#dismissMobileWarning").click(function() {
-                localStorage.setItem('wog_mobileUsersWarning', 'dismissed');
-            });
-        }
-    }
-
+	// --- Search input
     $(".gsc-input-box").css('margin-left', '10px');
     $("#gsc-i-id1").addClass('form-control');
     $(".gsc-search-button-v2").addClass('btn btn-primary');
-
-    // --- Show tour if first visit to site
-    {% if session['user-first-visit-to-site'] == 1 %}
-    var myData = [{
-        // target element
-        element: '#dropdown-icon-demo',
-
-        // content displayed in the tooltip
-        tooltip: 'Select a book and chapter to turn to',
-
-        // position of the tooltip
-        // T, B, L, R, TL, TR, BL, BR, LT, RT, LB, RB
-        position: 'B',
-
-        // content displayed in the control panel
-        text: 'Flip through to different books / pages of the Bible here'
-    }, {
-        element: '#vmenulink',
-        tooltip: 'Free videos access',
-        position: 'B',
-        text: 'Watch animated bible study videos, covering a large range of topics!'
-    }, {
-        element: '#qmenulink',
-        tooltip: 'Bible Study Quizzes',
-        position: 'B',
-        text: 'Test your knowledge of the Bible by taking a 20 question, multiple choice quiz'
-    }, {
-        element: '#1',
-        tooltip: 'Click on verses to highlight them',
-        position: 'L', 
-        text: 'When reading the Bible, simply click on verses to highlight them; to erase your highlight just click on the verse again'
-    }, {
-        element: '#useravatar',
-        tooltip: 'Join the community!',
-        position: 'B', 
-        text: 'By joining our community, you\'ll gain access to a message board where you will be able to talk about many different topics with fellow Christians. Share advice, send a prayer request, private messaging and so much more!'
-    }]
-
-    $.aSimpleTour({
-      data: myData,
-      autoStart:true,
-      useOverlay: false,
-      // overlayZindex: 10,
-      welcomeMessage: '<h4>Welcome!</h4> We detected that this is your first visit to our site, so we wanted to show you around. This will only take a few seconds!',
-      controlsPosition:'BR',
-      buttons: {
-        next  : { text : 'Next', class : 'btn btn-primary mt-2'},
-        prev  : { text : 'Previous', class: 'btn btn-info mt-2' },
-        start : { text : 'Start', class: 'btn btn-primary mt-2' },
-        end   : { text : 'End', class: 'btn btn-secondary mt-2' }
-      },
-      controlsCss: {
-        background: 'rgba(0,0,0, 0.80)',
-        color: '#fff', 
-        width: '400px',
-      },
-      tooltipCss: {
-        background: 'rgba(0, 0, 0, 0.70)',
-        color: '#fff'
-      }
-    });
-    {% endif %}
-    // --- End tour
 
     // --- Start timers to get message and notification counts
     setInterval(getUnreadNotif, 15000);      // Every 15 secs
@@ -362,6 +279,12 @@ $( document ).ready(function() {
     });
     // --- End Language and bible version 
 
+// --- Apply highlight to saved verses on page load
+{% for mark in highlighted_verses %}
+	$("#" + {{ mark.verse }}).addClass('highlight');
+{% endfor %}
+
+// --- Highlight selected verses
 const STORAGE_KEY = 'savedVerses';
 
 $('.bogus').on('dblclick', function() {
@@ -454,10 +377,5 @@ function highlighter( book, chapter, verse, txt, version )
     } 
 }
 
-{% for mark in highlighted_verses %}
-
-$("#" + {{ mark.verse }}).addClass('highlight');
-
-{% endfor %}
 });
 </script>

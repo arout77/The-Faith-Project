@@ -3,6 +3,11 @@ namespace App\Controller;
 
 class Site_Controller extends Init_Controller
 {
+	public function contact()
+	{
+		$this->template->render( "site\contact.html.twig" );
+	}
+
 	public function index()
 	{
 		// Model was created and stored at: /app/models/siteModel.php
@@ -21,6 +26,11 @@ class Site_Controller extends Init_Controller
 		$this->template->render( "site\index.html.twig", [
 			'map' => $map,
 		] );
+	}
+
+	public function privacy()
+	{
+		$this->template->render( "site\privacy.html.twig" );
 	}
 
 	public function subscribe()
@@ -54,5 +64,10 @@ class Site_Controller extends Init_Controller
 			}
 
 		}
+	}
+
+	public function terms()
+	{
+		$this->template->render( "site\terms.html.twig" );
 	}
 }

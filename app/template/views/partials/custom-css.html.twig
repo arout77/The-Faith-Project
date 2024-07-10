@@ -919,5 +919,71 @@ mark {
   color: #151515;
 }
 {% endif %}
+
+
+.playing {
+  background: rgb(32 30 30 / 70%);
+  width: 2rem;
+  height: 2rem;
+  border-radius: .3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: .5rem;
+  box-sizing: border-box;
+}
+
+.playing__bar {
+  display: inline-block;
+  background: white;
+  width: 25%;
+  height: 100%;
+  animation: up-and-down 1.3s ease infinite alternate;
+}
+
+.playing__bar1 {
+  height: 60%;
+  background: #ff5959;
+}
+
+.playing__bar2 {
+  height: 30%;
+  animation-delay: -2.2s;
+  background: #f5a656;
+}
+
+.playing__bar3 {
+  height: 75%;
+  animation-delay: -3.7s;
+  background: yellow;
+}
+
+.playing__bar4 {
+  height: 20%;
+  animation-delay: -4.7s;
+  background: lawngreen;
+}
+
+@keyframes up-and-down {
+  10% {
+    height: 30%;
+  }
+  
+  30% {
+    height: 100%;
+  }
+  
+  60% {
+    height: 50%;
+  }
+  
+  80% {
+    height: 75%;
+  }
+  
+  100% {
+    height: 60%;
+  }
+}
 /* End custom.css */
 </style>
