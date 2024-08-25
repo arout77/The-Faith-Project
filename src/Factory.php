@@ -119,9 +119,11 @@ $app['database'] = function ( $c )
 	// \RedBeanPHP\R::fancyDebug(TRUE);
 	if ( $freeze === BOOLEAN::OFF )
 	{
+		\RedBeanPHP\R::useWriterCache( true );
 		return \RedBeanPHP\R::getDatabaseAdapter()->getDatabase()->getPDO()->setAttribute( PDO::ATTR_EMULATE_PREPARES, FALSE );
 	}
 
+	\RedBeanPHP\R::useWriterCache( true );
 	\RedBeanPHP\R::getDatabaseAdapter()->getDatabase()->getPDO()->setAttribute( PDO::ATTR_EMULATE_PREPARES, FALSE );
 	return \RedBeanPHP\R::freeze( TRUE );
 };

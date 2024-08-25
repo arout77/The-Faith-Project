@@ -1,28 +1,21 @@
 {% extends 'porto.html.twig' %}
-{% block title %}Video Categories{% endblock %}
-
+{% block title %}Watch & Browse All Our Animated Videos{% endblock %}
 {% block meta_description %}
 <meta name="description" content="View our animated web series on popular Biblical topics. Current most popular videos: {% for vid in most_popular %} {{ vid.title_raw }}, {% endfor %}" />
 {% endblock %}
-
 {% block keywords %}
 <meta name="keywords" content="Animated videos, videos about the Bible, Bible web series" />
 {% endblock %}
-
 {% block page_intro %}
 Biblical Videos Series
 {% endblock %}
-
 {% block page_action %}
 Categories
 {% endblock %}
-
 {% block page_param %}
 All
 {% endblock %}
-
 {% block content %}
-
 <div class="row py-5">
     <div class="col-lg-10 text-center offset-lg-1">
         <h2 class="font-weight-bold text-9 mb-0">Watch & Browse All <br>Our Animated Videos</h2>
@@ -30,298 +23,92 @@ All
         <p class="text-1rem text-color-default negative-ls-05 pt-3 container">All of our videos are short visual explanations that show how the Bible is a unified story that leads to Jesus. Explore various biblical and philosophical topics like the nature of God, salvation, Biblical stories and so much more!</p>
     </div>
 </div>
-
-<div class="row">
 <div class="container">
-    <div class="col">
-        <ul class="nav nav-pills sort-source sort-source-style-3 justify-content-center" data-sort-id="portfolio" data-option-key="filter" data-plugin-options="{'layoutMode': 'fitRows', 'filter': '*'}">
-            <li class="nav-item active" data-option-value="*"><a class="nav-link text-2-5 text-uppercase active" href="#">Show All</a></li>
-            {% for cat in video_categories %}
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-pills sort-source sort-source-style-3 justify-content-center" data-sort-id="portfolio" data-option-key="filter" data-plugin-options="{'layoutMode': 'fitRows', 'filter': '*'}">
+                <li class="nav-item active" data-option-value="*"><a class="nav-link text-2-5 text-uppercase active" href="#">Show All</a></li>
+                {% for cat in video_categories %}
                 {% if cat != 'Book Collections' %}
                 <li class="nav-item" data-option-value=".{{ cat|replace({' ': '-'}) }}"><a class="nav-link text-2-5 text-uppercase" href="#">{{ cat }} </a></li>
                 {% endif %}
-            {% endfor %}
-        </ul>
-
-        <div class="sort-destination-loader mt-4 pt-2 sort-destination-loader-loaded">
-            <div class="row portfolio-list sort-destination" data-sort-id="portfolio" data-filter="*" style="position: relative; height: 296px;">
-
-                {% for vid in video_list['Intro to The Bible'] %}
-                <div class="col-12 col-sm-6 col-lg-3 isotope-item {{ vid.category|replace({' ': '-'}) }}" style="position: absolute; left: 0px; top: 0px;">
-                    <div class="portfolio-item">
-                        <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
-                            <span class="thumb-info thumb-info-lighten border-radius-0">
-                                <span class="thumb-info-wrapper border-radius-0">
-                                    <img src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" class="img-fluid border-radius-0" alt="{{ vid.title_raw }}">
-                                    <span class="thumb-info-title">
-                                        <span class="thumb-info-inner">{{ vid.title_raw }}</span>
-                                        <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
-                                    </span>
-                                    <span class="thumb-info-action">
-                                        <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
-                                    </span>
-                                </span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
-                    <div class="offcanvas-header">
-                        <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                        <p class="text-center">
-                            {{ vid.intro }}
-                        </p>
-                        <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
-                        <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
-                    </div>
-                </div>
                 {% endfor %}
-
-                {% for vid in video_list['Biblical Themes'] %}
-                <div class="col-12 col-sm-6 col-lg-3 isotope-item {{ vid.category|replace({' ': '-'}) }}" style="position: absolute; left: 0px; top: 0px;">
-                    <div class="portfolio-item">
-                        <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
+            </ul>
+            <div class="sort-destination-loader mt-4 pt-2 sort-destination-loader-loaded">
+                <div class="row portfolio-list sort-destination" data-sort-id="portfolio" data-filter="*">
+                    {% for vid in video_list %}
+                    <div class="col-12 col-sm-6 col-lg-3 isotope-item {{ vid.category|replace({' ': '-'}) }}" style="position: absolute; left: 0px; top: 0px;">
+                        <div class="portfolio-item">
+                            <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
                             <span class="thumb-info thumb-info-lighten border-radius-0">
-                                <span class="thumb-info-wrapper border-radius-0">
-                                    <img src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" class="img-fluid border-radius-0" alt="{{ vid.title_raw }}">
-                                    <span class="thumb-info-title">
-                                        <span class="thumb-info-inner">{{ vid.title_raw }}</span>
-                                        <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
-                                    </span>
-                                    <span class="thumb-info-action">
-                                        <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
-                                    </span>
-                                </span>
+                            <span class="thumb-info-wrapper border-radius-0">
+                            <img src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" class="img-fluid border-radius-0" alt="{{ vid.title_raw }}">
+                            <span class="thumb-info-title">
+                            <span class="thumb-info-inner">{{ vid.title_raw }}</span>
+                            <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
                             </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
-                    <div class="offcanvas-header">
-                        <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                        <p class="text-center">
-                            {{ vid.intro }}
-                        </p>
-                        <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
-                        <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
-                    </div>
-                </div>
-                {% endfor %}
-
-                {% for vid in video_list['Character of God'] %}
-                <div class="col-12 col-sm-6 col-lg-3 isotope-item {{ vid.category|replace({' ': '-'}) }}" style="position: absolute; left: 0px; top: 0px;">
-                    <div class="portfolio-item">
-                        <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
-                            <span class="thumb-info thumb-info-lighten border-radius-0">
-                                <span class="thumb-info-wrapper border-radius-0">
-                                    <img src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" class="img-fluid border-radius-0" alt="{{ vid.title_raw }}">
-                                    <span class="thumb-info-title">
-                                        <span class="thumb-info-inner">{{ vid.title_raw }}</span>
-                                        <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
-                                    </span>
-                                    <span class="thumb-info-action">
-                                        <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
-                                    </span>
-                                </span>
+                            <span class="thumb-info-action">
+                            <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
                             </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
-                    <div class="offcanvas-header">
-                        <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                        <p class="text-center">
-                            {{ vid.intro }}
-                        </p>
-                        <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
-                        <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
-                    </div>
-                </div>
-                {% endfor %}
-
-                {% for vid in video_list['Creation'] %}
-                <div class="col-12 col-sm-6 col-lg-3 isotope-item {{ vid.category|replace({' ': '-'}) }}" style="position: absolute; left: 0px; top: 0px;">
-                    <div class="portfolio-item">
-                        <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
-                            <span class="thumb-info thumb-info-lighten border-radius-0">
-                                <span class="thumb-info-wrapper border-radius-0">
-                                    <img src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" class="img-fluid border-radius-0" alt="{{ vid.title_raw }}">
-                                    <span class="thumb-info-title">
-                                        <span class="thumb-info-inner">{{ vid.title_raw }}</span>
-                                        <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
-                                    </span>
-                                    <span class="thumb-info-action">
-                                        <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
-                                    </span>
-                                </span>
                             </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
-                    <div class="offcanvas-header">
-                        <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                        <p class="text-center">
-                            {{ vid.intro }}
-                        </p>
-                        <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
-                        <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
-                    </div>
-                </div>
-                {% endfor %}
-
-                {% for vid in video_list['New Testament Overviews'] %}
-                <div class="col-12 col-sm-6 col-lg-3 isotope-item {{ vid.category|replace({' ': '-'}) }}" style="position: absolute; left: 0px; top: 0px;">
-                    <div class="portfolio-item">
-                        <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
-                            <span class="thumb-info thumb-info-lighten border-radius-0">
-                                <span class="thumb-info-wrapper border-radius-0">
-                                    <img src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" class="img-fluid border-radius-0" alt="{{ vid.title_raw }}">
-                                    <span class="thumb-info-title">
-                                        <span class="thumb-info-inner">{{ vid.title_raw }}</span>
-                                        <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
-                                    </span>
-                                    <span class="thumb-info-action">
-                                        <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
-                                    </span>
-                                </span>
                             </span>
-                        </a>
+                            </a>
+                        </div>
                     </div>
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                        <div class="offcanvas-header">
+                            <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                            <p class="text-center">
+                                {{ vid.intro }}
+                            </p>
+                            <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                            <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
-                    <div class="offcanvas-header">
-                        <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                        <p class="text-center">
-                            {{ vid.intro }}
-                        </p>
-                        <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
-                        <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
-                    </div>
-                </div>
-                {% endfor %}
-
-                {% for vid in video_list['Old Testament Overviews'] %}
-                <div class="col-12 col-sm-6 col-lg-3 isotope-item {{ vid.category|replace({' ': '-'}) }}" style="position: absolute; left: 0px; top: 0px;">
-                    <div class="portfolio-item">
-                        <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
-                            <span class="thumb-info thumb-info-lighten border-radius-0">
-                                <span class="thumb-info-wrapper border-radius-0">
-                                    <img src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" class="img-fluid border-radius-0" alt="{{ vid.title_raw }}">
-                                    <span class="thumb-info-title">
-                                        <span class="thumb-info-inner">{{ vid.title_raw }}</span>
-                                        <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
-                                    </span>
-                                    <span class="thumb-info-action">
-                                        <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
-                                    </span>
-                                </span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
-                    <div class="offcanvas-header">
-                        <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                        <p class="text-center">
-                            {{ vid.intro }}
-                        </p>
-                        <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
-                        <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
-                    </div>
-                </div>
-                {% endfor %}
-
-                {% for vid in video_list['Spiritual Beings'] %}
-                <div class="col-12 col-sm-6 col-lg-3 isotope-item {{ vid.category|replace({' ': '-'}) }}" style="position: absolute; left: 0px; top: 0px;">
-                    <div class="portfolio-item">
-                        <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
-                            <span class="thumb-info thumb-info-lighten border-radius-0">
-                                <span class="thumb-info-wrapper border-radius-0">
-                                    <img src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" class="img-fluid border-radius-0" alt="{{ vid.title_raw }}">
-                                    <span class="thumb-info-title">
-                                        <span class="thumb-info-inner">{{ vid.title_raw }}</span>
-                                        <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
-                                    </span>
-                                    <span class="thumb-info-action">
-                                        <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
-                                    </span>
-                                </span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
-                    <div class="offcanvas-header">
-                        <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                        <p class="text-center">
-                            {{ vid.intro }}
-                        </p>
-                        <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
-                        <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
-                    </div>
-                </div>
-                {% endfor %}
-
-                {% for vid in video_list['Visual Commentaries'] %}
-                <div class="col-12 col-sm-6 col-lg-3 isotope-item {{ vid.category|replace({' ': '-'}) }}" style="position: absolute; left: 0px; top: 0px;">
-                    <div class="portfolio-item">
-                        <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
-                            <span class="thumb-info thumb-info-lighten border-radius-0">
-                                <span class="thumb-info-wrapper border-radius-0">
-                                    <img src="{{ base_url }}{{ video_thumbnail_url }}{{ vid.thumbnail }}" class="img-fluid border-radius-0" alt="{{ vid.title_raw }}">
-                                    <span class="thumb-info-title">
-                                        <span class="thumb-info-inner">{{ vid.title_raw }}</span>
-                                        <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
-                                    </span>
-                                    <span class="thumb-info-action">
-                                        <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
-                                    </span>
-                                </span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
-                    <div class="offcanvas-header">
-                        <h5 id="{{ vid.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ vid.title_raw }}</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-                        <p class="text-center">
-                            {{ vid.intro }}
-                        </p>
-                        <a href="{{ base_url }}videos/watch/{{ vid.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
-                        <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
-                    </div>
-                </div>
-                {% endfor %}
-
             </div>
-        
+        </div>
     </div>
+    <hr>
+    <div class="row">
+        <h4>Most Popular</h4>
+        {% for pop in most_popular %}
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="portfolio-item">
+                    <a href="" data-bs-toggle="offcanvas" data-bs-target="#{{ pop.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-controls="{{ pop.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-label="">
+                    <span class="thumb-info thumb-info-lighten border-radius-0">
+                    <span class="thumb-info-wrapper border-radius-0">
+                    <img src="{{ base_url }}{{ video_thumbnail_url }}{{ pop.thumbnail }}" class="img-fluid border-radius-0" alt="{{ pop.title_raw }}">
+                    <span class="thumb-info-title">
+                    <span class="thumb-info-inner">{{ pop.title_raw }}</span>
+                    <span class="thumb-info-type"><i class="fa fa-magnifying-glass"></i> Learn more</span>
+                    </span>
+                    <span class="thumb-info-action">
+                    <span class="thumb-info-action-icon bg-dark opacity-8"><i class="fas fa-plus"></i></span>
+                    </span>
+                    </span>
+                    </span>
+                    </a>
+                </div>
+            </div>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="{{ pop.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}" aria-labelledby="{{ pop.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" style="visibility: visible;" aria-modal="true" role="dialog">
+                <div class="offcanvas-header">
+                    <h5 id="{{ pop.thumbnail|replace({'.webp': ''})|replace({'.png': ''})|replace({'.jpg': ''}) }}Label" class="offcanvas-title">{{ pop.title_raw }}</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                    <p class="text-center">
+                        {{ pop.intro }}
+                    </p>
+                    <a href="{{ base_url }}videos/watch/{{ pop.title|replace({' ': '-'})|replace({'?': ''}) }}" class="btn btn-primary mb-2 d-grid w-100" style="color: white;">Watch Video</a>
+                    <button type="button" class="btn btn-primary mb-2 d-grid w-100" data-bs-dismiss="offcanvas">Close</button>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 </div>
-
 {% endblock %}

@@ -144,13 +144,13 @@ class Videos_Controller extends Init_Controller
 		// Model was created and stored at: /app/models/VideosModel.php
 		// View was created and stored at: /app/template/views/videos/index.html.twig
 		$videomodel = $this->model( 'Videos' );
-		$videos     = $videomodel->getVideosByCat();
+		$videos     = $videomodel->getAllVideos();
 		$popular    = $videomodel->getMostPopular();
-		$latest     = $videomodel->getLatest();
+		$latest     = $videomodel->getLatest( 8 );
 		$this->template->render( "videos\categories.html.twig", [
 			'video_list'   => $videos,
 			'most_popular' => $popular,
-			'lastest'      => $latest,
+			'most_recent'  => $latest,
 			'categories'   => $this->categories,
 		] );
 	}

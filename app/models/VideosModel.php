@@ -135,9 +135,9 @@ class VideosModel extends System_Model
 	/**
 	 * @return mixed
 	 */
-	public function getLatest()
+	public function getLatest( $limit = 8 )
 	{
-		return $this->getAll( "SELECT *, STR_TO_DATE(date_added, '%M %d, %Y') as d FROM videos ORDER BY date_added DESC LIMIT 8" );
+		return $this->getAll( "SELECT title, title_raw, intro, category, subcategory, episode, thumbnail, video_url, priority, date_added, views FROM videos ORDER BY date_added DESC LIMIT $limit" );
 	}
 
 	/**

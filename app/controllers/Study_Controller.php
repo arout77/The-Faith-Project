@@ -16,6 +16,18 @@ class Study_Controller extends Init_Controller
 		$this->template->render( "study\map.html.twig" );
 	}
 
+	public function questions()
+	{
+		$question = 'overview';
+
+		if ( !empty( $this->route->parameter[1] ) )
+		{
+			$question = filter_var( $this->route->parameter[1], FILTER_SANITIZE_SPECIAL_CHARS );
+		}
+
+		$this->template->render( "study\questions\\" . $question . ".html.twig" );
+	}
+
 	public function quiz()
 	{
 		// Quiz on Old / New Testament or both

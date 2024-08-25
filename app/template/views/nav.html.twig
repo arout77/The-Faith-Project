@@ -22,44 +22,44 @@
                                             </button>
                                             <ul class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 41px);" data-popper-placement="bottom-start">
                                                 <li style="width: max-content;">
-                                                <div class="row">
-                                                		<div class="col-xs-12 col-lg-3">
-                                                			<img src="{{ base_url }}public/media/img/thumbnails/top-view-crown-thorns-holy-bible_23-2149428272.jpg" class="d-none d-lg-block ml-2" alt="Bible Table of Contents" style="height: 88px" />
-                                                		</div>
-                                                		<div class="col-xs-12 col-lg-9">
-                                                    <div class="text-center"><strong>Select the version, book and chapter</strong></div>
-                                                    <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">
-                                                        <div class="col-xs-12 nav-item d-flex align-items-center">
-                                                            <div class="input-group"  id="nav-books">
-                                                                <select style="width: 205px;" class="form-control" name="version" id="selectVersion" role="navigation" required="required" title="Select the Bible version to read">
-                                                                    <optgroup label="Select Version">
-                                                                        <option disabled selected value="">Select Version</option>
-                                                                        <option value="asv">American Standard Version</option>
-                                                                        <option value="kjv">King James Version</option>
-                                                                        <option value="web">World English Bible</option>
-                                                                        <option value="reina">Reina Valera <em>1909</em> (Spanish)</option>
-                                                                        <option value="segond">Louis Segond <em>1910</em> (French)</option>
-                                                                        <option value="luther">Luther Bible <em>1912</em> (German)</option>
-                                                                    </optgroup>
-                                                                </select>
-                                                                <select style="width: 155px;" class="form-control" name="books" id="selectBook" role="navigation" required="required" title="Select the book you wish to read">
-                                                                    <optgroup label="Select Book">
-                                                                        <option disabled selected value="">Select Book</option>
-                                                                        {% for book in books_of_bible %}
-                                                                        <option value="{{ book }}">{{ book }}</option>
-                                                                        {% endfor %}
-                                                                    </optgroup>
-                                                                </select>
-                                                                <select style="width: 65px;" name="chapter" class="form-control" id="selectChapter" required="required">
-                                                                    <option disabled selected value="">Chapter</option>
-                                                                </select>
-                                                                <button type="submit" id="submitBtn" class="input-group-text">Go</button>
-                                                            </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-lg-3">
+                                                            <img src="{{ base_url }}public/media/img/thumbnails/top-view-crown-thorns-holy-bible_23-2149428272.jpg" class="d-none d-lg-block img-fluid ml-2" alt="Bible Table of Contents" style="height: 88px; margin-left: 10px;" />
                                                         </div>
-                                                    </a>
+                                                        <div class="col-xs-12 col-lg-9">
+                                                            <div class="text-center"><strong>Select the version, book and chapter</strong></div>
+                                                            <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">
+                                                                <div class="col-xs-12 nav-item d-flex align-items-center">
+                                                                    <div class="input-group"  id="nav-books">
+                                                                        <select style="width: 205px;" class="form-control" name="version" id="selectVersion" role="navigation" required="required" title="Select the Bible version to read">
+                                                                            <optgroup label="Select Version">
+                                                                                <option disabled selected value="">Select Version</option>
+                                                                                <option value="asv">American Standard Version</option>
+                                                                                <option value="kjv">King James Version</option>
+                                                                                <option value="web">World English Bible</option>
+                                                                                <option value="reina">Reina Valera <em>1909</em> (Spanish)</option>
+                                                                                <option value="segond">Louis Segond <em>1910</em> (French)</option>
+                                                                                <option value="luther">Luther Bible <em>1912</em> (German)</option>
+                                                                            </optgroup>
+                                                                        </select>
+                                                                        <select style="width: 155px;" class="form-control" name="books" id="selectBook" role="navigation" required="required" title="Select the book you wish to read">
+                                                                            <optgroup label="Select Book">
+                                                                                <option disabled selected value="">Select Book</option>
+                                                                                {% for book in books_of_bible %}
+                                                                                <option value="{{ book }}">{{ book }}</option>
+                                                                                {% endfor %}
+                                                                            </optgroup>
+                                                                        </select>
+                                                                        <select style="width: 65px;" name="chapter" class="form-control" id="selectChapter" required="required">
+                                                                            <option disabled selected value="">Chapter</option>
+                                                                        </select>
+                                                                        <button type="submit" id="submitBtn" class="input-group-text">Go</button>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                        <a href="{{ base_url }}bible/saved_verses/" class="btn savedVerses"><i class="fa fa-eye"></i> View your saved verses</a>
                                                     </div>
-                                                        <a href="{{ base_url }}bible/saved_verses/" class="savedVerses">View your saved verses</a>
-                                                </div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -105,76 +105,107 @@
                                                 </li>
                                             </ul>
                                         </li>
-
                                         <li class="dropdown">
                                             <a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#radioPanel" aria-controls="radioPanel" aria-label="">
                                             Christian Radio
                                             </a>
                                         </li>
-                                        
                                         <li class="dropdown">
                                             <a class="dropdown-item dropdown-toggle" href="#" id="vmenulink">
                                             Bible Study
                                             </a>
-                                              <ul class="dropdown-menu">
+                                            <ul class="dropdown-menu">
                                                 <li class="dropdown-submenu">
-				                                            <a class="dropdown-item" href="#">
-				                                            Intro to The Bible
-				                                            </a>
-				                                            <ul class="dropdown-menu">
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/the-pentateuch/" class="dropdown-item">
-				                                                        <div data-i18n="THE PENTATEUCH">The Pentateuch (Torah)</div>
-				                                                    </a>
-				                                                </li>
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/the-historical-books/" class="dropdown-item">
-				                                                        <div data-i18n="THE HISTORICAL BOOKS">The Historical Books</div>
-				                                                    </a>
-				                                                </li>
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/the-wisdom-and-poetry-books/" class="dropdown-item">
-				                                                        <div data-i18n="THE WISDOM AND POETRY BOOKS">The Wisdom and Poetry Books</div>
-				                                                    </a>
-				                                                </li>
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/the-major-prophets/" class="dropdown-item">
-				                                                        <div data-i18n="THE MAJOR PROPHETS">The Major Prophets</div>
-				                                                    </a>
-				                                                </li>
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/the-minor-prophets/" class="dropdown-item">
-				                                                        <div data-i18n="THE MINOR PROPHETS">The Minor Prophets</div>
-				                                                    </a>
-				                                                </li>
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/the-gospels/" class="dropdown-item">
-				                                                        <div data-i18n="THE GOSPELS">The Gospels</div>
-				                                                    </a>
-				                                                </li>
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/the-book-of-acts/" class="dropdown-item">
-				                                                        <div data-i18n="THE BOOK OF ACTS">The Book of Acts</div>
-				                                                    </a>
-				                                                </li>
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/the-pauline-epistles/" class="dropdown-item">
-				                                                        <div data-i18n="THE PAULINE EPISTLES">The Pauline Epistles</div>
-				                                                    </a>
-				                                                </li>
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/the-general-epistles/" class="dropdown-item">
-				                                                        <div data-i18n="THE GENERAL EPISTLES">The General Epistles</div>
-				                                                    </a>
-				                                                </li>
-				                                                <li>
-				                                                    <a href="{{ base_url }}bible/intro/apocalyptic/" class="dropdown-item">
-				                                                        <div data-i18n="APOCALYPTIC">Apocalyptic</div>
-				                                                    </a>
-				                                                </li>
-				                                            </ul>
-				                                        </li>
-				                                        <li class="dropdown-submenu">
+                                                    <a class="dropdown-item" href="#">
+                                                    Intro to The Bible
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/the-pentateuch/" class="dropdown-item">
+                                                                <div data-i18n="THE PENTATEUCH">The Pentateuch (Torah)</div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/the-historical-books/" class="dropdown-item">
+                                                                <div data-i18n="THE HISTORICAL BOOKS">The Historical Books</div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/the-wisdom-and-poetry-books/" class="dropdown-item">
+                                                                <div data-i18n="THE WISDOM AND POETRY BOOKS">The Wisdom and Poetry Books</div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/the-major-prophets/" class="dropdown-item">
+                                                                <div data-i18n="THE MAJOR PROPHETS">The Major Prophets</div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/the-minor-prophets/" class="dropdown-item">
+                                                                <div data-i18n="THE MINOR PROPHETS">The Minor Prophets</div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/the-gospels/" class="dropdown-item">
+                                                                <div data-i18n="THE GOSPELS">The Gospels</div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/the-book-of-acts/" class="dropdown-item">
+                                                                <div data-i18n="THE BOOK OF ACTS">The Book of Acts</div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/the-pauline-epistles/" class="dropdown-item">
+                                                                <div data-i18n="THE PAULINE EPISTLES">The Pauline Epistles</div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/the-general-epistles/" class="dropdown-item">
+                                                                <div data-i18n="THE GENERAL EPISTLES">The General Epistles</div>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ base_url }}bible/intro/apocalyptic/" class="dropdown-item">
+                                                                <div data-i18n="APOCALYPTIC">Apocalyptic</div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown-submenu">
+                                                    <a class="dropdown-item" href="#">What Does The Bible Say?<i class="fas fa-chevron-down"></i></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="feature-headers-overview.html">Overview</a></li>
+                                                        <li class="dropdown-submenu">
+                                                            <a class="dropdown-item" href="#">Life / Spiritual<i class="fas fa-chevron-down"></i></a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item" href="{{ base_url }}study/questions/salvation">Salvation</a></li>
+                                                                <li><a class="dropdown-item" href="{{ base_url }}study/questions/divination">Communicating with the dead</a></li>
+                                                                <li><a class="dropdown-item" href="{{ base_url }}study/questions/abortion">Abortion</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="dropdown-submenu">
+                                                            <a class="dropdown-item" href="#">History / Events<i class="fas fa-chevron-down"></i></a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item" href="feature-headers-flat.html">Flat</a></li>
+                                                                <li><a class="dropdown-item" href="feature-headers-flat-top-bar.html">Flat + Top Bar</a></li>
+                                                                <li><a class="dropdown-item" href="feature-headers-flat-top-bar-top-borders.html">Flat + Top Bar + Top Border</a></li>
+                                                                <li><a class="dropdown-item" href="feature-headers-flat-colored-top-bar.html">Flat + Colored Top Bar</a></li>
+                                                                <li><a class="dropdown-item" href="feature-headers-flat-borders.html">Flat + Borders</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="dropdown-submenu">
+                                                            <a class="dropdown-item" href="#">Marriage / Sexuality<i class="fas fa-chevron-down"></i></a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item" href="feature-headers-center.html">Center</a></li>
+                                                                <li><a class="dropdown-item" href="feature-headers-center-double-navs.html">Center + Double Navs</a></li>
+                                                                <li><a class="dropdown-item" href="feature-headers-center-nav-buttons.html">Center + Nav + Buttons</a></li>
+                                                                <li><a class="dropdown-item" href="feature-headers-center-below-slider.html">Center Below Slider</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="dropdown-submenu">
                                                     <a class="dropdown-item" href="#">Quiz</a>
                                                     <ul class="dropdown-menu">
                                                         <li><a class="dropdown-item" href="{{ base_url }}study/quiz/ot/">Old Testament</a></li>
@@ -187,13 +218,11 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        
                                         <li class="dropdown">
                                             <a class="dropdown-item" href="{{ base_url }}community">
                                             Community
                                             </a>
                                         </li>
-                                        
                                         <li class="dropdown">
                                             <a class="dropdown-item" href="{{ base_url }}donations">
                                             Give
@@ -208,7 +237,7 @@
                                             <span class="ball" title="Toggle light / dark mode"></span>
                                             </label>
                                         </li>
-                                      {% endif %}
+                                        {% endif %}
                                     </ul>
                                 </nav>
                             </div>
@@ -369,15 +398,14 @@
         </div>
     </div>
 </div>
-
 <script src="{{ base_url }}public/template/porto/js/jquery.timeago.js"></script>
 <script>
     $(document).ready(function () {
-    	$.noConflict();
-    	
-    	$("time.timeago").timeago();
-
-
+        $.noConflict();
+        
+        $("time.timeago").timeago();
+    
+    
         $("#selectChapter").hide();
         $("#submitBtn").prop("disabled", true);
     
@@ -403,8 +431,8 @@
         let selbook = $("#selectBook").val();
         let bibleVersion = 'kjv';
         if( $("#selectVersion").find(":selected").val() != '' ) {
-    	    bibleVersion = $("#selectVersion").val();
-    	}
+            bibleVersion = $("#selectVersion").val();
+        }
     
         $("#submitBtn").click( function(){
             window.location.replace( 

@@ -172,7 +172,8 @@ class Init_Controller extends Base_Controller
 		$intromodel  = $this->model( 'Bible' );
 		$this->intro = $intromodel->getIntro( $this->book );
 
-		$this->num_chapters = $intromodel->getChapterCountMap();
+		$this->num_chapters          = $intromodel->getChapterCountMap();
+		$totalChaptersForCurrentBook = $intromodel->getChapterCount( $this->book );
 
 		// Generates <select> menu with corresponding chapter
 		// numbers for each book
@@ -203,6 +204,7 @@ class Init_Controller extends Base_Controller
 		$this->template->twigEnv->addGlobal( 'bookMap', $this->bookSelectionMap );
 		$this->template->twigEnv->addGlobal( 'intro', $this->intro );
 		$this->template->twigEnv->addGlobal( 'chapter', $this->chapter );
+		$this->template->twigEnv->addGlobal( 'totalChaptersForCurrentBook', $totalChaptersForCurrentBook );
 		$this->template->twigEnv->addGlobal( 'version', $this->version );
 		$this->template->twigEnv->addGlobal( 'books_of_bible', $this->books_of_bible );
 		$this->template->twigEnv->addGlobal( 'video_categories', $allcategories );

@@ -6,6 +6,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}{% endblock %} | Faith Project Online Bible</title>
+        <script type="application/ld+json">
+	    {
+	      "@context" : "https://schema.org",
+	      "@type" : "WebSite",
+	      "name" : "Faith",
+	      "alternateName" : "Faith Project",
+	      "url" : "{{ base_url }}"
+	    }
+	  	</script>
         {% block meta_description %}
         <meta name="description" content="The Faith Project provides free access to an online bible (English, Spanish, French and German versions currently available), fellowship, animated videos, bible study and more!" />
         {% endblock %}
@@ -25,8 +34,6 @@
         <link rel="manifest" href="/site.webmanifest">
         #}
         <link rel="icon" type="image/x-icon" href="{{ base_url }}favicon.ico" />
-        <!-- Mobile Metas -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
         <!-- Web Fonts  -->
         <link async id="googleFonts" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light&display=swap" rel="stylesheet" type="text/css">
         <!-- Vendor CSS -->

@@ -1,6 +1,6 @@
 {% extends "porto.html.twig" %}
 
-{% block title %}{{ translation }}{% endblock %}
+{% block title %}{{ book }} {{ chapter }} {{ translation }}{% endblock %}
 
 {% block meta_description %}
 <meta name="description" content="{% for description in intro %}{{ description.text }}{% endfor %}" />
@@ -109,14 +109,16 @@
             {% if chapter == 1 %}
         <div class="row">
             <div class="col-md-9"></div>
-            <div class="col-md-3"><a class="nextChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter + 1 }}">Next chapter <i class="fa fa-chevron-right"></i></a></div>
+            <div class="col-md-3">
+            {% if totalChaptersForCurrentBook.total > 1 %}<a class="nextChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter + 1 }}">Chapter {{ chapter + 1 }} <i class="fa fa-chevron-right"></i></a>{% endif %}</div>
         </div>
         {% elseif chapter == numchapters %}
-        <div class="col-md-10"><a class="prevChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter - 1 }}">Previous chapter</a></div>
+        <div class="col-md-10"><a class="prevChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter - 1 }}"><i class="fa fa-chevron-left"></i> Chapter {{ chapter - 1 }}</a></div>
         {% else %}
         <div class="row">
-            <div class="col-md-9"><a class="prevChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter - 1 }}">Previous chapter</a></div>
-            <div class="col-md-3"><a class="nextChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter + 1 }}">Next chapter</a></div>
+            <div class="col-md-9"><a class="prevChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter - 1 }}"><i class="fa fa-chevron-left"></i> Chapter {{ chapter - 1 }}</a></div>
+            <div class="col-md-3">
+            {% if totalChaptersForCurrentBook.total > 1 %}<a class="nextChapter" href="{{ current_url }}{{ book|replace({" ": "-"}) }}/{{ chapter + 1 }}">Chapter {{ chapter + 1 }} <i class="fa fa-chevron-right"></i></a>{% endif %}</div>
         </div>
         {% endif %}
         </p>
